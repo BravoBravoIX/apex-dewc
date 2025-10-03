@@ -108,7 +108,7 @@ class ExerciseExecutor:
                     detach=True,
                     environment=environment,
                     ports={'80/tcp': port},
-                    network='scip-v3_scip-network'
+                    network=os.getenv('DOCKER_NETWORK', 'scip-network')
                 )
                 self.team_containers.append(container)
                 # Include configuration in URL query parameters
@@ -170,7 +170,7 @@ class ExerciseExecutor:
                         'mode': 'ro'
                     }
                 },
-                network='scip-v3_scip-network'
+                network=os.getenv('DOCKER_NETWORK', 'scip-network')
             )
             self.service_containers.append(container)
             print(f"SDR service deployed: {container.name}")
