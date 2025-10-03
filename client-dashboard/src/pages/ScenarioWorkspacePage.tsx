@@ -142,7 +142,7 @@ const ScenarioWorkspacePage: React.FC = () => {
 
   const fetchCurrentExercise = async () => {
     try {
-      const response = await fetch('http://localhost:8001/api/v1/exercises/current');
+      const response = await fetch(`${API_BASE_URL}/api/v1/exercises/current');
       const data = await response.json();
       if (data.active && data.scenario_name) {
         setRunningScenario(data.scenario_name);

@@ -1,11 +1,11 @@
 {
   "scenario_usage": {
     "maritime-crisis-scenario": {
-      "total_deployments": 37,
+      "total_deployments": 40,
       "total_duration_minutes": 0,
       "completion_count": 0,
       "average_duration_minutes": 0,
-      "last_deployment": "2025-10-02T06:04:26.948585"
+      "last_deployment": "2025-10-03T06:16:48.183741"
     },
     "satcom-disruption-scenario": {
       "total_deployments": 36,
@@ -15,11 +15,11 @@
       "last_deployment": "2025-10-02T05:55:37.322979"
     },
     "sdr-rf-monitoring-scenario": {
-      "total_deployments": 5,
+      "total_deployments": 6,
       "total_duration_minutes": 0,
       "completion_count": 0,
       "average_duration_minutes": 0,
-      "last_deployment": "2025-10-02T07:09:46.823741"
+      "last_deployment": "2025-10-03T06:13:42.738232"
     }
   },
   "exercise_history": []

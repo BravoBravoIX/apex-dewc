@@ -49,7 +49,7 @@ const MediaLibraryPage: React.FC = () => {
     try {
       setLoading(true);
       setError(null);
-      const response = await fetch('http://localhost:8001/api/v1/media');
+      const response = await fetch(`${API_BASE_URL}/api/v1/media');
       if (!response.ok) {
         throw new Error('Failed to fetch media files');
       }

@@ -27,7 +27,7 @@ const DashboardPage = () => {
     // Fetch available scenarios count
     const fetchScenarios = async () => {
       try {
-        const res = await fetch('http://localhost:8001/api/v1/scenarios');
+        const res = await fetch(`${API_BASE_URL}/api/v1/scenarios');
         const data = await res.json();
         setScenariosCount(data.scenarios?.length || 0);
 
@@ -43,7 +43,7 @@ const DashboardPage = () => {
     // Fetch current exercise status
     const fetchStatus = async () => {
       try {
-        const res = await fetch('http://localhost:8001/api/v1/exercises/current');
+        const res = await fetch(`${API_BASE_URL}/api/v1/exercises/current');
         const data = await res.json();
         setActiveCount(data.active ? 1 : 0);
         setCurrentExercise(data.active ? data : null);

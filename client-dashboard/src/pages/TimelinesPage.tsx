@@ -22,7 +22,7 @@ const TimelinesPage: React.FC = () => {
   const fetchTimelines = async () => {
     try {
       // Fetch all scenarios to get timeline information
-      const response = await fetch('http://localhost:8001/api/v1/scenarios');
+      const response = await fetch(`${API_BASE_URL}/api/v1/scenarios');
       const data = await response.json();
 
       const allTimelines: Timeline[] = [];

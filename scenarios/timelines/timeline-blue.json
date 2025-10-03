@@ -6,7 +6,7 @@
   "injects": [
     {
       "id": "inject-blue-news-001",
-      "time": 0,
+      "time": 2,
       "type": "news",
       "priority": "high",
       "content": {

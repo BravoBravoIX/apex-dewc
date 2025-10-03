@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { API_BASE_URL } from '../config';
 
 interface ExerciseStatus {
   state: 'NOT_STARTED' | 'RUNNING' | 'PAUSED' | 'STOPPED';
@@ -28,7 +29,7 @@ const ExerciseControlPage = () => {
     // Poll status every second
     const fetchStatus = async () => {
       try {
-        const res = await fetch('http://localhost:8001/api/v1/exercises/current');
+        const res = await fetch(`${API_BASE_URL}/api/v1/exercises/current`);
         const data = await res.json();
 
         setApiConnected(true);
@@ -55,7 +56,7 @@ const ExerciseControlPage = () => {
     if (!status?.scenario_name) return;
     setLoading(true);
     try {
-      const res = await fetch(`http://localhost:8001/api/v1/exercises/${status.scenario_name}/start`, {
+      const res = await fetch(`${API_BASE_URL}/api/v1/exercises/${status.scenario_name}/start`, {
         method: 'POST'
       });
       if (!res.ok) {
@@ -73,7 +74,7 @@ const ExerciseControlPage = () => {
     if (!status?.scenario_name) return;
     setLoading(true);
     try {
-      const res = await fetch(`http://localhost:8001/api/v1/exercises/${status.scenario_name}/pause`, {
+      const res = await fetch(`${API_BASE_URL}/api/v1/exercises/${status.scenario_name}/pause`, {
         method: 'POST'
       });
       if (!res.ok) {
@@ -91,7 +92,7 @@ const ExerciseControlPage = () => {
     if (!status?.scenario_name) return;
     setLoading(true);
     try {
-      const res = await fetch(`http://localhost:8001/api/v1/exercises/${status.scenario_name}/resume`, {
+      const res = await fetch(`${API_BASE_URL}/api/v1/exercises/${status.scenario_name}/resume`, {
         method: 'POST'
       });
       if (!res.ok) {
@@ -113,7 +114,7 @@ const ExerciseControlPage = () => {
 
     setLoading(true);
     try {
-      const res = await fetch(`http://localhost:8001/api/v1/exercises/${status.scenario_name}/stop`, {
+      const res = await fetch(`${API_BASE_URL}/api/v1/exercises/${status.scenario_name}/stop`, {
         method: 'POST'
       });
       if (!res.ok) {
@@ -155,7 +156,7 @@ const ExerciseControlPage = () => {
         <div className="flex items-center gap-4">
           {status.thumbnail && (
             <img
-              src={`http://localhost:8001${status.thumbnail}`}
+              src={`${API_BASE_URL}${status.thumbnail}`}
               alt="Scenario thumbnail"
               className="w-16 h-16 object-cover rounded-lg"
             />
