@@ -112,7 +112,9 @@ class ExerciseExecutor:
                 )
                 self.team_containers.append(container)
                 # Include configuration in URL query parameters
-                self.dashboard_urls[team_id] = f"http://localhost:{port}/?team={team_id}&exercise={self.scenario_name}"
+                # Use PUBLIC_HOST env var for AWS deployment, fallback to localhost for local dev
+                public_host = os.getenv('PUBLIC_HOST', 'localhost')
+                self.dashboard_urls[team_id] = f"http://{public_host}:{port}/?team={team_id}&exercise={self.scenario_name}"
 
                 # Debugging: Print container status and logs
                 container.reload()

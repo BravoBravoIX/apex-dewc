@@ -32,6 +32,8 @@ services:
     volumes:
       - ./scenarios:/scenarios
       - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - PUBLIC_HOST=${PUBLIC_HOST:-localhost}
     networks:
       - scip-network
     depends_on:
