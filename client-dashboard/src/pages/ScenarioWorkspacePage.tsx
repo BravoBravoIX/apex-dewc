@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ChevronLeft, Edit3, BarChart3, Play, Pause, Square } from 'lucide-react';
+import { API_BASE_URL } from '../config';
 
 interface Timeline {
   id: string;

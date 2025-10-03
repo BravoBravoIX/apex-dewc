@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Search, Grid, List, Image as ImageIcon, X, Upload, Trash2 } from 'lucide-react';
 import MediaUpload from '../components/MediaUpload';
+import { API_BASE_URL } from '../config';
 
 interface MediaFile {
   filename: string;

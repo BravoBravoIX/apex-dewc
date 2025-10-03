@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ChevronLeft, Save, AlertCircle, Clock, Image, Zap, Plus, X, Edit2, PlusCircle, Trash2 } from 'lucide-react';
 import InjectEditor from '../components/InjectEditor';
+import { API_BASE_URL } from '../config';
 
 interface Inject {
   id: string;

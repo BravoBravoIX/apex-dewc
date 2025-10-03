@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Settings } from 'lucide-react';
+import { API_BASE_URL } from '../config';
 
 interface Scenario {
   id: string;

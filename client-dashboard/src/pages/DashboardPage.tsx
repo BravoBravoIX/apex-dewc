@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Card from "@/components/common/Card.tsx";
+import { API_BASE_URL } from '../config';
 
 interface CurrentExercise {
   active: boolean;

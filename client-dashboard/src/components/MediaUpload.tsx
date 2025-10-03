@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { X, Upload, FileImage, AlertCircle, Check } from 'lucide-react';
+import { API_BASE_URL } from '../config';
 
 interface MediaUploadProps {
   onClose: () => void;
