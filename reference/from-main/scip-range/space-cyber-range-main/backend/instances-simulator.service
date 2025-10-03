@@ -1,0 +1,20 @@
+# Create service file
+sudo nano /etc/systemd/system/instances-simulator.service
+
+# Contents
+[Unit]
+Description=Scenario Instances Simulator
+After=network.target mosquitto.service
+
+[Service]
+ExecStart=/usr/bin/python3 /path/to/instances_simulator.py
+Restart=always
+User=cyberops
+
+[Install]
+WantedBy=multi-user.target
+
+# Enable and start
+sudo systemctl daemon-reload
+sudo systemctl enable instances-simulator
+sudo systemctl start instances-simulator

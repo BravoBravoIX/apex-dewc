@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCIP v2 Platform - Build Timeline</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            color: white;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .subtitle {
+            color: rgba(255,255,255,0.9);
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.2em;
+        }
+        
+        .timeline {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .phase {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .phase:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+        
+        .phase-header {
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .phase-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .phase-dates {
+            color: #666;
+            font-size: 1.1em;
+        }
+        
+        .phase-goal {
+            color: #555;
+            font-style: italic;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 8px;
+        }
+        
+        .component-section {
+            margin-bottom: 20px;
+        }
+        
+        .section-title {
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-title::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 16px;
+            background: #667eea;
+            margin-right: 8px;
+        }
+        
+        .component-list {
+            list-style: none;
+            padding-left: 12px;
+        }
+        
+        .component-item {
+            padding: 6px 10px;
+            margin-bottom: 4px;
+            background: #f7f7f7;
+            border-radius: 6px;
+            border-left: 3px solid transparent;
+            transition: all 0.2s ease;
+            color: #444;
+            font-size: 0.95em;
+        }
+        
+        .component-item:hover {
+            background: #e8ecff;
+            border-left-color: #667eea;
+            transform: translateX(3px);
+        }
+        
+        .task-number {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            border-radius: 3px;
+            padding: 1px 6px;
+            margin-right: 6px;
+            font-size: 0.85em;
+            font-weight: bold;
+        }
+        
+        .dependency-note {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 8px;
+            padding: 10px;
+            margin-top: 15px;
+            font-size: 0.9em;
+            color: #856404;
+        }
+        
+        .connections {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .connection-card {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .connection-title {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        
+        .api-path {
+            background: #f0f0f0;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            margin-bottom: 4px;
+            display: inline-block;
+        }
+        
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 8px;
+        }
+        
+        .tech-badge {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.85em;
+        }
+        
+        .critical-badge {
+            background: #dc3545;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            margin-left: 8px;
+        }
+        
+        .legend {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .legend-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .legend-items {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 SCIP v2 Platform Build Timeline</h1>
+        <div class="subtitle">10-Day Production Build Schedule</div>
+        
+        <div class="timeline">
+            <!-- Phase 1 -->
+            <div class="phase">
+                <div class="phase-header">
+                    <div class="phase-title">Phase 1: Foundation</div>
+                    <div class="phase-dates">Days 1-3</div>
+                </div>
+                <div class="phase-goal">
+                    Multi-tenant infrastructure with complete isolation, authentication, and real-time messaging
+                </div>
+                
+                <div class="component-section">
+                    <div class="section-title">🏗️ Infrastructure</div>
+                    <ul class="component-list">
+                        <li class="component-item"><span class="task-number">T1</span>Docker Compose Setup</li>
+                        <li class="component-item"><span class="task-number">T1</span>PostgreSQL 15 + Redis 7</li>
+                        <li class="component-item"><span class="task-number">T1</span>MQTT Broker (Mosquitto)</li>
+                        <li class="component-item"><span class="task-number">T1</span>Nginx Configuration</li>
+                    </ul>
+                </div>
+                
+                <div class="component-section">
+                    <div class="section-title">🗄️ Database</div>
+                    <ul class="component-list">
+                        <li class="component-item"><span class="task-number">T2</span>Multi-tenant Schema</li>
+                        <li class="component-item"><span class="task-number">T2</span>Row-Level Security (RLS)</li>
+                        <li class="component-item"><span class="task-number">T2</span>Audit System</li>
+                        <li class="component-item"><span class="task-number">T2</span>Alembic Migrations</li>
+                    </ul>
+                </div>
+                
+                <div class="component-section">
+                    <div class="section-title">🔐 Authentication</div>
+                    <ul class="component-list">
+                        <li class="component-item"><span class="task-number">T4</span>JWT with RS256</li>
+                        <li class="component-item"><span class="task-number">T4</span>Organization Context</li>
+                        <li class="component-item"><span class="task-number">T4</span>Permission System</li>
+                        <li class="component-item"><span class="task-number">T6</span>Rate Limiting</li>
+                    </ul>
+                </div>
+                
+                <div class="component-section">
+                    <div class="section-title">⚙️ Core API</div>
+                    <ul class="component-list">
+                        <li class="component-item"><span class="task-number">T3</span>FastAPI Structure</li>
+                        <li class="component-item"><span class="task-number">T3</span>Shared TypeScript Types</li>
+                        <li class="component-item"><span class="task-number">T6</span>API Path Routing</li>
+                        <li class="component-item"><span class="task-number">T10</span>Demo Data Script</li>
+                    </ul>
+                </div>
+                
+                <div class="dependency-note">
+                    <strong>⚠️ Critical:</strong> All Phase 2 & 3 components depend on this foundation
+                </div>
+            </div>
+            
+            <!-- Phase 2 -->
+            <div class="phase">
+                <div class="phase-header">
+                    <div class="phase-title">Phase 2: Platform Core</div>
+                    <div class="phase-dates">Days 4-7</div>
+                </div>
+                <div class="phase-goal">
+                    User interfaces, scenario engine, exercise execution, and real-time delivery
+                </div>
+                
+                <div class="component-section">
+                    <div class="section-title">📊 Scenario System</div>
+                    <ul class="component-list">
+                        <li class="component-item"><span class="task-number">T11</span>Scenario Data Model</li>
+                        <li class="component-item"><span class="task-number">T11</span>4 Customization Modes</li>
+                        <li class="component-item"><span class="task-number">T11</span>Media Asset Management</li>
+                        <li class="component-item"><span class="task-number">T17</span>Media Processing Pipeline</li>
+                    </ul>
+                </div>
+                
+                <div class="component-section">
+                    <div class="section-title">⚡ Exercise Engine</div>
+                    <ul class="component-list">
+                        <li class="component-item"><span class="task-number">T12</span>Exercise Execution API</li>
+                        <li class="component-item"><span class="task-number">T12</span>Scenario Agent Service</li>
+                        <li class="component-item"><span class="task-number">T12</span>Exercise Timer Service</li>
+                        <li class="component-item"><span class="task-number">T16</span>MQTT Trigger Delivery</li>
+                    </ul>
+                </div>
+                
+                <div class="component-section">
+                    <div class="section-title">👥 Team Dashboard</div>
+                    <ul class="component-list">
+                        <li class="component-item"><span class="task-number">T13</span>React App (Zustand)</li>
+                        <li class="component-item"><span class="task-number">T13</span>Feed Components</li>
+                        <li class="component-item"><span class="task-number">T13</span>Team Chat & Notes</li>
+                        <li class="component-item"><span class="task-number">T15</span>Docker Orchestration</li>
+                    </ul>
+                </div>
+                
+                <div class="component-section">
+                    <div class="section-title">🏢 Client Dashboard</div>
+                    <ul class="component-list">
+                        <li class="component-item"><span class="task-number">T14</span>React App (Redux)</li>
+                        <li class="component-item"><span class="task-number">T14</span>Scenario Management</li>
+                        <li class="component-item"><span class="task-number">T14</span>Exercise Monitoring</li>
+                        <li class="component-item"><span class="task-number">T14</span>Real-time Updates</li>
+                    </ul>
+                </div>
+                
+                <div class="component-section">
+                    <div class="section-title">🎯 Decisions</div>
+                    <ul class="component-list">
+                        <li class="component-item"><span class="task-number">T18</span>Decision Capture</li>
+                        <li class="component-item"><span class="task-number">T18</span>Confidence Slider</li>
+                        <li class="component-item"><span class="task-number">T18</span>State Machine</li>
+                        <li class="component-item"><span class="task-number">T20</span>Component Extraction</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Phase 3 -->
+            <div class="phase">
+                <div class="phase-header">
+                    <div class="phase-title">Phase 3: Control & Polish</div>
+                    <div class="phase-dates">Days 8-10</div>
+                </div>
+                <div class="phase-goal">
+                    Admin control, advanced features, integrations, and production deployment
+                </div>
+                
+                <div class="component-section">
+                    <div class="section-title">🎛️ SCIP Control</div>
+                    <ul class="component-list">
+                        <li class="component-item"><span class="task-number">T21</span>Admin Dashboard<span class="critical-badge">MFA</span></li>
+                        <li class="component-item"><span class="task-number">T22</span>Organization Management</li>
+                        <li class="component-item"><span class="task-number">T23</span>Template Library</li>
+                        <li class="component-item"><span class="task-number">T21</span>Audit Log Viewer</li>
+                    </ul>
+                </div>
+                
+                <div class="component-section">
+                    <div class="section-title">📈 Monitoring</div>
+                    <ul class="component-list">
+                        <li class="component-item"><span class="task-number">T24</span>Platform Monitoring</li>
+                        <li class="component-item"><span class="task-number">T24</span>Health Dashboard</li>
+                        <li class="component-item"><span class="task-number">T29</span>Analytics System</li>
+                        <li class="component-item"><span class="task-number">T31</span>Exercise Replay</li>
+                    </ul>
+                </div>
+                
+                <div class="component-section">
+                    <div class="section-title">🔌 Integrations</div>
+                    <ul class="component-list">
+                        <li class="component-item"><span class="task-number">T25</span>SSO (SAML/OAuth)</li>
+                        <li class="component-item"><span class="task-number">T25</span>Calendar & LMS</li>
+                        <li class="component-item"><span class="task-number">T25</span>Webhooks</li>
+                        <li class="component-item"><span class="task-number">T25</span>Email Service</li>
+                    </ul>
+                </div>
+                
+                <div class="component-section">
+                    <div class="section-title">📡 RF & Special</div>
+                    <ul class="component-list">
+                        <li class="component-item"><span class="task-number">T27</span>RF Jamming Demo</li>
+                        <li class="component-item"><span class="task-number">T27</span>Manual Injection</li>
+                        <li class="component-item"><span class="task-number">T28</span>Asset Library</li>
+                        <li class="component-item"><span class="task-number">T26</span>Advanced Reports</li>
+                    </ul>
+                </div>
+                
+                <div class="component-section">
+                    <div class="section-title">🚀 Production</div>
+                    <ul class="component-list">
+                        <li class="component-item"><span class="task-number">T30</span>Load Testing</li>
+                        <li class="component-item"><span class="task-number">T30</span>Custom Domains</li>
+                        <li class="component-item"><span class="task-number">T30</span>Backup System</li>
+                        <li class="component-item"><span class="task-number">T30</span>Security Hardening</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="connections">
+            <div class="connection-card">
+                <div class="connection-title">🔗 API Structure</div>
+                <div class="api-path">/api/v1/admin/*</div> → SCIP Control<br>
+                <div class="api-path">/api/v1/client/*</div> → Client Dashboard<br>
+                <div class="api-path">/api/v1/dashboard/*</div> → Team Dashboard
+            </div>
+            
+            <div class="connection-card">
+                <div class="connection-title">🔄 Real-Time Flow</div>
+                Scenario Agent → MQTT Broker → Team Dashboards<br>
+                Exercise State → Redis → Monitoring Dashboard<br>
+                Decisions → PostgreSQL → Reports
+            </div>
+            
+            <div class="connection-card">
+                <div class="connection-title">🎨 Component Sources</div>
+                <strong>Portfall:</strong> Feed components<br>
+                <strong>Gap Analysis:</strong> Professional UI<br>
+                <strong>scip-range:</strong> Dashboard layouts<br>
+                <strong>rf-range:</strong> SDR integration
+            </div>
+        </div>
+        
+        <div class="legend">
+            <div class="legend-title">📋 Key Information</div>
+            <div class="legend-items">
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #667eea;"></div>
+                    <span>Task Numbers (T1-T31)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #dc3545;"></div>
+                    <span>Critical Security Features</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #ffc107;"></div>
+                    <span>Dependencies</span>
+                </div>
+                <div class="legend-item">
+                    <strong>Total Tasks:</strong> 31 main tasks + sub-tasks
+                </div>
+                <div class="legend-item">
+                    <strong>Target:</strong> 50+ orgs, 100+ exercises, 10k msg/sec
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

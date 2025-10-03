@@ -1,0 +1,81 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* SATCOM Theme - Dark military/corporate styling */
+:root {
+  /* SATCOM color palette - always dark */
+  --color-background: #0a0e1a; /* Deep blue-black */
+  --color-surface: #1a1f2e; /* Card background */
+  --color-surface-light: #131824; /* Lighter surface */
+  --color-primary: #3b82f6; /* Bright blue accent */
+  --color-accent: #2563eb; /* Secondary blue */
+  --color-text-primary: #e8eaed; /* Light text */
+  --color-text-secondary: #9ca3af; /* Secondary text */
+  --color-text-muted: #6b7280; /* Muted text */
+  --color-border: #2d3748; /* Subtle borders */
+
+  /* Status colors */
+  --color-success: #10b981; /* Nominal/green */
+  --color-warning: #f59e0b; /* Degraded/orange */
+  --color-error: #ef4444; /* Critical/red */
+  --color-recovering: #06b6d4; /* Recovering/cyan */
+
+  /* Header specific */
+  --color-header-bg: #131824;
+  --color-header-border: #3b82f6;
+
+  /* Sidebar stays dark (for consistency with maritime if needed) */
+  --color-sidebar-bg: #1a1a2e;
+  --color-sidebar-surface: #0f0f23;
+  --color-sidebar-text: #e5e5e5;
+  --color-sidebar-text-muted: #a0a0a0;
+  --color-sidebar-accent: #3b82f6;
+}
+
+/* Dark theme maintains SATCOM palette (no light theme for SATCOM) */
+[data-theme="dark"] {
+  --color-background: #0a0e1a;
+  --color-surface: #1a1f2e;
+  --color-surface-light: #131824;
+  --color-primary: #3b82f6;
+  --color-accent: #2563eb;
+  --color-text-primary: #e8eaed;
+  --color-text-secondary: #9ca3af;
+  --color-text-muted: #6b7280;
+  --color-border: #2d3748;
+
+  /* Status colors */
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  --color-recovering: #06b6d4;
+}
+
+@layer base {
+  body {
+    @apply bg-background text-text-primary transition-colors duration-200;
+  }
+}
+
+@layer components {
+  /* Card component adapts to theme */
+  .card {
+    @apply bg-surface border border-border rounded-lg shadow-sm;
+  }
+
+  /* Light theme specific card styling */
+  [data-theme="light"] .card {
+    @apply shadow-md hover:shadow-lg transition-shadow;
+  }
+
+  /* Dark theme specific card styling */
+  [data-theme="dark"] .card {
+    @apply shadow-lg;
+  }
+
+  /* Button styles */
+  .btn-primary {
+    @apply px-4 py-2 bg-primary text-white rounded-lg hover:opacity-90 transition-opacity;
+  }
+}

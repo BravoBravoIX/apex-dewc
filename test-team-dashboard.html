@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Enhanced Team Dashboard Test</title>
+    <style>
+        body { background: #1a1a1a; color: #e0e0e0; font-family: -apple-system, sans-serif; padding: 20px; }
+        .container { max-width: 1000px; margin: 0 auto; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+        .team-title { font-size: 32px; font-weight: bold; }
+        .team-name { color: #60a5fa; text-transform: capitalize; }
+        .timer-section { text-align: right; }
+        .timer { font-size: 32px; color: #60a5fa; font-family: monospace; font-weight: bold; }
+        .state { font-size: 14px; font-weight: 600; margin-top: 4px; }
+        .state.running { color: #10b981; }
+        .state.paused { color: #eab308; }
+        .status-bar { padding: 12px; border-radius: 8px; margin-bottom: 16px; text-align: center; font-weight: 600; }
+        .status-bar.paused { background: rgba(161, 98, 7, 0.3); border: 1px solid #ca8a04; color: #facc15; }
+        .card { background: #2a2a2a; padding: 24px; border-radius: 8px; margin-bottom: 16px; }
+        .connection { display: flex; align-items: center; justify-content: space-between; padding: 16px; }
+        .connected { display: flex; align-items: center; gap: 8px; color: #10b981; font-size: 14px; }
+        .pulse { width: 8px; height: 8px; background: #10b981; border-radius: 50%; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+        .last-update { font-size: 12px; color: #9ca3af; }
+        .inject-list { max-height: 600px; overflow-y: auto; }
+        .inject { background: #1a1a1a; padding: 16px; border-radius: 8px; border: 1px solid #374151; margin-bottom: 12px; }
+        .inject:hover { border-color: #6b7280; }
+        .inject-header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 8px; }
+        .inject-meta { display: flex; align-items: center; gap: 8px; }
+        .inject-icon { font-size: 24px; }
+        .inject-type { font-size: 14px; font-weight: 600; color: #60a5fa; }
+        .inject-id { font-size: 12px; color: #9ca3af; margin-left: 8px; }
+        .inject-time { font-size: 12px; color: #9ca3af; font-family: monospace; }
+        .inject-content { color: #e0e0e0; margin-top: 8px; }
+        .waiting { text-align: center; padding: 32px 0; color: #9ca3af; }
+        .topic { font-size: 12px; background: #1a1a1a; padding: 4px 8px; border-radius: 4px; margin-top: 8px; font-family: monospace; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header with Timer -->
+        <div class="header">
+            <h1 class="team-title">
+                Team Dashboard: <span class="team-name">blue</span>
+            </h1>
+            <div class="timer-section">
+                <div class="timer">T+00:29</div>
+                <div class="state running">RUNNING</div>
+            </div>
+        </div>
+
+        <!-- Connection Status Card -->
+        <div class="card connection">
+            <div class="connected">
+                <span class="pulse"></span>
+                <span>Connected</span>
+            </div>
+            <div class="last-update">Last update: 12:30:45 PM</div>
+        </div>
+
+        <!-- Injects Section -->
+        <div class="card">
+            <h2 style="font-size: 20px; margin-bottom: 16px;">Received Injects (3)</h2>
+            <div class="inject-list">
+                <!-- Inject 1 -->
+                <div class="inject">
+                    <div class="inject-header">
+                        <div class="inject-meta">
+                            <span class="inject-icon">📰</span>
+                            <div>
+                                <span class="inject-type">NEWS</span>
+                                <span class="inject-id">ID: inject-003</span>
+                            </div>
+                        </div>
+                        <span class="inject-time">T+00:25</span>
+                    </div>
+                    <div class="inject-content">
+                        BREAKING: Tensions escalate in South China Sea as multiple naval vessels converge near disputed waters. International shipping routes affected.
+                    </div>
+                </div>
+
+                <!-- Inject 2 -->
+                <div class="inject">
+                    <div class="inject-header">
+                        <div class="inject-meta">
+                            <span class="inject-icon">🔍</span>
+                            <div>
+                                <span class="inject-type">INTEL</span>
+                                <span class="inject-id">ID: inject-002</span>
+                            </div>
+                        </div>
+                        <span class="inject-time">T+00:10</span>
+                    </div>
+                    <div class="inject-content">
+                        Satellite imagery shows increased activity at naval base. Three destroyers have departed heading southeast. ETA to area of interest: 6 hours.
+                    </div>
+                </div>
+
+                <!-- Inject 3 -->
+                <div class="inject">
+                    <div class="inject-header">
+                        <div class="inject-meta">
+                            <span class="inject-icon">📄</span>
+                            <div>
+                                <span class="inject-type">INJECT</span>
+                                <span class="inject-id">ID: inject-001</span>
+                            </div>
+                        </div>
+                        <span class="inject-time">T+00:00</span>
+                    </div>
+                    <div class="inject-content">
+                        Exercise MARITIME CRISIS has begun. Monitor all channels for developing situation. ROE package ALPHA is in effect.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br><br>
+    <div class="container">
+        <h2 style="color: #facc15; margin-bottom: 16px;">Example: Paused State</h2>
+
+        <!-- Header with Timer (Paused) -->
+        <div class="header">
+            <h1 class="team-title">
+                Team Dashboard: <span class="team-name">red</span>
+            </h1>
+            <div class="timer-section">
+                <div class="timer">T+00:15</div>
+                <div class="state paused">PAUSED</div>
+            </div>
+        </div>
+
+        <!-- Paused Status Bar -->
+        <div class="status-bar paused">
+            ⏸ Exercise Paused
+        </div>
+
+        <!-- Connection Status Card -->
+        <div class="card connection">
+            <div class="connected">
+                <span class="pulse"></span>
+                <span>Connected</span>
+            </div>
+            <div class="last-update">Last update: 12:30:20 PM</div>
+        </div>
+
+        <!-- Empty Injects Section -->
+        <div class="card">
+            <h2 style="font-size: 20px; margin-bottom: 16px;">Received Injects (0)</h2>
+            <div class="inject-list">
+                <div class="waiting">
+                    <p style="margin-bottom: 8px;">Waiting for injects...</p>
+                    <p class="topic">Listening on: /exercise/maritime-crisis-scenario/team/red/feed</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

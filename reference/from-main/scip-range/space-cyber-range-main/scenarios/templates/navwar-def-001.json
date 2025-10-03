@@ -1,0 +1,293 @@
+{
+  "scenario_definition": {
+    "id": "navwar-def-001",
+    "name": "NAVWAR Defence Operations",
+    "version": "1.0",
+    "category": "navigation_warfare",
+    "metadata": {
+      "description": "Master-level scenario focusing on defending against sophisticated NAVWAR attacks targeting PNT services across multiple platforms and domains",
+      "difficulty": "master",
+      "duration_estimate": "8 hours",
+      "max_instances": 2,
+      "prerequisites": [
+        "Advanced GNSS system knowledge",
+        "PNT warfare expertise",
+        "Multi-domain operations experience",
+        "Advanced signal processing skills",
+        "Cryptographic systems expertise",
+        "Time synchronization expertise",
+        "Completion of all previous scenarios"
+      ],
+      "learning_objectives": [
+        "Detect and classify sophisticated PNT attacks",
+        "Implement multi-layer PNT defense strategies",
+        "Maintain precise timing during GPS denial",
+        "Coordinate cross-platform defense measures",
+        "Ensure mission success with degraded PNT",
+        "Validate position and timing integrity"
+      ]
+    },
+
+    "topology": {
+      "assets": {
+        "master_timing": {
+          "type": "vm",
+          "base_image": "timing_master_v2",
+          "description": "Primary timing and synchronization system",
+          "network_interfaces": ["time_distribution", "management", "monitoring"],
+          "resource_requirements": {
+            "cpu_cores": 16,
+            "memory_gb": 64,
+            "storage_gb": 1000
+          }
+        },
+        "pnt_monitor": {
+          "type": "vm",
+          "base_image": "pnt_monitor_v2",
+          "description": "PNT threat monitoring and analysis system",
+          "network_interfaces": ["sensor_net", "analysis", "management"],
+          "resource_requirements": {
+            "cpu_cores": 32,
+            "memory_gb": 128,
+            "storage_gb": 2000
+          }
+        },
+        "mobile_platform": {
+          "type": "vm",
+          "base_image": "mobile_platform_v1",
+          "description": "Mobile platform with advanced navigation suite",
+          "network_interfaces": ["navigation", "communication", "sensor_net"],
+          "resource_requirements": {
+            "cpu_cores": 8,
+            "memory_gb": 32,
+            "storage_gb": 500
+          }
+        },
+        "backup_systems": {
+          "type": "vm",
+          "base_image": "backup_nav_v1",
+          "description": "Alternative navigation and timing systems",
+          "network_interfaces": ["navigation", "time_distribution"],
+          "resource_requirements": {
+            "cpu_cores": 8,
+            "memory_gb": 32,
+            "storage_gb": 500
+          }
+        }
+      },
+      "connections": [
+        {
+          "name": "timing_distribution",
+          "from": "master_timing",
+          "to": "all_platforms",
+          "type": "precision_time",
+          "parameters": {
+            "protocol": "ptp_v2",
+            "accuracy": "sub_microsecond",
+            "redundancy": "triple"
+          }
+        },
+        {
+          "name": "nav_data",
+          "from": "pnt_monitor",
+          "to": "mobile_platform",
+          "type": "encrypted_data",
+          "parameters": {
+            "encryption": "quantum_resistant",
+            "integrity": "authenticated",
+            "update_rate": 100
+          }
+        }
+      ]
+    },
+
+    "pnt_configuration": {
+      "timing_sources": {
+        "primary": {
+          "type": "atomic_clock",
+          "stability": "1e-13",
+          "holdover": "24h"
+        },
+        "backup": {
+          "type": "chip_scale_atomic",
+          "stability": "1e-11",
+          "holdover": "4h"
+        }
+      },
+      "navigation_systems": {
+        "primary": {
+          "type": "multi_constellation_gnss",
+          "constellations": ["gps", "galileo", "beidou"],
+          "frequencies": ["l1", "l2", "l5"],
+          "anti_spoofing": "enabled"
+        },
+        "backup": {
+          "type": "integrated_nav",
+          "sensors": ["ins", "celestial", "terrain"],
+          "fusion": "kalman_filter"
+        }
+      },
+      "threat_types": [
+        {
+          "name": "sophisticated_spoofer",
+          "type": "meaconing",
+          "capabilities": [
+            "multi_constellation",
+            "coherent_replay",
+            "dynamic_power"
+          ],
+          "attack_profile": {
+            "sophistication": "very_high",
+            "coordination": "multi_point"
+          }
+        },
+        {
+          "name": "precision_jammer",
+          "type": "selective_denial",
+          "capabilities": [
+            "frequency_specific",
+            "power_adaptive",
+            "beam_forming"
+          ],
+          "attack_profile": {
+            "targeting": "frequency_hopping",
+            "power_management": "intelligent"
+          }
+        },
+        {
+          "name": "timing_attack",
+          "type": "time_manipulation",
+          "capabilities": [
+            "gradual_drift",
+            "jump_insertion",
+            "protocol_manipulation"
+          ],
+          "attack_profile": {
+            "subtlety": "very_high",
+            "persistence": "long_term"
+          }
+        }
+      ],
+      "countermeasures": {
+        "anti_spoofing": {
+          "signal_authentication": "enabled",
+          "correlation_monitoring": "continuous",
+          "position_verification": "multi_source"
+        },
+        "anti_jamming": {
+          "spatial_filtering": "adaptive",
+          "frequency_agility": "dynamic",
+          "power_management": "intelligent"
+        },
+        "timing_integrity": {
+          "cross_checking": "continuous",
+          "anomaly_detection": "ai_assisted",
+          "source_diversity": "maximum"
+        }
+      }
+    },
+
+    "stages": [
+      {
+        "name": "Advanced PNT Monitoring",
+        "description": "Establish comprehensive PNT threat monitoring",
+        "completion_criteria": "All monitoring systems operational with baseline established",
+        "tasks": [
+          {
+            "id": "signal_monitoring",
+            "task": "Monitor GNSS Signals",
+            "description": "Analyze GNSS signal characteristics across constellations",
+            "verification": "All signal anomalies detected and classified"
+          },
+          {
+            "id": "timing_monitoring",
+            "task": "Monitor Timing Sources",
+            "description": "Track stability and synchronization of timing sources",
+            "verification": "Timing anomalies detected within 100ns"
+          },
+          {
+            "id": "integrity_monitoring",
+            "task": "Monitor Solution Integrity",
+            "description": "Validate PNT solution integrity across platforms",
+            "verification": "All integrity breaches identified"
+          }
+        ]
+      },
+      {
+        "name": "Threat Response",
+        "description": "Implement coordinated response to PNT attacks",
+        "completion_criteria": "Successful mitigation of all attack vectors",
+        "tasks": [
+          {
+            "id": "spoofing_mitigation",
+            "task": "Counter Signal Spoofing",
+            "description": "Implement anti-spoofing measures across platforms",
+            "verification": "All spoofing attempts rejected"
+          },
+          {
+            "id": "jamming_response",
+            "task": "Counter Jamming Attacks",
+            "description": "Deploy advanced anti-jamming techniques",
+            "verification": "Navigation maintained during jamming"
+          },
+          {
+            "id": "timing_defense",
+            "task": "Protect Timing Infrastructure",
+            "description": "Maintain accurate timing during attacks",
+            "verification": "Timing accuracy maintained within specs"
+          }
+        ]
+      },
+      {
+        "name": "Alternative Navigation",
+        "description": "Deploy and coordinate alternative navigation methods",
+        "completion_criteria": "Successful operation with degraded or denied GNSS",
+        "tasks": [
+          {
+            "id": "sensor_fusion",
+            "task": "Implement Sensor Fusion",
+            "description": "Integrate multiple navigation sources",
+            "verification": "Accurate navigation without GNSS"
+          },
+          {
+            "id": "celestial_nav",
+            "task": "Activate Celestial Navigation",
+            "description": "Deploy celestial navigation backup",
+            "verification": "Celestial fixes validated"
+          },
+          {
+            "id": "terrain_following",
+            "task": "Enable Terrain Navigation",
+            "description": "Utilize terrain matching navigation",
+            "verification": "Terrain navigation accuracy verified"
+          }
+        ]
+      },
+      {
+        "name": "Mission Assurance",
+        "description": "Ensure mission success with degraded PNT",
+        "completion_criteria": "All critical operations maintained during PNT denial",
+        "tasks": [
+          {
+            "id": "degraded_ops",
+            "task": "Manage Degraded Operations",
+            "description": "Maintain operations with limited PNT",
+            "verification": "Mission objectives achieved"
+          },
+          {
+            "id": "platform_coordination",
+            "task": "Coordinate Platforms",
+            "description": "Maintain multi-platform coordination",
+            "verification": "Platform synchronization maintained"
+          },
+          {
+            "id": "recovery_operations",
+            "task": "Execute Recovery",
+            "description": "Restore full PNT capabilities",
+            "verification": "Full capabilities restored"
+          }
+        ]
+      }
+    ]
+  }
+}

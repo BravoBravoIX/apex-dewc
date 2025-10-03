@@ -1,0 +1,185 @@
+{
+  "id": "timeline-ew-intel",
+  "name": "EW-INTEL Team Timeline",
+  "description": "Characterize threats and provide countermeasure recommendations",
+  "version": "1.0.0",
+  "injects": [
+    {
+      "id": "inject-ew-001",
+      "time": 0,
+      "type": "trigger",
+      "content": {
+        "command": "initialize_spectrum",
+        "parameters": {
+          "frequency_range_ghz": [7.25, 8.40],
+          "baseline_noise_floor_dbm": -95,
+          "monitored_bands": ["X-band SATCOM"]
+        }
+      }
+    },
+    {
+      "id": "inject-ew-002",
+      "time": 3,
+      "type": "trigger",
+      "content": {
+        "command": "spectrum_anomaly",
+        "parameters": {
+          "frequency_ghz": 7.85,
+          "power_dbm": -75,
+          "bandwidth_mhz": 5,
+          "confidence": 45,
+          "classification": "Unknown"
+        }
+      }
+    },
+    {
+      "id": "inject-ew-003",
+      "time": 6,
+      "type": "trigger",
+      "content": {
+        "command": "inject_interference",
+        "parameters": {
+          "frequency_ghz": 7.85,
+          "bandwidth_mhz": 20,
+          "power_dbm": -45,
+          "type": "narrowband_jammer",
+          "modulation": "CW",
+          "alert_audio": true
+        }
+      }
+    },
+    {
+      "id": "inject-ew-004",
+      "time": 9,
+      "type": "alert",
+      "content": {
+        "severity": "critical",
+        "title": "Jamming Detected",
+        "message": "High-power interference detected at 7.85 GHz. Narrowband jamming pattern consistent with deliberate electronic attack.",
+        "timestamp": "2025-10-01T14:10:00Z"
+      }
+    },
+    {
+      "id": "inject-ew-005",
+      "time": 12,
+      "type": "trigger",
+      "content": {
+        "command": "classify_emitter",
+        "parameters": {
+          "emitter_type": "Ground-based jammer",
+          "threat_category": "HOSTILE",
+          "confidence": 78,
+          "characteristics": {
+            "power_output_estimated": "10-50W",
+            "antenna_pattern": "Directional",
+            "duty_cycle": "Continuous"
+          }
+        }
+      }
+    },
+    {
+      "id": "inject-ew-006",
+      "time": 15,
+      "type": "trigger",
+      "content": {
+        "command": "geolocation_update",
+        "parameters": {
+          "latitude": 42.3156,
+          "longitude": 71.8472,
+          "altitude_meters": 245,
+          "confidence": 67,
+          "method": "TDOA",
+          "error_radius_km": 15
+        }
+      }
+    },
+    {
+      "id": "inject-ew-007",
+      "time": 18,
+      "type": "intel_report",
+      "content": {
+        "classification": "SECRET//REL TO USA, FVEY",
+        "source": "NSA SIGINT",
+        "title": "Emitter Pattern Correlation",
+        "body": "CRITIC FLASH: Intercepted emissions match signature of Russian R-330Zh Zhitel EW system. High confidence adversary electronic attack in progress. Emitter characteristics: 100W output, directional array, frequency-hopping capable."
+      }
+    },
+    {
+      "id": "inject-ew-008",
+      "time": 21,
+      "type": "trigger",
+      "content": {
+        "command": "geolocation_refined",
+        "parameters": {
+          "latitude": 42.2894,
+          "longitude": 71.8201,
+          "altitude_meters": 278,
+          "confidence": 87,
+          "method": "Multi-sensor fusion",
+          "error_radius_km": 3.5,
+          "nearest_landmark": "12km NE of Saratov, Russia"
+        }
+      }
+    },
+    {
+      "id": "inject-ew-009",
+      "time": 24,
+      "type": "trigger",
+      "content": {
+        "command": "threat_database_match",
+        "parameters": {
+          "system_name": "R-330Zh Zhitel",
+          "nato_designation": "TORN",
+          "manufacturer": "KRET Corporation",
+          "known_capabilities": [
+            "SATCOM jamming (7-8 GHz)",
+            "GPS denial",
+            "Frequency agility (adaptive)",
+            "Remote operation"
+          ],
+          "countermeasures": [
+            "Frequency hopping",
+            "Increased link margin",
+            "Alternative routing",
+            "Kinetic targeting (approved units only)"
+          ]
+        }
+      }
+    },
+    {
+      "id": "inject-ew-010",
+      "time": 27,
+      "type": "alert",
+      "content": {
+        "severity": "info",
+        "title": "Countermeasure Recommendation",
+        "message": "Analysis complete. Recommend immediate frequency agility implementation. Enemy system lacks capability to track rapid frequency changes above 500 hops/second.",
+        "timestamp": "2025-10-01T14:30:00Z"
+      }
+    },
+    {
+      "id": "inject-ew-011",
+      "time": 30,
+      "type": "trigger",
+      "content": {
+        "command": "jamming_effectiveness",
+        "parameters": {
+          "effectiveness_percent": 15,
+          "status": "Largely ineffective",
+          "reason": "Frequency agility successful"
+        }
+      }
+    },
+    {
+      "id": "inject-ew-012",
+      "time": 33,
+      "type": "alert",
+      "content": {
+        "severity": "success",
+        "title": "Threat Mitigated",
+        "message": "Electronic attack successfully countered. Enemy jamming rendered ineffective through frequency agility protocols. All SATCOM links operational.",
+        "timestamp": "2025-10-01T14:45:00Z"
+      }
+    }
+  ]
+}

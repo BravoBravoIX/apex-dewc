@@ -1,0 +1,11 @@
+[Unit]
+Description=Services Health Monitoring
+After=network.target mosquitto.service redis.service
+
+[Service]
+ExecStart=/usr/bin/python3 /path/to/services_health_collector.py
+Restart=always
+User=cyberops
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MQTT Connection Test</title>
+    <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+</head>
+<body>
+    <h1>MQTT Connection Test</h1>
+    <div id="status">Connecting...</div>
+    <h2>Messages:</h2>
+    <div id="messages"></div>
+
+    <script>
+        const brokerUrl = `ws://${window.location.hostname}:9001`;
+        const topics = [
+            '/exercise/maritime-crisis-scenario/timer',
+            '/exercise/maritime-crisis-scenario/team/blue/feed',
+            '/exercise/maritime-crisis-scenario/control'
+        ];
+
+        document.getElementById('status').textContent = `Connecting to ${brokerUrl}...`;
+
+        const client = mqtt.connect(brokerUrl);
+
+        client.on('connect', () => {
+            document.getElementById('status').textContent = `Connected to ${brokerUrl}`;
+
+            topics.forEach(topic => {
+                client.subscribe(topic, (err) => {
+                    if (!err) {
+                        const msg = document.createElement('div');
+                        msg.textContent = `Subscribed to: ${topic}`;
+                        msg.style.color = 'green';
+                        document.getElementById('messages').appendChild(msg);
+                    }
+                });
+            });
+        });
+
+        client.on('message', (topic, payload) => {
+            const msg = document.createElement('div');
+            msg.innerHTML = `<strong>${topic}:</strong> ${payload.toString()}`;
+            msg.style.borderBottom = '1px solid #ccc';
+            msg.style.padding = '5px';
+            msg.style.marginBottom = '5px';
+            document.getElementById('messages').appendChild(msg);
+
+            // Keep only last 20 messages
+            const messages = document.getElementById('messages');
+            while (messages.children.length > 20) {
+                messages.removeChild(messages.firstChild);
+            }
+        });
+
+        client.on('error', (err) => {
+            document.getElementById('status').textContent = `Error: ${err}`;
+            document.getElementById('status').style.color = 'red';
+        });
+    </script>
+</body>
+</html>

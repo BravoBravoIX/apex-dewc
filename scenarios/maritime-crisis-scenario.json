@@ -1,0 +1,20 @@
+
+{
+  "id": "maritime-crisis-01",
+  "name": "Maritime Crisis",
+  "description": "A multi-domain crisis response scenario requiring coordination between naval, intelligence, and diplomatic teams.",
+  "thumbnail": "maritime-scenario.png",
+  "duration_minutes": 60,
+  "teams": [
+    {
+      "id": "blue",
+      "name": "Blue Team - Maritime Security",
+      "timeline_file": "timelines/timeline-blue.json"
+    },
+    {
+      "id": "red",
+      "name": "Red Team - Opposing Force",
+      "timeline_file": "timelines/timeline-red.json"
+    }
+  ]
+}

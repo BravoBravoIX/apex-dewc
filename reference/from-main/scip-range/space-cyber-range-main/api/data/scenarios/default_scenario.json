@@ -1,0 +1,64 @@
+{
+  "scenario": {
+    "id": "sat-ground-link-001",
+    "name": "Satellite Ground Link Training",
+    "status": "active",
+    "start_time": "2024-01-06T01:30:00Z",
+    "elapsed_time": "01:30:45",
+    "teams": [{
+      "id": "team-alpha",
+      "instance_id": "instance-001",
+      "status": "active",
+      "members": ["John Doe", "Jane Smith"],
+      "progress": {
+        "current_stage": 2,
+        "stages": [
+          {
+            "name": "Ground Station Setup",
+            "status": "completed",
+            "tasks": [
+              {"task": "Configure Ground Station Parameters", "status": "completed"},
+              {"task": "Verify RF Chain", "status": "completed"},
+              {"task": "Initialize Tracking System", "status": "completed"}
+            ]
+          },
+          {
+            "name": "Satellite Acquisition",
+            "status": "completed",
+            "tasks": [
+              {"task": "Locate Satellite TLE", "status": "completed"},
+              {"task": "Calculate Pass Times", "status": "completed"},
+              {"task": "Establish Initial Contact", "status": "completed"}
+            ]
+          },
+          {
+            "name": "Communications",
+            "status": "completed",
+            "tasks": [
+              {"task": "Download Telemetry", "status": "in_progress"},
+              {"task": "Upload Commands", "status": "not_started"},
+              {"task": "Verify Command Execution", "status": "not_started"}
+            ]
+          },
+          {
+            "name": "Interference Management",
+            "status": "in_progress",
+            "tasks": [
+              {"task": "Detect Interference", "status": "not_started"},
+              {"task": "Analyse Signal Quality", "status": "not_started"},
+              {"task": "Implement Countermeasures", "status": "not_started"}
+            ]
+          },
+          {
+            "name": "Mission Report",
+            "status": "not_started",
+            "tasks": [
+              {"task": "Generate Link Report", "status": "not_started"},
+              {"task": "Document Anomalies", "status": "not_started"}
+            ]
+          }
+        ]
+      }
+    }]
+  }
+}

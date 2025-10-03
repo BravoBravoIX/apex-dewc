@@ -1,0 +1,99 @@
+import React from 'react';
+import { Globe, Clock, Activity, Play, Pause, Square, AlertCircle } from 'lucide-react';
+
+const ActiveScenarioHeader = ({ scenario }) => {
+  // This will be replaced with real data
+  const mockScenario = {
+    name: "Satellite Communications Training",
+    description: "Basic satellite communications and ground station operations",
+    timeRunning: "02:34:15",
+    status: "In Progress",
+    startTime: "2024-01-15 09:30:00",
+    instanceId: "SCN-2024-001"
+  };
+
+  const handleStart = () => {
+    // Will implement MQTT publish to start scenario
+    console.log('Starting scenario');
+  };
+
+  const handlePause = () => {
+    // Will implement MQTT publish to pause scenario
+    console.log('Pausing scenario');
+  };
+
+  const handleEnd = () => {
+    // Will implement MQTT publish to end scenario
+    console.log('Ending scenario');
+  };
+
+  return (
+    <div className="space-y-4">
+      <div className="flex justify-between items-start">
+        <div>
+          <h2 className="text-xl font-semibold text-gray-100">{mockScenario.name}</h2>
+          <p className="text-gray-400 mt-1">{mockScenario.description}</p>
+        </div>
+
+        <div className="flex items-center space-x-6">
+          {/* Timer */}
+          <div className="flex items-center">
+            <Clock className="w-4 h-4 text-gray-400 mr-2" />
+            <span className="text-gray-100 font-mono">{mockScenario.timeRunning}</span>
+          </div>
+
+          {/* Status */}
+          <div className="flex items-center">
+            <Activity className="w-4 h-4 text-green-400 mr-2" />
+            <span className="text-green-400">{mockScenario.status}</span>
+          </div>
+
+          {/* Control Buttons */}
+          <div className="flex items-center space-x-2">
+            <button 
+              onClick={handleStart}
+              className="p-2 rounded-lg bg-green-500 hover:bg-green-600 text-white transition-colors"
+              title="Start Scenario"
+            >
+              <Play className="w-4 h-4" />
+            </button>
+            <button 
+              onClick={handlePause}
+              className="p-2 rounded-lg bg-yellow-500 hover:bg-yellow-600 text-white transition-colors"
+              title="Pause Scenario"
+            >
+              <Pause className="w-4 h-4" />
+            </button>
+            <button 
+              onClick={handleEnd}
+              className="p-2 rounded-lg bg-red-500 hover:bg-red-600 text-white transition-colors"
+              title="End Scenario"
+              // Add a confirmation dialog before ending
+              onClickCapture={(e) => {
+                if (!window.confirm('Are you sure you want to end this scenario? This action cannot be undone.')) {
+                  e.stopPropagation();
+                }
+              }}
+            >
+              <Square className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <div className="flex space-x-6 text-sm">
+        <div className="flex items-center">
+          <Globe className="w-4 h-4 text-gray-400 mr-2" />
+          <span className="text-gray-400">Instance ID:</span>
+          <span className="text-gray-100 ml-2">{mockScenario.instanceId}</span>
+        </div>
+        <div>
+          <span className="text-gray-400">Started:</span>
+          <span className="text-gray-100 ml-2">{mockScenario.startTime}</span>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ActiveScenarioHeader;

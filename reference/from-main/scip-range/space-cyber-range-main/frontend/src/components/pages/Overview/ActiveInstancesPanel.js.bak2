@@ -1,0 +1,186 @@
+import React, { useState, useEffect } from 'react';
+import { Box, Play, Pause, Server } from 'lucide-react';
+import mqtt from 'mqtt';
+
+const ActiveInstances = () => {
+  const [instances, setInstances] = useState([]);
+  const [connectionStatus, setConnectionStatus] = useState('connecting');
+
+  // Status color and icon mapping
+  const getStatusColor = (status) => {
+    switch (status) {
+      case 'running':
+        return 'bg-green-400';
+      case 'paused':
+        return 'bg-yellow-400';
+      case 'stopped':
+        return 'bg-red-400';
+      default:
+        return 'bg-gray-400';
+    }
+  };
+
+  const getStatusIcon = (status) => {
+    switch (status) {
+      case 'running':
+        return <Play className="w-4 h-4 text-green-400" />;
+      case 'paused':
+        return <Pause className="w-4 h-4 text-yellow-400" />;
+      case 'stopped':
+        return <Server className="w-4 h-4 text-red-400" />;
+      default:
+        return <Box className="w-4 h-4 text-gray-400" />;
+    }
+  };
+
+  // Format duration
+  const formatDuration = (seconds) => {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    return `${hours}h ${minutes}m`;
+  };
+
+  useEffect(() => {
+    // Generate a unique client ID
+    const clientId = `activeInstances_${Math.random().toString(16).slice(2)}`;
+
+    console.log('Connecting to MQTT for active instances...');
+    const client = mqtt.connect(`ws://${window.location.hostname}:9001/mqtt`, {
+      clientId: clientId,
+      reconnectPeriod: 1000,
+      keepalive: 60,
+      connectTimeout: 30 * 1000,
+    });
+
+    const handleConnect = () => {
+      console.log('Connected to MQTT for active instances');
+      setConnectionStatus('connected');
+      client.subscribe('range/scenarios/instances/#', (err) => {
+        if (err) {
+          console.error('Subscription error:', err);
+          setConnectionStatus('error');
+        }
+      });
+    };
+
+    const handleMessage = (topic, message) => {
+      try {
+        const data = JSON.parse(message.toString());
+        
+        // Check if message is a list of instances or a single instance
+        const instancesList = Array.isArray(data) ? data : [data];
+        
+        setInstances(instancesList.map(instance => ({
+          id: instance.id || Math.random().toString(16).slice(2),
+          name: instance.name || 'Unnamed Scenario',
+          status: instance.status || 'unknown',
+          startTime: instance.startTime || Date.now(),
+          duration: instance.duration || 0,
+          teams: instance.teams || [],
+          progress: instance.progress || 0
+        })));
+      } catch (error) {
+        console.error('Error processing instances message:', error);
+      }
+    };
+
+    const handleError = (err) => {
+      console.error('MQTT Active Instances Error:', err);
+      setConnectionStatus('error');
+    };
+
+    const handleReconnect = () => {
+      console.log('Attempting to reconnect to MQTT...');
+      setConnectionStatus('connecting');
+    };
+
+    client.on('connect', handleConnect);
+    client.on('message', handleMessage);
+    client.on('error', handleError);
+    client.on('reconnect', handleReconnect);
+
+    return () => {
+      client.removeListener('connect', handleConnect);
+      client.removeListener('message', handleMessage);
+      client.removeListener('error', handleError);
+      client.removeListener('reconnect', handleReconnect);
+      client.end(true);
+    };
+  }, []);
+
+  return (
+    <div className="bg-gray-800 rounded-lg p-6">
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-xl font-semibold text-gray-100">Active Instances</h2>
+        <Box className="w-5 h-5 text-blue-400" />
+      </div>
+      
+      {connectionStatus === 'error' && (
+        <div className="text-red-400 text-sm mb-4">
+          Unable to connect to instances monitoring
+        </div>
+      )}
+
+      {instances.length === 0 ? (
+        <div className="text-gray-400 text-center py-4">
+          No active scenarios
+        </div>
+      ) : (
+        <div className="space-y-4">
+          {instances.map(instance => (
+            <div 
+              key={instance.id} 
+              className="bg-gray-700 rounded-lg p-4 hover:bg-gray-650 transition-colors"
+            >
+              <div className="flex justify-between items-center">
+                <div className="flex items-center space-x-3">
+                  <div className={`w-2 h-2 rounded-full ${getStatusColor(instance.status)}`} />
+                  <div className="flex items-center space-x-2">
+                    {getStatusIcon(instance.status)}
+                    <span className="text-gray-100 font-medium">{instance.name}</span>
+                  </div>
+                </div>
+                <div className="text-sm text-gray-400">
+                  {formatDuration(instance.duration)}
+                </div>
+              </div>
+              
+              {/* Progress Bar */}
+              <div className="mt-3">
+                <div className="flex justify-between text-xs text-gray-400 mb-1">
+                  <span>Progress</span>
+                  <span>{instance.progress}%</span>
+                </div>
+                <div className="w-full bg-gray-600 rounded-full h-2">
+                  <div 
+                    className="bg-blue-400 rounded-full h-2" 
+                    style={{ width: `${instance.progress}%` }}
+                  />
+                </div>
+              </div>
+              
+              {/* Teams */}
+              {instance.teams.length > 0 && (
+                <div className="mt-3">
+                  <div className="text-xs text-gray-400 mb-1">Teams</div>
+                  <div className="flex space-x-2">
+                    {instance.teams.map(team => (
+                      <span 
+                        key={team.id} 
+                        className="px-2 py-1 bg-gray-600 text-xs text-gray-100 rounded"
+                      >
+                        {team.name}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default ActiveInstances;

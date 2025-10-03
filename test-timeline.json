@@ -1,0 +1,68 @@
+{
+  "id": "timeline-blue",
+  "name": "Blue Team - Maritime Security Timeline (UPDATED)",
+  "description": "Injects for the Blue Team, focusing on maritime security and intelligence.",
+  "version": "1.0.1",
+  "injects": [
+    {
+      "id": "inject-test-media",
+      "time": 5,
+      "type": "alert",
+      "priority": "high",
+      "content": {
+        "headline": "System Test",
+        "body": "Testing media display and action triggers"
+      },
+      "media": [
+        "/media/library/test-image.svg",
+        "/media/library/test-alert.png"
+      ]
+    },
+    {
+      "id": "inject-blue-001",
+      "time": 45,
+      "type": "news",
+      "priority": "high",
+      "content": {
+        "headline": "Unidentified Vessel Detected Near Port",
+        "body": "Maritime patrol has detected an unidentified vessel operating in a restricted zone near the main shipping channel. The vessel is not responding to hails.",
+        "source": "Port Authority Command Center"
+      },
+      "media": ["/media/library/test-alert.png"],
+      "action": {
+        "type": "alert",
+        "data": {
+          "message": "Maritime Security Alert: Unidentified vessel in restricted zone",
+          "severity": "high"
+        }
+      }
+    },
+    {
+      "id": "inject-blue-002",
+      "time": 180,
+      "type": "social",
+      "priority": "medium",
+      "content": {
+        "platform": "twitter",
+        "username": "@LocalSeaWatcher",
+        "verified": false,
+        "text": "Just saw a weird-looking boat heading towards the port. No flags, and it's moving fast. Anyone else see it? #PortSecurity",
+        "image": "/media/exercises/maritime-crisis-01/images/suspicious-vessel.jpg"
+      }
+    },
+    {
+      "id": "inject-blue-003",
+      "time": 360,
+      "type": "trigger",
+      "content": {
+        "command": "update_dashboard",
+        "parameters": {
+          "dashboard": "ais_map",
+          "change": "show_ship",
+          "ship_id": "VSSL-001",
+          "position": [ -34.90, 138.50 ]
+        }
+      }
+    }
+  ]
+}

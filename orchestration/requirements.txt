@@ -1,0 +1,8 @@
+
+fastapi
+uvicorn
+paho-mqtt
+docker
+redis==5.0.0
+Pillow
+python-multipart

@@ -1,0 +1,33 @@
+{
+  "id": "timeline-red",
+  "name": "Red Team - Opposing Force Timeline",
+  "description": "Injects for the Red Team, simulating opposing force activities.",
+  "version": "1.0.0",
+  "injects": [
+    {
+      "id": "inject-red-001",
+      "time": 30,
+      "type": "sms",
+      "priority": "high",
+      "content": {
+        "from": "UNKNOWN",
+        "text": "Phase 1 complete. Vessel is in position. Awaiting signal for Phase 2."
+      },
+      "media": [
+        "/media/library/SMS-demo.png"
+      ]
+    },
+    {
+      "id": "inject-red-002",
+      "time": 720,
+      "type": "trigger",
+      "content": {
+        "command": "initiate_comms_jamming",
+        "parameters": {
+          "target_area": "port_authority_channel_6",
+          "duration_seconds": 120
+        }
+      }
+    }
+  ]
+}

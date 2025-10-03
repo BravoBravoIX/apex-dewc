@@ -1,0 +1,213 @@
+{
+  "scenario_definition": {
+    "id": "ground-station-sec-001",
+    "name": "Ground Station Security Operations",
+    "version": "1.0",
+    "category": "security_operations",
+    "metadata": {
+      "description": "Intermediate scenario focusing on detecting and responding to cyber threats targeting ground station infrastructure",
+      "difficulty": "intermediate",
+      "duration_estimate": "3 hours",
+      "max_instances": 4,
+      "prerequisites": [
+        "Basic satellite operations knowledge",
+        "Network security fundamentals",
+        "Security monitoring experience",
+        "Incident response basics"
+      ],
+      "learning_objectives": [
+        "Detect and classify cyber threats to ground infrastructure",
+        "Implement security controls and countermeasures",
+        "Perform incident response and threat mitigation",
+        "Maintain operational continuity during security events"
+      ]
+    },
+
+    "topology": {
+      "assets": {
+        "primary_ground_station": {
+          "type": "vm",
+          "base_image": "ground_station_v2",
+          "description": "Primary ground station with enhanced security monitoring",
+          "network_interfaces": ["management", "operations", "monitoring"],
+          "resource_requirements": {
+            "cpu_cores": 4,
+            "memory_gb": 8,
+            "storage_gb": 40
+          }
+        },
+        "security_monitoring": {
+          "type": "vm",
+          "base_image": "security_monitor_v1",
+          "description": "Security monitoring and analysis system",
+          "network_interfaces": ["monitoring", "management"],
+          "resource_requirements": {
+            "cpu_cores": 2,
+            "memory_gb": 4,
+            "storage_gb": 20
+          }
+        },
+        "backup_station": {
+          "type": "vm",
+          "base_image": "ground_station_backup_v1",
+          "description": "Secondary ground station for failover",
+          "network_interfaces": ["management", "operations"],
+          "resource_requirements": {
+            "cpu_cores": 4,
+            "memory_gb": 8,
+            "storage_gb": 40
+          }
+        }
+      },
+      "connections": [
+        {
+          "name": "operations_link",
+          "from": "primary_ground_station",
+          "to": "satellite",
+          "type": "tcp_ip",
+          "parameters": {
+            "protocol": "encrypted",
+            "bandwidth": "100Mbps",
+            "latency": "50ms"
+          }
+        },
+        {
+          "name": "monitoring_link",
+          "from": "security_monitoring",
+          "to": "primary_ground_station",
+          "type": "tcp_ip",
+          "parameters": {
+            "protocol": "encrypted",
+            "bandwidth": "1Gbps",
+            "latency": "5ms"
+          }
+        }
+      ]
+    },
+
+    "security_configuration": {
+      "monitoring": {
+        "ids_enabled": true,
+        "log_retention_days": 30,
+        "alert_thresholds": {
+          "failed_logins": 5,
+          "bandwidth_spike": "200%",
+          "new_connection": "immediate"
+        }
+      },
+      "authentication": {
+        "mfa_required": true,
+        "password_policy": "strong",
+        "session_timeout": 1800
+      },
+      "network": {
+        "segmentation": "strict",
+        "encryption": "required",
+        "firewall": "stateful"
+      }
+    },
+
+    "stages": [
+      {
+        "name": "Security Monitoring Setup",
+        "description": "Configure and validate security monitoring systems",
+        "completion_criteria": "All monitoring systems operational and properly configured",
+        "tasks": [
+          {
+            "id": "monitor_config",
+            "task": "Configure Security Monitoring",
+            "description": "Set up IDS rules and alert thresholds",
+            "verification": "All monitoring systems reporting correctly"
+          },
+          {
+            "id": "baseline_establish",
+            "task": "Establish System Baseline",
+            "description": "Document normal operational patterns",
+            "verification": "Baseline metrics documented and validated"
+          },
+          {
+            "id": "alert_config",
+            "task": "Configure Alert System",
+            "description": "Set up alert routing and escalation procedures",
+            "verification": "Test alerts received by appropriate personnel"
+          }
+        ]
+      },
+      {
+        "name": "Threat Detection",
+        "description": "Identify and classify security threats",
+        "completion_criteria": "Successfully detect and classify all test threats",
+        "tasks": [
+          {
+            "id": "anomaly_detect",
+            "task": "Detect System Anomalies",
+            "description": "Identify deviations from baseline",
+            "verification": "All test anomalies detected and logged"
+          },
+          {
+            "id": "threat_classify",
+            "task": "Classify Security Threats",
+            "description": "Categorize detected anomalies by threat level",
+            "verification": "Threats correctly categorized by severity"
+          },
+          {
+            "id": "initial_triage",
+            "task": "Perform Initial Triage",
+            "description": "Assess immediate impact of detected threats",
+            "verification": "Impact assessment completed for all threats"
+          }
+        ]
+      },
+      {
+        "name": "Incident Response",
+        "description": "Respond to and mitigate security incidents",
+        "completion_criteria": "All security incidents contained and mitigated",
+        "tasks": [
+          {
+            "id": "containment",
+            "task": "Implement Containment",
+            "description": "Isolate affected systems and prevent spread",
+            "verification": "Threat contained to initial systems"
+          },
+          {
+            "id": "countermeasures",
+            "task": "Deploy Countermeasures",
+            "description": "Implement security controls to block threat",
+            "verification": "Threat activity blocked by countermeasures"
+          },
+          {
+            "id": "system_hardening",
+            "task": "Perform System Hardening",
+            "description": "Strengthen security controls on affected systems",
+            "verification": "Systems hardened against similar threats"
+          }
+        ]
+      },
+      {
+        "name": "Recovery Operations",
+        "description": "Restore normal operations while maintaining security",
+        "completion_criteria": "Systems restored to normal operation with enhanced security",
+        "tasks": [
+          {
+            "id": "service_restore",
+            "task": "Restore Critical Services",
+            "description": "Bring systems back online securely",
+            "verification": "All critical services operational"
+          },
+          {
+            "id": "verify_security",
+            "task": "Verify Security Posture",
+            "description": "Confirm all security controls are active",
+            "verification": "Security controls verified operational"
+          },
+          {
+            "id": "incident_report",
+            "task": "Generate Incident Report",
+            "description": "Document incident and response actions",
+            "verification": "Complete incident report submitted"
+          }
+        ]
+      }
+    ]
+  }
+}

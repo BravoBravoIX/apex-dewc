@@ -1,0 +1,19 @@
+__pycache__/
+node_modules/
+*.log
+.env
+.DS_Store
+build/
+
+# Exclude MQTT data/log/config
+mqtt/log/*
+mqtt/data/*
+!mqtt/config/mosquitto.conf
+
+# Exclude Redis data
+redis/data/
+
+# Exclude temporary and system files
+*.log
+*.rdb
+.DS_Store

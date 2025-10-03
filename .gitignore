@@ -1,0 +1,91 @@
+# Node.js
+node_modules/
+dist/
+build/
+.vite/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+.eslintcache
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+ENV/
+env/
+*.egg-info/
+.pytest_cache/
+
+# IQ Files (large binaries - regenerate with generate_demo_iq.py)
+*.iq
+*.dat
+*.raw
+*.cfile
+iq_files/
+scenarios/iq_library/
+
+# Large media files (optional - uncomment if you have large videos)
+# scenarios/media/library/*.mp4
+# scenarios/media/library/*.mov
+# scenarios/media/library/*.avi
+
+# Keep PNG/JPG images (scenario thumbnails, etc)
+# Don't exclude these - we want them in repo
+
+# Docker
+.docker/
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.settings/
+.classpath
+
+# Environment variables (create .env.example instead)
+.env
+.env.local
+.env.production
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# Redis data (Docker volume)
+redis-data/
+
+# Backup files
+*.bak
+*.backup
+scenarios/backups/
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# MacOS
+.AppleDouble
+.LSOverride

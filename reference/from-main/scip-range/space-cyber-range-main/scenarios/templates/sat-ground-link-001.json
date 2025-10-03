@@ -1,0 +1,246 @@
+{
+  "scenario_definition": {
+    "id": "sat-ground-link-001",
+    "name": "Satellite Ground Link Training",
+    "version": "1.0",
+    "category": "satellite_operations",
+    "metadata": {
+      "description": "Training scenario for establishing and maintaining satellite communications while handling interference",
+      "difficulty": "intermediate",
+      "duration_estimate": "2 hours",
+      "max_instances": 5,
+      "prerequisites": [
+        "Basic RF knowledge",
+        "Satellite operations fundamentals",
+        "Ground station operations experience"
+      ],
+      "learning_objectives": [
+        "Configure ground station for satellite communication",
+        "Establish and maintain satellite links",
+        "Identify and mitigate RF interference",
+        "Perform basic satellite operations"
+      ]
+    },
+
+    "topology": {
+      "assets": {
+        "ground_station": {
+          "type": "vm",
+          "base_image": "ground_station_v1",
+          "description": "Primary ground station control system",
+          "network_interfaces": ["management", "rf_network"],
+          "resource_requirements": {
+            "cpu_cores": 2,
+            "memory_gb": 4,
+            "storage_gb": 20
+          }
+        },
+        "satellite": {
+          "type": "vm",
+          "base_image": "satellite_sim_v1",
+          "description": "Simulated satellite system",
+          "network_interfaces": ["management", "rf_network"],
+          "resource_requirements": {
+            "cpu_cores": 2,
+            "memory_gb": 4,
+            "storage_gb": 20
+          }
+        },
+        "rf_simulator": {
+          "type": "vm",
+          "base_image": "rf_sim_v1",
+          "description": "RF environment simulator",
+          "network_interfaces": ["management", "rf_network"],
+          "resource_requirements": {
+            "cpu_cores": 4,
+            "memory_gb": 8,
+            "storage_gb": 40
+          }
+        }
+      },
+      "connections": [
+        {
+          "name": "uplink",
+          "from": "ground_station",
+          "to": "satellite",
+          "type": "rf",
+          "parameters": {
+            "frequency_band": "S-Band",
+            "center_frequency": 2200,
+            "bandwidth": 20,
+            "modulation": "QPSK"
+          }
+        },
+        {
+          "name": "downlink",
+          "from": "satellite",
+          "to": "ground_station",
+          "type": "rf",
+          "parameters": {
+            "frequency_band": "S-Band",
+            "center_frequency": 2250,
+            "bandwidth": 20,
+            "modulation": "QPSK"
+          }
+        }
+      ]
+    },
+
+    "rf_configuration": {
+      "ground_station": {
+        "transmit_power_range": [-10, 20],
+        "receive_sensitivity": -120,
+        "gain_control": "automatic",
+        "tracking": {
+          "methods": ["program_track", "auto_track"],
+          "accuracy": 0.1
+        }
+      },
+      "satellite": {
+        "transmit_power": 10,
+        "receive_sensitivity": -120,
+        "orbital_parameters": {
+          "altitude_km": 500,
+          "inclination_deg": 51.6,
+          "period_minutes": 94
+        }
+      },
+      "interference_scenarios": [
+        {
+          "name": "adjacent_satellite",
+          "type": "co_channel",
+          "power_level": -15,
+          "duration": 300
+        },
+        {
+          "name": "environmental",
+          "type": "wideband",
+          "power_level": -20,
+          "duration": 600
+        }
+      ]
+    },
+
+    "stages": [
+      {
+        "name": "Ground Station Setup",
+        "description": "Initialize and configure ground station systems",
+        "completion_criteria": "All systems operational and calibrated",
+        "tasks": [
+          {
+            "id": "gs_config",
+            "task": "Configure Ground Station Parameters",
+            "description": "Set frequency, bandwidth, and power levels",
+            "verification": "Parameters match link budget requirements"
+          },
+          {
+            "id": "rf_chain",
+            "task": "Verify RF Chain",
+            "description": "Check RF path integrity and calibration",
+            "verification": "Signal path verified with test equipment"
+          },
+          {
+            "id": "tracking_init",
+            "task": "Initialize Tracking System",
+            "description": "Configure tracking system with orbital parameters",
+            "verification": "Tracking system locked and following"
+          }
+        ]
+      },
+      {
+        "name": "Satellite Acquisition",
+        "description": "Establish initial satellite contact",
+        "completion_criteria": "Two-way communication established",
+        "tasks": [
+          {
+            "id": "tle_lookup",
+            "task": "Locate Satellite TLE",
+            "description": "Obtain current orbital elements",
+            "verification": "Valid TLE data loaded"
+          },
+          {
+            "id": "pass_calc",
+            "task": "Calculate Pass Times",
+            "description": "Determine upcoming pass opportunities",
+            "verification": "Pass times validated against orbital model"
+          },
+          {
+            "id": "initial_contact",
+            "task": "Establish Initial Contact",
+            "description": "Acquire and lock satellite signal",
+            "verification": "Telemetry data received"
+          }
+        ]
+      },
+      {
+        "name": "Communications",
+        "description": "Perform basic satellite operations",
+        "completion_criteria": "All commanded operations completed successfully",
+        "tasks": [
+          {
+            "id": "tlm_download",
+            "task": "Download Telemetry",
+            "description": "Receive and decode telemetry data",
+            "verification": "All telemetry parameters received"
+          },
+          {
+            "id": "cmd_upload",
+            "task": "Upload Commands",
+            "description": "Send operational commands to satellite",
+            "verification": "Commands acknowledged by satellite"
+          },
+          {
+            "id": "cmd_verify",
+            "task": "Verify Command Execution",
+            "description": "Confirm commanded actions completed",
+            "verification": "Telemetry confirms command execution"
+          }
+        ]
+      },
+      {
+        "name": "Interference Management",
+        "description": "Handle RF interference scenarios",
+        "completion_criteria": "All interference scenarios managed successfully",
+        "tasks": [
+          {
+            "id": "interference_detect",
+            "task": "Detect Interference",
+            "description": "Identify presence of interference",
+            "verification": "Interference correctly characterized"
+          },
+          {
+            "id": "signal_analysis",
+            "task": "Analyze Signal Quality",
+            "description": "Assess impact on communications",
+            "verification": "Signal quality metrics documented"
+          },
+          {
+            "id": "countermeasures",
+            "task": "Implement Countermeasures",
+            "description": "Execute interference mitigation",
+            "verification": "Link quality restored to nominal"
+          }
+        ]
+      },
+      {
+        "name": "Mission Report",
+        "description": "Document scenario outcomes",
+        "completion_criteria": "Complete documentation submitted",
+        "tasks": [
+          {
+            "id": "link_report",
+            "task": "Generate Link Report",
+            "description": "Document link performance",
+            "verification": "Report includes all required metrics"
+          },
+          {
+            "id": "anomaly_doc",
+            "task": "Document Anomalies",
+            "description": "Record and explain any issues",
+            "verification": "All anomalies documented with resolution"
+          }
+        ]
+      }
+    ]
+  }
+}

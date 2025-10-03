@@ -1,0 +1,51 @@
+{
+    "system": {
+      "health": {
+        "services": {
+          "api": {
+            "status": "healthy",
+            "last_check": "2024-01-08T10:00:00Z",
+            "uptime": 86400
+          },
+          "db": {
+            "status": "healthy",
+            "last_check": "2024-01-08T10:00:00Z",
+            "uptime": 86400
+          },
+          "file_system": {
+            "status": "healthy",
+            "last_check": "2024-01-08T10:00:00Z",
+            "uptime": 86400
+          }
+        },
+        "network": {
+          "management": {
+            "status": "up",
+            "latency": 15,
+            "bandwidth": 1000,
+            "active_connections": 24
+          }
+        }
+      },
+      "resources": {
+        "cpu": {
+          "total": 32,
+          "used": 18,
+          "available": 14,
+          "usage_percent": 56
+        },
+        "memory": {
+          "total_gb": 64,
+          "used_gb": 42,
+          "available_gb": 22,
+          "usage_percent": 65
+        },
+        "storage": {
+          "total_gb": 1000,
+          "used_gb": 456,
+          "available_gb": 544,
+          "usage_percent": 45
+        }
+      }
+    }
+  }

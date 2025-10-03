@@ -1,0 +1,19 @@
+[Unit]
+Description=Space Range Channel Simulator Test Processor
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+User=root
+Environment=PYTHONUNBUFFERED=1
+WorkingDirectory=/var/app/scripts
+ExecStart=/var/app/venv/bin/python /var/app/scripts/test_processor.py
+
+StandardOutput=append:/var/app/logs/test_processor.log
+StandardError=append:/var/app/logs/test_processor.log
+
+[Install]
+WantedBy=multi-user.target

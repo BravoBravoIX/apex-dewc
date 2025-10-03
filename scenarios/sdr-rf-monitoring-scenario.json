@@ -1,0 +1,18 @@
+{
+  "id": "sdr-rf-monitoring-scenario",
+  "name": "SDR/RF Spectrum Monitoring",
+  "description": "Real-time RF spectrum monitoring using GQRX. Analyze signals and identify jamming patterns.",
+  "version": "1.0.0",
+  "duration_minutes": 30,
+  "iq_file": "/iq_library/demo.iq",
+  "teams": [
+    {
+      "id": "sdr-rf",
+      "name": "RF Analysis Team",
+      "description": "Monitor RF spectrum and identify interference",
+      "timeline_file": "timelines/timeline-sdr-rf.json",
+      "dashboard_port": 3300,
+      "dashboard_image": "team-dashboard-sdr:latest"
+    }
+  ]
+}

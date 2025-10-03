@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Raw WebSocket Test</title>
+</head>
+<body>
+    <h1>Raw WebSocket Test to MQTT</h1>
+    <div id="status">Testing...</div>
+    <pre id="log"></pre>
+
+    <script>
+        const log = (msg) => {
+            document.getElementById('log').textContent += msg + '\n';
+            console.log(msg);
+        };
+
+        // Test 1: Raw WebSocket
+        log('Testing raw WebSocket to ws://localhost:9001...');
+
+        try {
+            const ws = new WebSocket('ws://localhost:9001');
+
+            ws.onopen = () => {
+                log('✅ WebSocket opened!');
+                document.getElementById('status').textContent = '✅ WebSocket connection successful!';
+                ws.close();
+            };
+
+            ws.onerror = (error) => {
+                log('❌ WebSocket error: ' + error);
+                document.getElementById('status').textContent = '❌ WebSocket failed';
+            };
+
+            ws.onclose = (event) => {
+                log(`WebSocket closed: code=${event.code}, reason=${event.reason}`);
+            };
+        } catch(e) {
+            log('❌ Exception creating WebSocket: ' + e);
+        }
+
+        // Test 2: Try with different protocols
+        setTimeout(() => {
+            log('\nTesting with MQTT subprotocol...');
+            try {
+                const ws2 = new WebSocket('ws://localhost:9001', 'mqtt');
+
+                ws2.onopen = () => {
+                    log('✅ WebSocket with mqtt subprotocol opened!');
+                    ws2.close();
+                };
+
+                ws2.onerror = (error) => {
+                    log('❌ WebSocket with mqtt subprotocol error');
+                };
+            } catch(e) {
+                log('❌ Exception with mqtt subprotocol: ' + e);
+            }
+        }, 2000);
+
+        // Test 3: Test TCP connection via fetch (CORS will likely block)
+        setTimeout(() => {
+            log('\nTesting if server is reachable...');
+            fetch('http://localhost:9001')
+                .then(() => log('Server responded to HTTP'))
+                .catch(err => log('Expected CORS/connection error: ' + err.message));
+        }, 4000);
+    </script>
+</body>
+</html>

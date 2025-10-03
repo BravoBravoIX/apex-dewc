@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Team Dashboard Connection Test</title>
+    <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+    <style>
+        body { font-family: -apple-system, sans-serif; padding: 20px; background: #1a1a1a; color: #e0e0e0; }
+        .success { color: #10b981; }
+        .error { color: #dc2626; }
+        .info { color: #60a5fa; }
+        .message { background: #2a2a2a; padding: 10px; margin: 5px 0; border-radius: 5px; }
+        #messages { max-height: 400px; overflow-y: auto; }
+    </style>
+</head>
+<body>
+    <h1>Team Dashboard Connection Test</h1>
+    <p>Testing connection with query parameters: <span class="info">?team=blue&exercise=maritime-crisis-scenario</span></p>
+
+    <div id="status">Initializing...</div>
+    <h3>Configuration:</h3>
+    <div id="config"></div>
+    <h3>Messages:</h3>
+    <div id="messages"></div>
+
+    <script>
+        // Parse URL parameters like the team dashboard does
+        const urlParams = new URLSearchParams(window.location.search);
+        const teamId = urlParams.get('team') || 'blue';
+        const exerciseName = urlParams.get('exercise') || 'maritime-crisis-scenario';
+        const topic = `/exercise/${exerciseName}/team/${teamId}/feed`;
+        const timerTopic = `/exercise/${exerciseName}/timer`;
+        const controlTopic = `/exercise/${exerciseName}/control`;
+        const brokerUrl = `ws://${window.location.hostname}:9001`;
+
+        // Display configuration
+        document.getElementById('config').innerHTML = `
+            <div class="message">
+                <div>Broker URL: <span class="info">${brokerUrl}</span></div>
+                <div>Team: <span class="info">${teamId}</span></div>
+                <div>Exercise: <span class="info">${exerciseName}</span></div>
+                <div>Topics:</div>
+                <ul>
+                    <li>Timer: <span class="info">${timerTopic}</span></li>
+                    <li>Feed: <span class="info">${topic}</span></li>
+                    <li>Control: <span class="info">${controlTopic}</span></li>
+                </ul>
+            </div>
+        `;
+
+        document.getElementById('status').textContent = `Connecting to ${brokerUrl}...`;
+
+        // Create single connection with proper options
+        const client = mqtt.connect(brokerUrl, {
+            reconnectPeriod: 5000,
+            connectTimeout: 30000
+        });
+
+        let messageCount = 0;
+
+        client.on('connect', function() {
+            document.getElementById('status').innerHTML = '<span class="success">✓ Connected to MQTT broker</span>';
+
+            // Subscribe to all topics
+            const topics = [timerTopic, topic, controlTopic];
+            topics.forEach(t => {
+                client.subscribe(t, function(err) {
+                    if (err) {
+                        addMessage(`<span class="error">❌ Failed to subscribe to ${t}: ${err}</span>`);
+                    } else {
+                        addMessage(`<span class="success">✓ Subscribed to ${t}</span>`);
+                    }
+                });
+            });
+        });
+
+        client.on('message', function(topic, payload) {
+            messageCount++;
+            const msg = payload.toString();
+            let formatted = '';
+
+            try {
+                const parsed = JSON.parse(msg);
+                if (parsed.formatted) {
+                    // Timer message
+                    formatted = `<span class="info">⏱ Timer:</span> ${parsed.formatted}`;
+                } else if (parsed.command) {
+                    // Control message
+                    formatted = `<span class="info">🎮 Control:</span> ${parsed.command}`;
+                } else if (parsed.id) {
+                    // Inject message
+                    formatted = `<span class="success">📨 Inject ${parsed.id}:</span> ${JSON.stringify(parsed, null, 2)}`;
+                } else {
+                    formatted = msg;
+                }
+            } catch(e) {
+                formatted = msg;
+            }
+
+            addMessage(`[${messageCount}] ${topic}: ${formatted}`);
+        });
+
+        client.on('error', function(err) {
+            document.getElementById('status').innerHTML = `<span class="error">❌ Error: ${err}</span>`;
+        });
+
+        client.on('reconnect', function() {
+            addMessage('<span class="info">↻ Reconnecting...</span>');
+        });
+
+        function addMessage(msg) {
+            const messagesDiv = document.getElementById('messages');
+            const msgDiv = document.createElement('div');
+            msgDiv.className = 'message';
+            msgDiv.innerHTML = msg;
+            messagesDiv.appendChild(msgDiv);
+
+            // Keep only last 20 messages
+            while (messagesDiv.children.length > 20) {
+                messagesDiv.removeChild(messagesDiv.firstChild);
+            }
+
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+    </script>
+</body>
+</html>

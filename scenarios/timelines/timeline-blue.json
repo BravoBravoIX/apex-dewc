@@ -1,0 +1,56 @@
+{
+  "id": "timeline-blue",
+  "name": "Blue Team - Maritime Security Timeline",
+  "description": "Injects for the Blue Team, focusing on maritime security and intelligence.",
+  "version": "1.0.0",
+  "injects": [
+    {
+      "id": "inject-blue-news-001",
+      "time": 0,
+      "type": "news",
+      "priority": "high",
+      "content": {
+        "headline": "Unidentified Vessels Detected Near Territorial Waters",
+        "body": "Coast Guard reports multiple unidentified vessels approaching territorial boundaries. All port authorities have been placed on high alert. Defense forces monitoring situation closely.",
+        "source": "Maritime News Network"
+      },
+      "media": [
+        "/media/library/News-demo.png"
+      ]
+    },
+    {
+      "id": "inject-blue-social-001",
+      "time": 3,
+      "type": "social",
+      "priority": "medium",
+      "content": {
+        "body": "Multiple ships just passed our fishing area moving fast toward the port. This isn't normal traffic. Something's up. #MaritimeSecurity #PortWatch",
+        "source": "@LocalFisherman",
+        "platform": "twitter"
+      }
+    },
+    {
+      "id": "inject-blue-email-001",
+      "time": 6,
+      "type": "email",
+      "priority": "urgent",
+      "content": {
+        "from": "ops@harbor-control.mil",
+        "to": "team@blue-force.mil",
+        "subject": "URGENT: Radar Contact Alert - Multiple Vessels",
+        "body": "Our coastal radar systems have detected 3 unidentified vessels on approach vector to port facility. ETA 15 minutes. Vessels not responding to hails. Recommend immediate tactical assessment and defensive posture."
+      }
+    },
+    {
+      "id": "inject-blue-sms-001",
+      "time": 9,
+      "type": "sms",
+      "priority": "high",
+      "content": {
+        "from": "+61-555-0142",
+        "to": "+61-555-0199",
+        "body": "INTERCEPTED MSG: Package arriving earlier than expected. Team ready at alternate entrance. Proceed with alpha protocol."
+      }
+    }
+  ]
+}

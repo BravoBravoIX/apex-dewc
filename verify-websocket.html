@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebSocket MQTT Verification</title>
+</head>
+<body>
+    <h1>WebSocket MQTT Connection Test</h1>
+    <p>Open browser console to see connection attempts and messages</p>
+
+    <div id="status">Testing connection...</div>
+    <div id="messages"></div>
+
+    <script>
+        console.log('Testing WebSocket connection to MQTT broker...');
+        console.log('Current hostname:', window.location.hostname);
+
+        const wsUrl = `ws://${window.location.hostname}:9001`;
+        console.log('WebSocket URL:', wsUrl);
+
+        // Test raw WebSocket connection first
+        const testWs = new WebSocket(wsUrl);
+
+        testWs.onopen = function() {
+            console.log('✅ Raw WebSocket connected to', wsUrl);
+            document.getElementById('status').textContent = '✅ WebSocket connected!';
+            testWs.close();
+
+            // Now test with MQTT.js
+            loadMqttTest();
+        };
+
+        testWs.onerror = function(error) {
+            console.error('❌ WebSocket connection error:', error);
+            document.getElementById('status').textContent = '❌ WebSocket connection failed!';
+        };
+
+        function loadMqttTest() {
+            const script = document.createElement('script');
+            script.src = 'https://unpkg.com/mqtt/dist/mqtt.min.js';
+            script.onload = function() {
+                console.log('MQTT.js loaded, attempting connection...');
+
+                const client = mqtt.connect(wsUrl);
+
+                client.on('connect', function() {
+                    console.log('✅ MQTT connected successfully!');
+                    document.getElementById('status').textContent = '✅ MQTT connected! Subscribing to timer...';
+
+                    const topic = '/exercise/maritime-crisis-scenario/timer';
+                    client.subscribe(topic, function(err) {
+                        if (!err) {
+                            console.log('✅ Subscribed to', topic);
+                            document.getElementById('status').textContent = '✅ Subscribed to timer topic!';
+                        } else {
+                            console.error('❌ Subscribe error:', err);
+                        }
+                    });
+                });
+
+                client.on('message', function(topic, payload) {
+                    const msg = payload.toString();
+                    console.log('📨 Message on', topic, ':', msg);
+
+                    const msgDiv = document.createElement('div');
+                    msgDiv.textContent = `${new Date().toLocaleTimeString()}: ${msg}`;
+                    document.getElementById('messages').appendChild(msgDiv);
+
+                    // Keep only last 5 messages
+                    const messages = document.getElementById('messages');
+                    while (messages.children.length > 5) {
+                        messages.removeChild(messages.firstChild);
+                    }
+                });
+
+                client.on('error', function(error) {
+                    console.error('❌ MQTT error:', error);
+                    document.getElementById('status').textContent = '❌ MQTT error: ' + error;
+                });
+            };
+            document.head.appendChild(script);
+        }
+    </script>
+</body>
+</html>

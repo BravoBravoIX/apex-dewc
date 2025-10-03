@@ -1,0 +1,49 @@
+channel_effects:
+  atmosphere:
+    enabled: true
+    humidity: 80.0
+    rain_fade_db: 8.0
+  awgn:
+    enabled: true
+    ramp_max: 1.5
+    ramp_min: 1.0
+    snr_db: 7.0
+  doppler:
+    enabled: false
+  multipath:
+    delays:
+    - 0.0
+    - 5.0e-07
+    - 1.0e-06
+    enabled: true
+    gains_db:
+    - 0.0
+    - -1.0
+    - -2.0
+    num_paths: 3
+  path_loss:
+    distance_m: 40000
+    enabled: true
+    frequency_hz: 2.0e9
+    model: free_space
+ips:
+  vm_a: 0.0.0.0
+  vm_b: 0.0.0.0
+  vm_c: 0.0.0.0
+local_vm: vm_b
+logging:
+  file: /var/app/app2/channel_sim.log
+  level: DEBUG
+modulation:
+  bit_rate: 1000000
+  carrier_freq: 500000
+  sample_rate: 2000000
+ports:
+  vm_a_receive: 5000
+  vm_a_send: 5001
+  vm_b_receive: 5002
+  vm_b_send: 5003
+  vm_c_receive: 5004
+  vm_c_send: 5005
+retry_count: 3
+send_interval: 10

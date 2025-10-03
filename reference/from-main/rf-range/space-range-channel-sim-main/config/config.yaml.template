@@ -1,0 +1,74 @@
+# Combined configuration for Space Range Channel Simulator
+
+# Network Configuration
+# ====================
+# Ports for communication between VMs
+ports:
+  vm_a_receive: 5000
+  vm_a_send: 5001
+  vm_b_receive: 5002  # Channel Simulator receive
+  vm_b_send: 5003    # Channel Simulator send
+  vm_c_receive: 5004
+  vm_c_send: 5005
+
+# IP addresses for each VM
+ips:
+  vm_a: 0.0.0.0  # Satellite
+  vm_b: 0.0.0.0  # Channel Simulator
+  vm_c: 0.0.0.0  # Ground Station
+
+# Role Configuration
+# =================
+local_vm: vm_b  # This machine is the channel simulator (vm_b)
+
+# File Transfer Settings
+# ====================
+send_interval: 10  # Time in seconds to check outgoing directory
+retry_count: 3     # Number of retries for failed transfers
+
+# Channel Effects Configuration
+# ===========================
+channel_effects:
+  # AWGN (Additive White Gaussian Noise)
+  awgn:
+    enabled: true
+    snr_db: 20.0  # Signal-to-Noise Ratio in dB
+
+  # Path Loss
+  path_loss:
+    enabled: true
+    model: free_space  # Only free_space supported for now
+    frequency_hz: 2.0e9  # Carrier frequency in Hz
+    distance_m: 7.0e5    # Distance in meters
+
+  # Atmospheric Effects
+  atmosphere:
+    enabled: false
+    rain_fade_db: 0.0  # Rain attenuation in dB
+    humidity: 50.0     # Relative humidity percentage
+
+  # Multipath
+  multipath:
+    enabled: false
+    num_paths: 3
+    delays: [0.0, 1.0e-6, 2.0e-6]  # Delays in seconds
+    gains_db: [0.0, -3.0, -6.0]    # Path gains in dB
+
+  # Doppler Effect
+  doppler:
+    enabled: false
+    shift_hz: 100.0  # Doppler shift in Hz
+
+# Processing Settings
+# =================
+processing:
+  batch_size: 1048576  # Process files in chunks of this size (bytes)
+  max_file_size: 1073741824  # Maximum file size to process (1GB)
+
+# Logging Configuration
+# ===================
+logging:
+  level: INFO  # DEBUG, INFO, WARNING, ERROR, CRITICAL
+  file: /var/app/logs/channel_sim.log
+  max_size: 10485760  # 10MB
+  backup_count: 5     # Number of backup files to keep

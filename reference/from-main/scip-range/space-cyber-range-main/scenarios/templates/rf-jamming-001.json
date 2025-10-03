@@ -1,0 +1,244 @@
+{
+  "scenario_definition": {
+    "id": "rf-jamming-001",
+    "name": "RF Jamming Detection and Mitigation",
+    "version": "1.0",
+    "category": "rf_operations",
+    "metadata": {
+      "description": "Advanced scenario for detecting, analyzing, and mitigating various types of RF interference and jamming attacks",
+      "difficulty": "advanced",
+      "duration_estimate": "4 hours",
+      "max_instances": 3,
+      "prerequisites": [
+        "Strong RF fundamentals",
+        "Signal analysis experience",
+        "Spectrum monitoring skills",
+        "Basic jamming countermeasures knowledge",
+        "Completion of basic and intermediate scenarios"
+      ],
+      "learning_objectives": [
+        "Detect and classify RF interference patterns",
+        "Analyze jamming techniques and signatures",
+        "Implement anti-jamming countermeasures",
+        "Maintain communications during active jamming",
+        "Coordinate multi-site response to interference"
+      ]
+    },
+
+    "topology": {
+      "assets": {
+        "primary_ground_station": {
+          "type": "vm",
+          "base_image": "advanced_ground_station_v1",
+          "description": "Ground station with advanced RF monitoring",
+          "network_interfaces": ["management", "rf_monitor", "operations"],
+          "resource_requirements": {
+            "cpu_cores": 4,
+            "memory_gb": 8,
+            "storage_gb": 40
+          }
+        },
+        "spectrum_analyzer": {
+          "type": "vm",
+          "base_image": "spectrum_analyzer_v2",
+          "description": "Advanced spectrum analysis system",
+          "network_interfaces": ["rf_monitor", "management"],
+          "resource_requirements": {
+            "cpu_cores": 4,
+            "memory_gb": 16,
+            "storage_gb": 100
+          }
+        },
+        "rf_simulator": {
+          "type": "vm",
+          "base_image": "rf_simulator_v2",
+          "description": "RF environment simulator",
+          "network_interfaces": ["rf_monitor", "management"],
+          "resource_requirements": {
+            "cpu_cores": 8,
+            "memory_gb": 32,
+            "storage_gb": 200
+          }
+        }
+      },
+      "connections": [
+        {
+          "name": "satellite_uplink",
+          "from": "primary_ground_station",
+          "to": "satellite",
+          "type": "rf",
+          "parameters": {
+            "frequency_band": "X-Band",
+            "center_frequency": 8200,
+            "bandwidth": 50,
+            "modulation": "QPSK"
+          }
+        },
+        {
+          "name": "satellite_downlink",
+          "from": "satellite",
+          "to": "primary_ground_station",
+          "type": "rf",
+          "parameters": {
+            "frequency_band": "X-Band",
+            "center_frequency": 7600,
+            "bandwidth": 50,
+            "modulation": "QPSK"
+          }
+        }
+      ]
+    },
+
+    "rf_configuration": {
+      "interference_types": [
+        {
+          "name": "broadband_noise",
+          "type": "noise",
+          "bandwidth": 100,
+          "power_level": 20,
+          "duration": "variable"
+        },
+        {
+          "name": "swept_jammer",
+          "type": "sweep",
+          "sweep_range": [7500, 8300],
+          "sweep_rate": 1000,
+          "power_level": 25
+        },
+        {
+          "name": "pulsed_jammer",
+          "type": "pulse",
+          "pulse_width": 0.1,
+          "prf": 1000,
+          "power_level": 30
+        },
+        {
+          "name": "protocol_aware_jammer",
+          "type": "intelligent",
+          "targeting": "protocol_specific",
+          "power_level": 15,
+          "adaptation_rate": "high"
+        }
+      ],
+      "countermeasures": {
+        "frequency_hopping": {
+          "enabled": true,
+          "hop_rate": 1000,
+          "bandwidth": 500
+        },
+        "adaptive_nulling": {
+          "enabled": true,
+          "null_depth": 40,
+          "response_time": 0.001
+        },
+        "spread_spectrum": {
+          "enabled": true,
+          "spreading_factor": 1024
+        }
+      }
+    },
+
+    "stages": [
+      {
+        "name": "RF Environment Analysis",
+        "description": "Monitor and analyze RF spectrum for interference",
+        "completion_criteria": "Complete baseline RF environment characterization",
+        "tasks": [
+          {
+            "id": "spectrum_baseline",
+            "task": "Establish Spectrum Baseline",
+            "description": "Record normal RF environment characteristics",
+            "verification": "Baseline measurements documented and validated"
+          },
+          {
+            "id": "signal_analysis",
+            "task": "Perform Signal Analysis",
+            "description": "Analyze signal characteristics and patterns",
+            "verification": "Signal parameters correctly identified"
+          },
+          {
+            "id": "interference_detect",
+            "task": "Configure Interference Detection",
+            "description": "Set up automated interference detection",
+            "verification": "Detection system identifies test signals"
+          }
+        ]
+      },
+      {
+        "name": "Jamming Detection",
+        "description": "Identify and classify jamming attacks",
+        "completion_criteria": "Successfully detect and classify all jamming types",
+        "tasks": [
+          {
+            "id": "noise_detection",
+            "task": "Detect Noise Jamming",
+            "description": "Identify broadband interference patterns",
+            "verification": "Noise jamming correctly identified"
+          },
+          {
+            "id": "sweep_detection",
+            "task": "Detect Swept Jamming",
+            "description": "Identify frequency sweeping patterns",
+            "verification": "Sweep jamming correctly identified"
+          },
+          {
+            "id": "smart_detection",
+            "task": "Detect Protocol Attacks",
+            "description": "Identify protocol-aware jamming",
+            "verification": "Protocol attacks correctly identified"
+          }
+        ]
+      },
+      {
+        "name": "Countermeasure Implementation",
+        "description": "Deploy and manage anti-jamming measures",
+        "completion_criteria": "Successful mitigation of all jamming types",
+        "tasks": [
+          {
+            "id": "freq_hopping",
+            "task": "Implement Frequency Hopping",
+            "description": "Configure and activate frequency hopping",
+            "verification": "Hopping sequence operational"
+          },
+          {
+            "id": "beam_forming",
+            "task": "Configure Adaptive Nulling",
+            "description": "Set up spatial filtering",
+            "verification": "Nulling system responding to interference"
+          },
+          {
+            "id": "spread_spectrum",
+            "task": "Deploy Spread Spectrum",
+            "description": "Activate spread spectrum techniques",
+            "verification": "Spreading correctly implemented"
+          }
+        ]
+      },
+      {
+        "name": "Performance Validation",
+        "description": "Verify system performance under jamming",
+        "completion_criteria": "Maintain specified link quality during jamming",
+        "tasks": [
+          {
+            "id": "link_quality",
+            "task": "Monitor Link Quality",
+            "description": "Track communication performance metrics",
+            "verification": "Link maintains minimum quality threshold"
+          },
+          {
+            "id": "system_adaptation",
+            "task": "Verify Adaptive Response",
+            "description": "Test system response to changing threats",
+            "verification": "System adapts to all jamming variations"
+          },
+          {
+            "id": "performance_report",
+            "task": "Generate Performance Report",
+            "description": "Document system performance under jamming",
+            "verification": "Complete performance report submitted"
+          }
+        ]
+      }
+    ]
+  }
+}

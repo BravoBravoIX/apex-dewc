@@ -1,0 +1,20 @@
+{
+  "id": "satcom-disruption-scenario",
+  "name": "SATCOM Disruption Exercise",
+  "description": "Military SATCOM network experiencing electronic warfare interference. Teams must identify, classify, and respond to threats affecting critical satellite communications.",
+  "thumbnail": "space-cyber-scenario.png",
+  "duration_minutes": 45,
+  "dashboard_image": "team-dashboard-satcom:latest",
+  "teams": [
+    {
+      "id": "spaceops",
+      "name": "Space Operations Center",
+      "timeline_file": "timelines/timeline-spaceops.json"
+    },
+    {
+      "id": "ew-intel",
+      "name": "Electronic Warfare Intelligence",
+      "timeline_file": "timelines/timeline-ew-intel.json"
+    }
+  ]
+}

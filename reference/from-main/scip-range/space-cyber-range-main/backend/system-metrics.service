@@ -1,0 +1,12 @@
+# /etc/systemd/system/system-metrics.service
+[Unit]
+Description=System Metrics MQTT Publisher
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 /path/to/system_metrics_collector.py
+Restart=always
+User=youruser
+
+[Install]
+WantedBy=multi-user.target

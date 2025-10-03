@@ -1,0 +1,54 @@
+
+services:
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - frontend
+    restart: always
+
+  frontend:
+    build: ./frontend
+    expose:
+      - "80"
+    environment:
+      - REACT_APP_API_URL=http://${HOST_IP}:4000/api  # Dynamic host IP
+      - REACT_APP_MQTT_BROKER=ws://mqtt:9001
+    restart: always
+
+  api:
+    build: ./api
+    expose:
+      - "4000"
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./scenarios:/app/scenarios        # <-- Scenarios folder is mounted here
+      - ./api/db:/app/db
+      - ./api/data:/app/data
+    environment:
+      - DB_PATH=/app/db/app.db
+      - FILE_STORAGE=/app/files
+    restart: always
+
+  mqtt:
+    image: eclipse-mosquitto:latest
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    volumes:
+      - ./mqtt/config:/mosquitto/config
+      - ./mqtt/data:/mosquitto/data
+      - ./mqtt/log:/mosquitto/log
+    restart: always
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./redis/data:/data
+    restart: always

@@ -1,0 +1,19 @@
+[Unit]
+Description=Space Range Channel Simulator Service
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+User=root
+Environment=PYTHONUNBUFFERED=1
+WorkingDirectory=/var/app/scripts
+ExecStart=/var/app/venv/bin/python /var/app/scripts/socket_vm.py
+
+StandardOutput=append:/var/app/logs/channel_sim.log
+StandardError=append:/var/app/logs/channel_sim.log
+
+[Install]
+WantedBy=multi-user.target

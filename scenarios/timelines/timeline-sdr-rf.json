@@ -1,0 +1,38 @@
+{
+  "id": "timeline-sdr-rf",
+  "name": "RF Monitoring Timeline",
+  "description": "Basic RF spectrum monitoring with placeholder injects",
+  "version": "1.0.0",
+  "injects": [
+    {
+      "id": "inject-001",
+      "time": 0,
+      "type": "alert",
+      "content": {
+        "severity": "info",
+        "title": "Monitoring Started",
+        "message": "RF spectrum monitoring initiated. Connect GQRX to localhost:1234 to view spectrum."
+      }
+    },
+    {
+      "id": "inject-002",
+      "time": 10,
+      "type": "alert",
+      "content": {
+        "severity": "info",
+        "title": "System Check",
+        "message": "Verify GQRX is connected and displaying waterfall. Use control panel buttons to test jamming (coming soon)."
+      }
+    },
+    {
+      "id": "inject-003",
+      "time": 30,
+      "type": "alert",
+      "content": {
+        "severity": "success",
+        "title": "Verification Complete",
+        "message": "Dashboard and scenario configuration verified. Ready for backend SDR service integration."
+      }
+    }
+  ]
+}

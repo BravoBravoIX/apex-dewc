@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebSocket Diagnostic</title>
+    <style>
+        body { font-family: monospace; padding: 20px; background: #1a1a1a; color: #e0e0e0; }
+        .test { margin: 10px 0; padding: 10px; background: #2a2a2a; border-radius: 5px; }
+        .success { color: #10b981; }
+        .error { color: #dc2626; }
+        .pending { color: #fbbf24; }
+    </style>
+</head>
+<body>
+    <h1>WebSocket Connection Diagnostics</h1>
+    <div id="tests"></div>
+
+    <script>
+        const tests = [
+            { url: 'ws://localhost:9001', name: 'localhost:9001' },
+            { url: 'ws://127.0.0.1:9001', name: '127.0.0.1:9001' },
+            { url: 'ws://localhost:9001/', name: 'localhost:9001 with trailing slash' },
+            { url: 'ws://127.0.0.1:9001/', name: '127.0.0.1:9001 with trailing slash' },
+            { url: 'ws://localhost:9001', name: 'localhost with MQTT subprotocol', protocol: 'mqtt' },
+            { url: 'ws://127.0.0.1:9001', name: '127.0.0.1 with MQTT subprotocol', protocol: 'mqtt' }
+        ];
+
+        const container = document.getElementById('tests');
+
+        tests.forEach((test, index) => {
+            const testDiv = document.createElement('div');
+            testDiv.className = 'test';
+            testDiv.innerHTML = `
+                <div>Test ${index + 1}: ${test.name}</div>
+                <div>URL: <span style="color: #60a5fa">${test.url}</span></div>
+                <div id="status-${index}" class="pending">Testing...</div>
+                <div id="details-${index}" style="font-size: 0.9em; color: #9ca3af"></div>
+            `;
+            container.appendChild(testDiv);
+
+            setTimeout(() => {
+                runTest(test, index);
+            }, index * 500); // Stagger tests
+        });
+
+        function runTest(test, index) {
+            const statusEl = document.getElementById(`status-${index}`);
+            const detailsEl = document.getElementById(`details-${index}`);
+            const startTime = Date.now();
+
+            try {
+                const ws = test.protocol
+                    ? new WebSocket(test.url, test.protocol)
+                    : new WebSocket(test.url);
+
+                const timeout = setTimeout(() => {
+                    ws.close();
+                    statusEl.className = 'error';
+                    statusEl.textContent = '❌ Timeout (10s)';
+                }, 10000);
+
+                ws.onopen = () => {
+                    clearTimeout(timeout);
+                    const elapsed = Date.now() - startTime;
+                    statusEl.className = 'success';
+                    statusEl.textContent = `✅ Connected in ${elapsed}ms`;
+                    detailsEl.textContent = `readyState: ${ws.readyState}, protocol: ${ws.protocol || 'none'}`;
+
+                    // Try sending a test message
+                    try {
+                        // MQTT connect packet (minimal)
+                        const connectPacket = new Uint8Array([
+                            0x10, // CONNECT packet type
+                            0x0C, // Remaining length
+                            0x00, 0x04, // Protocol name length
+                            0x4D, 0x51, 0x54, 0x54, // "MQTT"
+                            0x04, // Protocol level (4 = MQTT 3.1.1)
+                            0x02, // Connect flags (clean session)
+                            0x00, 0x3C, // Keep alive (60 seconds)
+                            0x00, 0x00  // Client ID length (0 = auto-generate)
+                        ]);
+                        ws.send(connectPacket);
+                        detailsEl.textContent += ' - Sent MQTT CONNECT packet';
+                    } catch (e) {
+                        detailsEl.textContent += ' - Could not send test packet: ' + e.message;
+                    }
+
+                    setTimeout(() => ws.close(), 1000);
+                };
+
+                ws.onerror = (event) => {
+                    clearTimeout(timeout);
+                    statusEl.className = 'error';
+                    statusEl.textContent = '❌ Connection error';
+                    detailsEl.textContent = 'WebSocket error occurred (check console for details)';
+                    console.error(`Test ${index} error:`, event);
+                };
+
+                ws.onclose = (event) => {
+                    if (statusEl.className === 'pending') {
+                        statusEl.className = 'error';
+                        statusEl.textContent = `❌ Closed (code: ${event.code})`;
+                        detailsEl.textContent = `Close reason: ${event.reason || 'none'}, wasClean: ${event.wasClean}`;
+                    }
+                };
+
+                ws.onmessage = (event) => {
+                    detailsEl.textContent += ` - Received ${event.data.length || event.data.byteLength} bytes`;
+                };
+
+            } catch (e) {
+                statusEl.className = 'error';
+                statusEl.textContent = '❌ Exception thrown';
+                detailsEl.textContent = e.toString();
+            }
+        }
+    </script>
+</body>
+</html>

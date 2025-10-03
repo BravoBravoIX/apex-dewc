@@ -1,0 +1,48 @@
+range/
+  status/
+    health/                # System-wide health metrics
+      api
+      db
+      file_system
+      management_network
+    resources/             # System-wide resource usage
+      cpu
+      memory
+      storage
+      
+  scenarios/              # Catalog & management
+    total
+    active
+    paused
+    catalog/              # Added: For scenario template updates
+      updates
+    
+  instance/{instance_id}/
+    status                # running/paused/stopped
+    progress              # Overall completion %
+    stages/
+      current
+      {stage_name}/
+        status
+        progress
+        tasks/           # Task completions
+    assets/
+      ground_station/
+        status
+        resources/       # Added: Per-VM resource usage
+          cpu
+          memory
+      satellite/
+        status
+        orbital
+        resources/
+      rf_simulator/      # Added: Track channel sim specifically
+        status
+        params/
+          frequency
+          power
+          interference
+    teams/{team_id}/
+      progress
+      active_time
+      current_stage     # Added: Track current stage per team

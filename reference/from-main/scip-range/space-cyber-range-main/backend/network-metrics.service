@@ -1,0 +1,11 @@
+[Unit]
+Description=Network Metrics MQTT Publisher
+After=network.target mosquitto.service
+
+[Service]
+ExecStart=/usr/bin/python3 /usr/local/bin/network-metrics-collector.py
+Restart=always
+User=cyberops
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,13 @@
+<svg width="600" height="400" xmlns="http://www.w3.org/2000/svg">
+  <rect width="600" height="400" fill="#1a1a2e"/>
+  <text x="50%" y="40%" text-anchor="middle" fill="#16c79a" font-size="36" font-family="monospace">
+    SCIP TEST IMAGE
+  </text>
+  <text x="50%" y="50%" text-anchor="middle" fill="#f8f1f1" font-size="20" font-family="monospace">
+    Cyber Exercise Media
+  </text>
+  <rect x="50" y="300" width="500" height="80" fill="none" stroke="#16c79a" stroke-width="2"/>
+  <text x="50%" y="345" text-anchor="middle" fill="#16c79a" font-size="16" font-family="monospace">
+    This is a test image for inject media display
+  </text>
+</svg>

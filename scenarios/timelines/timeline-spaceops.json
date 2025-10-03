@@ -1,0 +1,169 @@
+{
+  "id": "timeline-spaceops",
+  "name": "SPACEOPS Team Timeline",
+  "description": "Monitor satellite health and maintain communications",
+  "version": "1.0.0",
+  "injects": [
+    {
+      "id": "inject-spaceops-001",
+      "time": 0,
+      "type": "trigger",
+      "content": {
+        "command": "initialize_satellites",
+        "parameters": {
+          "satellites": [
+            {
+              "name": "MILSTAR-4",
+              "signal_strength": 98,
+              "status": "NOMINAL",
+              "orbital_position": "23.5°W",
+              "uplink_status": "NOMINAL"
+            },
+            {
+              "name": "AEHF-6",
+              "signal_strength": 96,
+              "status": "NOMINAL",
+              "orbital_position": "105.5°E",
+              "uplink_status": "NOMINAL"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "inject-spaceops-002",
+      "time": 3,
+      "type": "trigger",
+      "content": {
+        "command": "update_satellite_status",
+        "parameters": {
+          "satellite": "AEHF-6",
+          "signal_strength": 85,
+          "status": "NOMINAL",
+          "trend": "declining",
+          "note": "Minor signal fluctuation detected"
+        }
+      }
+    },
+    {
+      "id": "inject-spaceops-003",
+      "time": 6,
+      "type": "trigger",
+      "content": {
+        "command": "update_satellite_status",
+        "parameters": {
+          "satellite": "AEHF-6",
+          "signal_strength": 62,
+          "status": "DEGRADED",
+          "trend": "declining",
+          "affected_ground_stations": ["Diego Garcia"],
+          "alert_audio": true
+        }
+      }
+    },
+    {
+      "id": "inject-spaceops-004",
+      "time": 9,
+      "type": "alert",
+      "content": {
+        "severity": "warning",
+        "title": "SATCOM Link Degradation",
+        "message": "AEHF-6 experiencing significant signal loss. Multiple ground stations reporting reduced link margin.",
+        "timestamp": "2025-10-01T14:10:00Z"
+      }
+    },
+    {
+      "id": "inject-spaceops-005",
+      "time": 12,
+      "type": "trigger",
+      "content": {
+        "command": "update_ground_stations",
+        "parameters": {
+          "stations": [
+            {
+              "name": "Peterson SFB",
+              "link_quality": 82,
+              "status": "DEGRADED"
+            },
+            {
+              "name": "Thule AB",
+              "link_quality": 100,
+              "status": "NOMINAL"
+            },
+            {
+              "name": "Diego Garcia",
+              "link_quality": 28,
+              "status": "IMPAIRED"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "inject-spaceops-006",
+      "time": 15,
+      "type": "intel_report",
+      "content": {
+        "classification": "SECRET//NOFORN",
+        "source": "US SPACE COMMAND",
+        "title": "SATCOM Interference Assessment",
+        "body": "OPREP-3 PINNACLE: Hostile electronic attack confirmed against AEHF-6. Recommend immediate implementation of frequency agility protocols and alternative routing via MILSTAR constellation."
+      }
+    },
+    {
+      "id": "inject-spaceops-007",
+      "time": 18,
+      "type": "trigger",
+      "content": {
+        "command": "update_satellite_status",
+        "parameters": {
+          "satellite": "AEHF-6",
+          "signal_strength": 34,
+          "status": "SEVERELY_DEGRADED",
+          "trend": "critical",
+          "recommendation": "Consider rerouting critical traffic"
+        }
+      }
+    },
+    {
+      "id": "inject-spaceops-008",
+      "time": 21,
+      "type": "trigger",
+      "content": {
+        "command": "countermeasure_available",
+        "parameters": {
+          "measure": "frequency_agility",
+          "description": "Switch to alternate frequency plan ALPHA-3",
+          "expected_improvement": "60-80%",
+          "implementation_time": "2 minutes"
+        }
+      }
+    },
+    {
+      "id": "inject-spaceops-009",
+      "time": 24,
+      "type": "trigger",
+      "content": {
+        "command": "update_satellite_status",
+        "parameters": {
+          "satellite": "AEHF-6",
+          "signal_strength": 78,
+          "status": "RECOVERING",
+          "trend": "improving",
+          "note": "Frequency agility successful"
+        }
+      }
+    },
+    {
+      "id": "inject-spaceops-010",
+      "time": 27,
+      "type": "alert",
+      "content": {
+        "severity": "success",
+        "title": "Link Restoration",
+        "message": "AEHF-6 links restored to operational status. All ground stations reporting nominal connectivity.",
+        "timestamp": "2025-10-01T14:45:00Z"
+      }
+    }
+  ]
+}

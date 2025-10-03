@@ -1,0 +1,92 @@
+
+version: '3.8'
+
+services:
+  redis:
+    image: redis:7-alpine
+    container_name: scip-redis
+    ports:
+      - "6379:6379"
+    networks:
+      - scip-network
+    volumes:
+      - redis-data:/data
+    command: redis-server --appendonly yes
+
+  mqtt:
+    image: eclipse-mosquitto:2
+    container_name: scip-mqtt
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    volumes:
+      - ./mqtt/mosquitto.conf:/mosquitto/config/mosquitto.conf
+    networks:
+      - scip-network
+
+  orchestration:
+    build: ./orchestration
+    container_name: scip-orchestration
+    ports:
+      - "8001:8001"
+    volumes:
+      - ./scenarios:/scenarios
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - scip-network
+    depends_on:
+      - mqtt
+      - redis
+
+  client-dashboard:
+    build: ./client-dashboard
+    container_name: scip-client-dashboard
+    ports:
+      - "3001:80"
+    networks:
+      - scip-network
+    depends_on:
+      - orchestration
+
+  team-dashboard:
+    image: team-dashboard:latest
+    build: ./team-dashboard
+    # This service is not started by default, but is used to build the image
+    # that the orchestration service will launch.
+    deploy:
+      replicas: 0
+
+  team-dashboard-satcom:
+    image: team-dashboard-satcom:latest
+    build: ./team-dashboard-satcom
+    # This service is not started by default, but is used to build the image
+    # that the orchestration service will launch.
+    deploy:
+      replicas: 0
+
+  team-dashboard-sdr:
+    image: team-dashboard-sdr:latest
+    build: ./team-dashboard-sdr
+    # This service is not started by default, but is used to build the image
+    # that the orchestration service will launch.
+    deploy:
+      replicas: 0
+
+  sdr-service:
+    build: ./sdr-service
+    container_name: scip-sdr-service
+    ports:
+      - "1234:1234"  # RTL-TCP port for GQRX
+    volumes:
+      - ./iq_files:/iq_files:ro  # Mount IQ files read-only
+    networks:
+      - scip-network
+    depends_on:
+      - mqtt
+
+networks:
+  scip-network:
+    driver: bridge
+
+volumes:
+  redis-data:

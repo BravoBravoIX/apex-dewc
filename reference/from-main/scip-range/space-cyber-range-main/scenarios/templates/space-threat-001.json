@@ -1,0 +1,262 @@
+{
+  "scenario_definition": {
+    "id": "space-threat-001",
+    "name": "Space-Based Threat Response Operations",
+    "version": "1.0",
+    "category": "space_defense",
+    "metadata": {
+      "description": "Expert-level scenario focusing on detecting, analyzing, and responding to sophisticated space-based threats including both RF and cyber vectors",
+      "difficulty": "expert",
+      "duration_estimate": "6 hours",
+      "max_instances": 2,
+      "prerequisites": [
+        "Advanced orbital mechanics",
+        "Space domain awareness expertise",
+        "RF warfare experience",
+        "Cyber incident response expertise",
+        "Satellite operations certification",
+        "Completion of all previous scenarios"
+      ],
+      "learning_objectives": [
+        "Detect and classify space-based threats",
+        "Analyze complex multi-vector attack patterns",
+        "Implement orbital maneuver countermeasures",
+        "Coordinate multi-domain response actions",
+        "Maintain mission continuity during active threats"
+      ]
+    },
+
+    "topology": {
+      "assets": {
+        "surveillance_satellite": {
+          "type": "vm",
+          "base_image": "surveillance_sat_v1",
+          "description": "Primary surveillance satellite with advanced defensive capabilities",
+          "network_interfaces": ["space_link", "control", "telemetry"],
+          "resource_requirements": {
+            "cpu_cores": 8,
+            "memory_gb": 32,
+            "storage_gb": 500
+          },
+          "orbital_parameters": {
+            "orbit_type": "LEO",
+            "altitude_km": 500,
+            "inclination_deg": 97.4,
+            "period_minutes": 94.6
+          }
+        },
+        "space_monitor": {
+          "type": "vm",
+          "base_image": "space_monitor_v1",
+          "description": "Space situation awareness system",
+          "network_interfaces": ["analysis", "control"],
+          "resource_requirements": {
+            "cpu_cores": 16,
+            "memory_gb": 64,
+            "storage_gb": 1000
+          }
+        },
+        "threat_simulator": {
+          "type": "vm",
+          "base_image": "threat_sim_v1",
+          "description": "Advanced space threat simulation system",
+          "network_interfaces": ["simulation", "control"],
+          "resource_requirements": {
+            "cpu_cores": 32,
+            "memory_gb": 128,
+            "storage_gb": 2000
+          }
+        }
+      },
+      "connections": [
+        {
+          "name": "space_link",
+          "from": "surveillance_satellite",
+          "to": "space_monitor",
+          "type": "rf_encrypted",
+          "parameters": {
+            "frequency_band": "X-Band",
+            "encryption": "quantum_resistant",
+            "authentication": "zero_knowledge",
+            "resilience": "high"
+          }
+        },
+        {
+          "name": "intersatellite_link",
+          "from": "surveillance_satellite",
+          "to": "relay_constellation",
+          "type": "optical",
+          "parameters": {
+            "wavelength": 1550,
+            "power_mw": 200,
+            "modulation": "QAM256"
+          }
+        }
+      ]
+    },
+
+    "threat_configuration": {
+      "space_based_threats": [
+        {
+          "name": "inspector_satellite",
+          "type": "rendezvous",
+          "capabilities": [
+            "rf_monitoring",
+            "optical_surveillance",
+            "close_approach"
+          ],
+          "approach_profile": {
+            "min_range_km": 5,
+            "velocity_ms": 0.1
+          }
+        },
+        {
+          "name": "signal_interceptor",
+          "type": "signals_intelligence",
+          "capabilities": [
+            "passive_collection",
+            "protocol_analysis",
+            "beam_forming"
+          ],
+          "collection_profile": {
+            "sensitivity_dbm": -130,
+            "bandwidth_mhz": 500
+          }
+        },
+        {
+          "name": "cyber_platform",
+          "type": "cyber_attack",
+          "capabilities": [
+            "protocol_spoofing",
+            "link_manipulation",
+            "data_injection"
+          ],
+          "attack_profile": {
+            "sophistication": "high",
+            "persistence": "enabled"
+          }
+        }
+      ],
+      "countermeasures": {
+        "orbital": {
+          "maneuver_capability": "enabled",
+          "fuel_reserve": 50,
+          "safe_modes": ["passive_spin", "sun_point", "survival"]
+        },
+        "communications": {
+          "frequency_agility": "enabled",
+          "path_diversity": "enabled",
+          "encryption_layers": 3
+        },
+        "cyber": {
+          "autonomous_defense": "enabled",
+          "integrity_monitoring": "continuous",
+          "fallback_modes": ["minimal_ops", "beacon_only"]
+        }
+      }
+    },
+
+    "stages": [
+      {
+        "name": "Threat Detection and Analysis",
+        "description": "Monitor space environment and detect potential threats",
+        "completion_criteria": "All test threats detected and classified correctly",
+        "tasks": [
+          {
+            "id": "space_surveillance",
+            "task": "Perform Space Surveillance",
+            "description": "Monitor local space environment for threats",
+            "verification": "All test objects detected and tracked"
+          },
+          {
+            "id": "signals_analysis",
+            "task": "Analyze Signal Environment",
+            "description": "Monitor and characterize RF environment",
+            "verification": "All test signals classified correctly"
+          },
+          {
+            "id": "behavior_analysis",
+            "task": "Analyze Object Behavior",
+            "description": "Assess spacecraft behavior patterns",
+            "verification": "Threat behaviors correctly identified"
+          }
+        ]
+      },
+      {
+        "name": "Multi-Vector Defense",
+        "description": "Implement defenses against combined threat vectors",
+        "completion_criteria": "Successfully defend against all test attacks",
+        "tasks": [
+          {
+            "id": "orbital_defense",
+            "task": "Execute Orbital Defense",
+            "description": "Implement orbital evasion maneuvers",
+            "verification": "Safe separation maintained from threats"
+          },
+          {
+            "id": "comms_defense",
+            "task": "Secure Communications",
+            "description": "Implement communication security measures",
+            "verification": "Link security maintained during attacks"
+          },
+          {
+            "id": "cyber_defense",
+            "task": "Deploy Cyber Defenses",
+            "description": "Activate cyber protection measures",
+            "verification": "System integrity maintained during attacks"
+          }
+        ]
+      },
+      {
+        "name": "Mission Continuity",
+        "description": "Maintain critical operations during active threats",
+        "completion_criteria": "Essential mission functions maintained throughout scenario",
+        "tasks": [
+          {
+            "id": "service_prioritization",
+            "task": "Prioritize Services",
+            "description": "Manage service degradation hierarchy",
+            "verification": "Critical services maintained"
+          },
+          {
+            "id": "resource_management",
+            "task": "Manage Resources",
+            "description": "Balance system resources under stress",
+            "verification": "Resource margins maintained"
+          },
+          {
+            "id": "fallback_operations",
+            "task": "Implement Fallback Modes",
+            "description": "Execute degraded mode operations",
+            "verification": "Successful transition to fallback modes"
+          }
+        ]
+      },
+      {
+        "name": "Threat Response Coordination",
+        "description": "Coordinate comprehensive threat response",
+        "completion_criteria": "Successful coordination of all response elements",
+        "tasks": [
+          {
+            "id": "response_coordination",
+            "task": "Coordinate Response Actions",
+            "description": "Manage multi-domain response efforts",
+            "verification": "Response actions properly sequenced"
+          },
+          {
+            "id": "status_reporting",
+            "task": "Generate Status Reports",
+            "description": "Report threat status and response actions",
+            "verification": "Accurate reports delivered on schedule"
+          },
+          {
+            "id": "recovery_planning",
+            "task": "Plan Recovery Actions",
+            "description": "Develop post-event recovery plan",
+            "verification": "Recovery plan validated and approved"
+          }
+        ]
+      }
+    ]
+  }
+}
