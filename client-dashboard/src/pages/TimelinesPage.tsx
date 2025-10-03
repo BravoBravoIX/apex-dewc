@@ -22,7 +22,7 @@ const TimelinesPage: React.FC = () => {
   const fetchTimelines = async () => {
     try {
       // Fetch all scenarios to get timeline information
-      const response = await fetch(`${API_BASE_URL}/api/v1/scenarios');
+      const response = await fetch(`${API_BASE_URL}/api/v1/scenarios`);
       const data = await response.json();
 
       const allTimelines: Timeline[] = [];
@@ -30,7 +30,7 @@ const TimelinesPage: React.FC = () => {
       // Extract timeline info from each scenario
       for (const scenario of data.scenarios) {
         // Fetch full scenario details
-        const scenarioResponse = await fetch(`http://localhost:8001/api/v1/scenarios/${scenario.id}`);
+        const scenarioResponse = await fetch(`${API_BASE_URL}/api/v1/scenarios/${scenario.id}`);
         const scenarioData = await scenarioResponse.json();
 
         // Add timeline for each team

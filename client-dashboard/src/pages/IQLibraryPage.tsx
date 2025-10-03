@@ -23,7 +23,7 @@ const IQLibraryPage: React.FC = () => {
 
   const loadIQFiles = async () => {
     try {
-      const response = await fetch(`${API_BASE_URL}/api/v1/iq-library');
+      const response = await fetch(`${API_BASE_URL}/api/v1/iq-library`);
       const data = await response.json();
       setIqFiles(data.iq_files);
     } catch (error) {
@@ -45,7 +45,7 @@ const IQLibraryPage: React.FC = () => {
     }
 
     try {
-      const response = await fetch(`${API_BASE_URL}/api/v1/iq-library/upload', {
+      const response = await fetch(`${API_BASE_URL}/api/v1/iq-library/upload`, {
         method: 'POST',
         body: formData,
       });

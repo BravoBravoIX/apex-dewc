@@ -122,7 +122,7 @@ const MediaUpload: React.FC<MediaUploadProps> = ({ onClose, onUploadComplete }) 
       const formData = new FormData();
       validFiles.forEach(f => formData.append('files', f.file));
 
-      const response = await fetch(`${API_BASE_URL}/api/v1/media/upload', {
+      const response = await fetch(`${API_BASE_URL}/api/v1/media/upload`, {
         method: 'POST',
         body: formData,
       });
