@@ -1,11 +1,11 @@
 {
   "scenario_usage": {
     "maritime-crisis-scenario": {
-      "total_deployments": 50,
+      "total_deployments": 52,
       "total_duration_minutes": 0,
       "completion_count": 0,
       "average_duration_minutes": 0,
-      "last_deployment": "2025-10-03T06:46:33.403259"
+      "last_deployment": "2025-10-03T07:01:38.838880"
     },
     "satcom-disruption-scenario": {
       "total_deployments": 36,

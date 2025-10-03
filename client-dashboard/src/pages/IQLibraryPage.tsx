@@ -77,7 +77,7 @@ const IQLibraryPage: React.FC = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:8001/api/v1/iq-library?path=${encodeURIComponent(path)}`,
+        `/api/v1/iq-library?path=${encodeURIComponent(path)}`,
         { method: 'DELETE' }
       );
 

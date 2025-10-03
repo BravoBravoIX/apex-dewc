@@ -89,7 +89,7 @@ const MediaLibraryPage: React.FC = () => {
     try {
       setDeleting(true);
       const response = await fetch(
-        `http://localhost:8001/api/v1/media?path=${encodeURIComponent(file.path)}`,
+        `/api/v1/media?path=${encodeURIComponent(file.path)}`,
         { method: 'DELETE' }
       );
 
@@ -231,7 +231,7 @@ const MediaLibraryPage: React.FC = () => {
                 onClick={() => setSelectedImage(file)}
               >
                 <img
-                  src={`http://localhost:8001${file.path}`}
+                  src={file.path}
                   alt={file.filename}
                   className="w-full h-full object-cover"
                   loading="lazy"
@@ -300,7 +300,7 @@ const MediaLibraryPage: React.FC = () => {
                 >
                   <td className="py-2 px-4">
                     <img
-                      src={`http://localhost:8001${file.path}`}
+                      src={file.path}
                       alt={file.filename}
                       className="w-12 h-12 object-cover rounded cursor-pointer"
                       onClick={() => setSelectedImage(file)}
@@ -362,7 +362,7 @@ const MediaLibraryPage: React.FC = () => {
             {/* Image Preview */}
             <div className="p-4 flex items-center justify-center bg-surface-light">
               <img
-                src={`http://localhost:8001${selectedImage.path}`}
+                src={selectedImage.path}
                 alt={selectedImage.filename}
                 className="max-w-full max-h-[60vh] object-contain"
               />
@@ -458,7 +458,7 @@ const MediaLibraryPage: React.FC = () => {
             {/* File preview */}
             <div className="mb-4 rounded overflow-hidden bg-surface-light">
               <img
-                src={`http://localhost:8001${deleteConfirmFile.path}`}
+                src={deleteConfirmFile.path}
                 alt={deleteConfirmFile.filename}
                 className="w-full max-h-48 object-contain"
               />

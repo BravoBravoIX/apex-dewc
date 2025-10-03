@@ -68,7 +68,7 @@ const TimelineViewerPage: React.FC = () => {
       setError(null);
 
       // Fetch timeline data from the API
-      const response = await fetch(`http://localhost:8001/api/v1/timelines/${scenarioId}/${teamId}`);
+      const response = await fetch(`/api/v1/timelines/${scenarioId}/${teamId}`);
       if (!response.ok) {
         throw new Error('Failed to fetch timeline');
       }
@@ -237,7 +237,7 @@ const TimelineViewerPage: React.FC = () => {
       };
 
       // Save to backend
-      const response = await fetch(`http://localhost:8001/api/v1/timelines/${scenarioId}/${teamId}`, {
+      const response = await fetch(`/api/v1/timelines/${scenarioId}/${teamId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -789,7 +789,7 @@ const TimelineViewerPage: React.FC = () => {
                       {/* Image preview */}
                       <div className="aspect-square bg-surface flex items-center justify-center overflow-hidden">
                         <img
-                          src={`http://localhost:8001${file.path}`}
+                          src={file.path}
                           alt={file.filename}
                           className="w-full h-full object-cover"
                           loading="lazy"

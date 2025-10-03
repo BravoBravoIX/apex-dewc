@@ -77,7 +77,7 @@ const ScenarioWorkspacePage: React.FC = () => {
       setError(null);
 
       // Fetch full scenario details
-      const scenarioRes = await fetch(`http://localhost:8001/api/v1/scenarios/${scenarioId}`);
+      const scenarioRes = await fetch(`/api/v1/scenarios/${scenarioId}`);
       if (!scenarioRes.ok) {
         setError('Scenario not found');
         setLoading(false);
@@ -99,7 +99,7 @@ const ScenarioWorkspacePage: React.FC = () => {
         foundScenario.teams.map(async (team: Team) => {
           try {
             const timelineRes = await fetch(
-              `http://localhost:8001/api/v1/timelines/${scenarioId}/${team.id}`
+              `/api/v1/timelines/${scenarioId}/${team.id}`
             );
             if (timelineRes.ok) {
               const timelineData: Timeline = await timelineRes.json();
@@ -130,7 +130,7 @@ const ScenarioWorkspacePage: React.FC = () => {
 
   const fetchAnalytics = async () => {
     try {
-      const res = await fetch(`http://localhost:8001/api/v1/analytics/scenarios/${scenarioId}`);
+      const res = await fetch(`/api/v1/analytics/scenarios/${scenarioId}`);
       if (res.ok) {
         const data = await res.json();
         setAnalytics(data);
@@ -172,7 +172,7 @@ const ScenarioWorkspacePage: React.FC = () => {
     setDeployStatus(`Deploying ${scenarioId}...`);
     setDashboardUrls(null);
     try {
-      const response = await fetch(`http://localhost:8001/api/v1/exercises/${scenarioId}/deploy`, {
+      const response = await fetch(`/api/v1/exercises/${scenarioId}/deploy`, {
         method: 'POST',
       });
       const data = await response.json();
@@ -195,7 +195,7 @@ const ScenarioWorkspacePage: React.FC = () => {
   const startScenario = async () => {
     if (!scenarioId) return;
     try {
-      const response = await fetch(`http://localhost:8001/api/v1/exercises/${scenarioId}/start`, {
+      const response = await fetch(`/api/v1/exercises/${scenarioId}/start`, {
         method: 'POST',
       });
       if (response.ok) {
@@ -209,7 +209,7 @@ const ScenarioWorkspacePage: React.FC = () => {
   const pauseScenario = async () => {
     if (!scenarioId) return;
     try {
-      const response = await fetch(`http://localhost:8001/api/v1/exercises/${scenarioId}/pause`, {
+      const response = await fetch(`/api/v1/exercises/${scenarioId}/pause`, {
         method: 'POST',
       });
       if (response.ok) {
@@ -225,7 +225,7 @@ const ScenarioWorkspacePage: React.FC = () => {
     setShowStopConfirm(false);
     setDeployStatus(`Finishing ${scenarioId}...`);
     try {
-      const response = await fetch(`http://localhost:8001/api/v1/exercises/${scenarioId}/finish`, {
+      const response = await fetch(`/api/v1/exercises/${scenarioId}/finish`, {
         method: 'POST',
       });
       const data = await response.json();
@@ -247,7 +247,7 @@ const ScenarioWorkspacePage: React.FC = () => {
     setDeployStatus(`Tearing down ${scenarioId}...`);
     setDashboardUrls(null);
     try {
-      const response = await fetch(`http://localhost:8001/api/v1/exercises/${scenarioId}/stop`, {
+      const response = await fetch(`/api/v1/exercises/${scenarioId}/stop`, {
         method: 'POST',
       });
       const data = await response.json();
@@ -312,7 +312,7 @@ const ScenarioWorkspacePage: React.FC = () => {
             {scenario.thumbnail && (
               <div className="flex-shrink-0">
                 <img
-                  src={`http://localhost:8001/scenarios/${scenario.thumbnail}`}
+                  src={`/scenarios/${scenario.thumbnail}`}
                   alt={scenario.name}
                   className="w-48 h-48 object-cover rounded-lg"
                 />

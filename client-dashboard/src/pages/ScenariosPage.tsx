@@ -71,7 +71,7 @@ const ScenariosPage = () => {
               {scenario.thumbnail && (
                 <div className="flex-shrink-0">
                   <img
-                    src={`http://localhost:8001${scenario.thumbnail}`}
+                    src={scenario.thumbnail}
                     alt={`${scenario.name} thumbnail`}
                     className="w-24 h-24 object-cover rounded-lg"
                   />
