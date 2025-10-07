@@ -14,6 +14,9 @@ interface Scenario {
 }
 
 const ScenariosPage = () => {
+  // Demo mode toggle - set to false to enable all scenarios
+  const DEMO_MODE = true;
+
   const [scenarios, setScenarios] = useState<Scenario[]>([]);
   const [loading, setLoading] = useState(true);
   const [runningScenario, setRunningScenario] = useState<string | null>(null);
@@ -30,7 +33,13 @@ const ScenariosPage = () => {
       const response = await fetch(`${API_BASE_URL}/api/v1/scenarios`);
       const data = await response.json();
       if (response.ok) {
-        setScenarios(data.scenarios);
+        // Sort scenarios: maritime first, then others
+        const sorted = [...data.scenarios].sort((a, b) => {
+          if (a.id === 'maritime-crisis-scenario') return -1;
+          if (b.id === 'maritime-crisis-scenario') return 1;
+          return 0;
+        });
+        setScenarios(sorted);
       } else {
         console.error('Failed to load scenarios');
       }
@@ -64,47 +73,63 @@ const ScenariosPage = () => {
         <div className="text-text-secondary">No scenarios found. Add JSON files to the scenarios folder.</div>
       ) : (
         <div className="space-y-4">
-          {scenarios.map((scenario) => (
-            <div key={scenario.id} className={`card p-6 flex justify-between items-center gap-4 ${
-              runningScenario === scenario.id ? 'border border-green-500/50 bg-green-900/10' : ''
-            }`}>
-              {scenario.thumbnail && (
-                <div className="flex-shrink-0">
-                  <img
-                    src={scenario.thumbnail}
-                    alt={`${scenario.name} thumbnail`}
-                    className="w-24 h-24 object-cover rounded-lg"
-                  />
+          {scenarios.map((scenario) => {
+            const isDemoReady = !DEMO_MODE || scenario.id === 'maritime-crisis-scenario';
+
+            return (
+              <div key={scenario.id} className={`card p-6 flex justify-between items-center gap-4 ${
+                runningScenario === scenario.id ? 'border border-green-500/50 bg-green-900/10' : ''
+              } ${!isDemoReady ? 'opacity-50 pointer-events-none' : ''}`}>
+                {scenario.thumbnail && (
+                  <div className="flex-shrink-0">
+                    <img
+                      src={scenario.thumbnail}
+                      alt={`${scenario.name} thumbnail`}
+                      className="w-24 h-24 object-cover rounded-lg"
+                    />
+                  </div>
+                )}
+                <div className="flex-1">
+                  <div className="flex items-center gap-3">
+                    <h2 className="text-xl font-semibold text-text-primary">{scenario.name}</h2>
+                    {runningScenario === scenario.id && (
+                      <span className="inline-flex items-center gap-2 px-2 py-1 text-xs font-semibold text-green-400 bg-green-900/30 rounded-full">
+                        <span className="inline-block w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                        RUNNING
+                      </span>
+                    )}
+                    {!isDemoReady && (
+                      <span className="inline-flex items-center px-2 py-1 text-xs font-semibold text-text-muted bg-surface rounded-full">
+                        Not Available
+                      </span>
+                    )}
+                  </div>
+                  <p className="text-text-secondary mb-2">{scenario.description}</p>
+                  <div className="flex gap-4 text-sm text-text-secondary">
+                    <span>Duration: {scenario.duration_minutes} min</span>
+                    <span>•</span>
+                    <span>Teams: {scenario.team_count}</span>
+                  </div>
                 </div>
-              )}
-              <div className="flex-1">
-                <div className="flex items-center gap-3">
-                  <h2 className="text-xl font-semibold text-text-primary">{scenario.name}</h2>
-                  {runningScenario === scenario.id && (
-                    <span className="inline-flex items-center gap-2 px-2 py-1 text-xs font-semibold text-green-400 bg-green-900/30 rounded-full">
-                      <span className="inline-block w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-                      RUNNING
-                    </span>
+                <div className="flex gap-2">
+                  {isDemoReady ? (
+                    <Link
+                      to={`/scenarios/${scenario.id}`}
+                      className="flex items-center gap-2 bg-primary hover:bg-primary/80 text-white font-bold py-2 px-6 rounded transition-colors"
+                    >
+                      <Settings size={18} />
+                      Manage Scenario
+                    </Link>
+                  ) : (
+                    <div className="flex items-center gap-2 bg-surface text-text-muted font-bold py-2 px-6 rounded cursor-not-allowed">
+                      <Settings size={18} />
+                      Manage Scenario
+                    </div>
                   )}
                 </div>
-                <p className="text-text-secondary mb-2">{scenario.description}</p>
-                <div className="flex gap-4 text-sm text-text-secondary">
-                  <span>Duration: {scenario.duration_minutes} min</span>
-                  <span>•</span>
-                  <span>Teams: {scenario.team_count}</span>
-                </div>
               </div>
-              <div className="flex gap-2">
-                <Link
-                  to={`/scenarios/${scenario.id}`}
-                  className="flex items-center gap-2 bg-primary hover:bg-primary/80 text-white font-bold py-2 px-6 rounded transition-colors"
-                >
-                  <Settings size={18} />
-                  Manage Scenario
-                </Link>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       )}
     </div>
