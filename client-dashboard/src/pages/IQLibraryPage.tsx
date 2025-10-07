@@ -14,6 +14,9 @@ interface IQFile {
 }
 
 const IQLibraryPage: React.FC = () => {
+  // Demo mode toggle - set to false to enable upload
+  const DEMO_MODE = true;
+
   const [iqFiles, setIqFiles] = useState<IQFile[]>([]);
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
@@ -111,7 +114,11 @@ const IQLibraryPage: React.FC = () => {
               Manage IQ files for SDR scenarios
             </p>
           </div>
-          <label className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/80 transition-colors cursor-pointer">
+          <label className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
+            DEMO_MODE
+              ? 'bg-surface text-text-muted cursor-not-allowed opacity-50 pointer-events-none'
+              : 'bg-primary text-white hover:bg-primary/80 cursor-pointer'
+          }`}>
             <Upload size={18} />
             {uploading ? 'Uploading...' : 'Upload IQ Files'}
             <input
@@ -119,7 +126,7 @@ const IQLibraryPage: React.FC = () => {
               multiple
               accept=".iq,.dat,.raw,.cfile"
               onChange={handleUpload}
-              disabled={uploading}
+              disabled={uploading || DEMO_MODE}
               className="hidden"
             />
           </label>
