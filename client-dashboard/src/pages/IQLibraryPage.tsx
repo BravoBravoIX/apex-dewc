@@ -101,18 +101,18 @@ const IQLibraryPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
-      <div className="container mx-auto p-6 space-y-6">
-        <div className="flex items-center justify-between">
+    <div>
+      {/* Header */}
+      <div className="mb-6">
+        <div className="flex items-start justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-800 dark:text-white">IQ File Library</h1>
-            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+            <h1 className="text-2xl font-bold text-text-primary mb-2">IQ File Library</h1>
+            <p className="text-text-secondary">
               Manage IQ files for SDR scenarios
             </p>
           </div>
-
-          <label className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 cursor-pointer inline-flex items-center gap-2">
-            <Upload className="w-4 h-4" />
+          <label className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/80 transition-colors cursor-pointer">
+            <Upload size={18} />
             {uploading ? 'Uploading...' : 'Upload IQ Files'}
             <input
               type="file"
@@ -124,76 +124,71 @@ const IQLibraryPage: React.FC = () => {
             />
           </label>
         </div>
+      </div>
 
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow">
-          <div className="p-4 border-b border-gray-200 dark:border-gray-700">
-            <h2 className="text-lg font-semibold text-gray-800 dark:text-white">
-              IQ Files ({iqFiles.length})
-            </h2>
+      {/* IQ Files List */}
+      <div className="card p-6 mb-6">
+        <h2 className="text-lg font-semibold text-text-primary mb-4">
+          IQ Files ({iqFiles.length})
+        </h2>
+        {loading ? (
+          <div className="text-center py-8 text-text-secondary">Loading...</div>
+        ) : iqFiles.length === 0 ? (
+          <div className="text-center py-8 text-text-secondary">
+            No IQ files uploaded yet. Upload .iq, .dat, .raw, or .cfile files to get started.
           </div>
-          <div className="p-4">
-            {loading ? (
-              <div className="text-center py-8 text-gray-600 dark:text-gray-400">Loading...</div>
-            ) : iqFiles.length === 0 ? (
-              <div className="text-center py-8 text-gray-600 dark:text-gray-400">
-                No IQ files uploaded yet. Upload .iq, .dat, .raw, or .cfile files to get started.
-              </div>
-            ) : (
-              <div className="space-y-2">
-                {iqFiles.map((file) => (
-                  <div
-                    key={file.path}
-                    className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors"
-                  >
-                    <div className="flex items-center gap-4 flex-1">
-                      <FileAudio className="w-8 h-8 text-blue-600 dark:text-blue-400" />
-                      <div className="flex-1">
-                        <div className="font-medium text-gray-800 dark:text-white">{file.filename}</div>
-                        <div className="flex gap-4 text-xs text-gray-600 dark:text-gray-400 mt-1">
-                          <span className="flex items-center gap-1">
-                            <HardDrive className="w-3 h-3" />
-                            {file.size_mb} MB
-                          </span>
-                          <span className="flex items-center gap-1">
-                            <Clock className="w-3 h-3" />
-                            {formatDuration(file.duration_seconds)}
-                          </span>
-                          <span>{file.num_samples.toLocaleString()} samples</span>
-                          <span className="uppercase">{file.format}</span>
-                        </div>
-                      </div>
+        ) : (
+          <div className="space-y-3">
+            {iqFiles.map((file) => (
+              <div
+                key={file.path}
+                className="flex items-center justify-between p-4 bg-surface rounded-lg hover:bg-surface-light transition-colors"
+              >
+                <div className="flex items-center gap-4 flex-1">
+                  <FileAudio className="w-8 h-8 text-primary" />
+                  <div className="flex-1">
+                    <div className="font-medium text-text-primary">{file.filename}</div>
+                    <div className="flex gap-4 text-xs text-text-secondary mt-1">
+                      <span className="flex items-center gap-1">
+                        <HardDrive className="w-3 h-3" />
+                        {file.size_mb} MB
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <Clock className="w-3 h-3" />
+                        {formatDuration(file.duration_seconds)}
+                      </span>
+                      <span>{file.num_samples.toLocaleString()} samples</span>
+                      <span className="uppercase">{file.format}</span>
                     </div>
-
-                    <button
-                      onClick={() => handleDelete(file.path, file.filename)}
-                      className="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700 text-sm inline-flex items-center gap-1"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </button>
                   </div>
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
+                </div>
 
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow">
-          <div className="p-4 border-b border-gray-200 dark:border-gray-700">
-            <h2 className="text-lg font-semibold text-gray-800 dark:text-white">Supported Formats</h2>
+                <button
+                  onClick={() => handleDelete(file.path, file.filename)}
+                  className="px-3 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 text-sm inline-flex items-center gap-2 transition-colors"
+                >
+                  <Trash2 className="w-4 h-4" />
+                  Delete
+                </button>
+              </div>
+            ))}
           </div>
-          <div className="p-4">
-            <ul className="list-disc list-inside text-sm text-gray-600 dark:text-gray-400 space-y-1">
-              <li><strong>.iq</strong> - Complex64 IQ samples (I/Q interleaved, 32-bit float)</li>
-              <li><strong>.dat</strong> - Raw binary IQ data</li>
-              <li><strong>.raw</strong> - Raw IQ samples</li>
-              <li><strong>.cfile</strong> - GNU Radio complex float format</li>
-            </ul>
-            <p className="text-sm text-gray-600 dark:text-gray-400 mt-3">
-              All files should contain complex64 samples (8 bytes per sample).
-              Sample rate is assumed to be 1.024 MHz for duration calculation.
-            </p>
-          </div>
-        </div>
+        )}
+      </div>
+
+      {/* Supported Formats Info */}
+      <div className="card p-6">
+        <h2 className="text-lg font-semibold text-text-primary mb-4">Supported Formats</h2>
+        <ul className="list-disc list-inside text-sm text-text-secondary space-y-2">
+          <li><strong className="text-text-primary">.iq</strong> - Complex64 IQ samples (I/Q interleaved, 32-bit float)</li>
+          <li><strong className="text-text-primary">.dat</strong> - Raw binary IQ data</li>
+          <li><strong className="text-text-primary">.raw</strong> - Raw IQ samples</li>
+          <li><strong className="text-text-primary">.cfile</strong> - GNU Radio complex float format</li>
+        </ul>
+        <p className="text-sm text-text-secondary mt-4">
+          All files should contain complex64 samples (8 bytes per sample).
+          Sample rate is assumed to be 1.024 MHz for duration calculation.
+        </p>
       </div>
     </div>
   );
