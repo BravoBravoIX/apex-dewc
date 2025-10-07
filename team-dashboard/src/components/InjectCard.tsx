@@ -1,4 +1,5 @@
 import { Inject } from '../contexts/InjectContext';
+import { API_HOST } from '../config';
 
 interface InjectCardProps {
   inject: Inject;
@@ -75,11 +76,11 @@ export const InjectCard = ({ inject }: InjectCardProps) => {
               return (
                 <img
                   key={idx}
-                  src={`http://localhost:8001${mediaPath}`}
+                  src={`${API_HOST}${mediaPath}`}
                   alt="Inject media"
                   className="rounded cursor-pointer hover:opacity-90 transition-opacity"
                   style={{ maxWidth: '400px', maxHeight: '300px', objectFit: 'contain' }}
-                  onClick={() => window.open(`http://localhost:8001${mediaPath}`, '_blank')}
+                  onClick={() => window.open(`${API_HOST}${mediaPath}`, '_blank')}
                   onError={(e) => {
                     const target = e.currentTarget;
                     target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iIzJhMmEyYSIgc3Ryb2tlPSIjNDQ0IiBzdHJva2Utd2lkdGg9IjIiLz48dGV4dCB4PSI1MCUiIHk9IjUwJSIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiPkltYWdlIFVuYXZhaWxhYmxlPC90ZXh0Pjwvc3ZnPg==';

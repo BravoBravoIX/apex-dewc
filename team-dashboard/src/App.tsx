@@ -2,6 +2,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useMqtt } from './hooks/useMqtt';
 import { ThemeToggle } from './components/ThemeToggle';
+import { API_HOST } from './config';
 
 interface Inject {
   id: string;
@@ -288,11 +289,11 @@ function App() {
                         return (
                           <img
                             key={idx}
-                            src={`http://localhost:8001${mediaPath}`}
+                            src={`${API_HOST}${mediaPath}`}
                             alt="Inject media"
                             className="rounded cursor-pointer hover:opacity-90 transition-opacity"
                             style={{ maxWidth: '400px', maxHeight: '300px', objectFit: 'contain' }}
-                            onClick={() => window.open(`http://localhost:8001${mediaPath}`, '_blank')}
+                            onClick={() => window.open(`${API_HOST}${mediaPath}`, '_blank')}
                             onError={(e) => {
                               // Show placeholder on error
                               const target = e.currentTarget;

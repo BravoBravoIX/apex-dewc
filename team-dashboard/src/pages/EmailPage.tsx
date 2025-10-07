@@ -1,6 +1,7 @@
 import { useInjects } from '../contexts/InjectContext';
 import { useMemo, useState } from 'react';
 import { Inject } from '../contexts/InjectContext';
+import { API_HOST } from '../config';
 
 export const EmailPage = () => {
   const { injects } = useInjects();
@@ -127,11 +128,11 @@ export const EmailPage = () => {
                           return (
                             <img
                               key={idx}
-                              src={`http://localhost:8001${mediaPath}`}
+                              src={`${API_HOST}${mediaPath}`}
                               alt="Email attachment"
                               className="rounded cursor-pointer hover:opacity-90 transition-opacity"
                               style={{ maxWidth: '400px', maxHeight: '300px', objectFit: 'contain' }}
-                              onClick={() => window.open(`http://localhost:8001${mediaPath}`, '_blank')}
+                              onClick={() => window.open(`${API_HOST}${mediaPath}`, '_blank')}
                             />
                           );
                         }
