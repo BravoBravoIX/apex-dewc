@@ -14,6 +14,10 @@ from typing import List
 from datetime import datetime
 from executor import ExerciseExecutor
 from redis_manager import RedisManager
+import asyncio
+import re
+import random
+import base64
 
 app = FastAPI()
 
@@ -123,6 +127,16 @@ async def resume_exercise(scenario_name: str):
     result = await executor.resume()
     return result
 
+@app.post("/api/v1/exercises/{scenario_name}/next-turn")
+async def next_turn_exercise(scenario_name: str):
+    """Advance to the next turn in a turn-based exercise."""
+    if scenario_name not in active_exercises:
+        raise HTTPException(status_code=404, detail="Exercise not running")
+
+    executor = active_exercises[scenario_name]
+    result = await executor.next_turn()
+    return result
+
 @app.get("/api/v1/exercises/{scenario_name}/status")
 async def get_exercise_status(scenario_name: str):
     """Get real-time exercise status including timer and team progress."""
@@ -161,6 +175,13 @@ async def get_exercise_status(scenario_name: str):
         else:
             team['port'] = ''
             team['url'] = ''
+
+    # Add turn-based status if applicable
+    status['turn_based'] = executor.turn_based
+    if executor.turn_based:
+        status['current_turn'] = executor.current_turn
+        status['total_turns'] = executor.total_turns
+        status['waiting_for_next_turn'] = executor.waiting_for_next_turn
 
     return status
 
@@ -356,63 +377,81 @@ def update_timeline(scenario_name: str, team_id: str, timeline_data: dict):
 
 @app.get("/api/v1/media")
 def list_media():
-    """List all media files in the library with metadata."""
-    library_path = os.path.join(MEDIA_DIR, "library")
-
-    if not os.path.exists(library_path):
-        return {"media": []}
-
+    """List all media files in the library and scenario-generated folders with metadata."""
     media_files = []
     supported_formats = {'.jpg', '.jpeg', '.png', '.gif', '.svg'}
 
     try:
-        # Scan library directory recursively
-        for root, dirs, files in os.walk(library_path):
-            for filename in files:
-                file_path = os.path.join(root, filename)
-                file_ext = os.path.splitext(filename)[1].lower()
+        # Directories to scan
+        scan_dirs = []
 
-                # Only process image files
-                if file_ext not in supported_formats:
-                    continue
+        # 1. Global library directory
+        library_path = os.path.join(MEDIA_DIR, "library")
+        if os.path.exists(library_path):
+            scan_dirs.append(library_path)
 
-                # Get relative path from media root
-                rel_path = os.path.relpath(file_path, MEDIA_DIR)
+        # 2. All scenario library and generated directories
+        if os.path.exists(MEDIA_DIR):
+            for item in os.listdir(MEDIA_DIR):
+                scenario_dir = os.path.join(MEDIA_DIR, item)
+                if os.path.isdir(scenario_dir) and item != "library":
+                    # Scan scenario library folder
+                    scenario_library = os.path.join(scenario_dir, "library")
+                    if os.path.exists(scenario_library):
+                        scan_dirs.append(scenario_library)
+                    # Scan scenario generated folder
+                    generated_dir = os.path.join(scenario_dir, "generated")
+                    if os.path.exists(generated_dir):
+                        scan_dirs.append(generated_dir)
 
-                # Get file stats
-                stat = os.stat(file_path)
-                file_size = stat.st_size
-                modified_time = stat.st_mtime
+        # Scan all directories
+        for scan_path in scan_dirs:
+            for root, dirs, files in os.walk(scan_path):
+                for filename in files:
+                    file_path = os.path.join(root, filename)
+                    file_ext = os.path.splitext(filename)[1].lower()
 
-                # Try to get image dimensions
-                width = None
-                height = None
-                if file_ext in {'.jpg', '.jpeg', '.png', '.gif'}:
-                    try:
-                        with Image.open(file_path) as img:
-                            width, height = img.size
-                    except Exception as e:
-                        print(f"Could not read dimensions for {filename}: {e}")
+                    # Only process image files
+                    if file_ext not in supported_formats:
+                        continue
 
-                # Determine MIME type
-                mime_types = {
-                    '.jpg': 'image/jpeg',
-                    '.jpeg': 'image/jpeg',
-                    '.png': 'image/png',
-                    '.gif': 'image/gif',
-                    '.svg': 'image/svg+xml'
-                }
-                mime_type = mime_types.get(file_ext, 'application/octet-stream')
+                    # Get relative path from media root
+                    rel_path = os.path.relpath(file_path, MEDIA_DIR)
 
-                media_files.append({
-                    'filename': filename,
-                    'path': f"/media/{rel_path}",
-                    'size': file_size,
-                    'width': width,
-                    'height': height,
-                    'modified': modified_time,
-                    'mime_type': mime_type
-                })
+                    # Get file stats
+                    stat = os.stat(file_path)
+                    file_size = stat.st_size
+                    modified_time = stat.st_mtime
+
+                    # Try to get image dimensions
+                    width = None
+                    height = None
+                    if file_ext in {'.jpg', '.jpeg', '.png', '.gif'}:
+                        try:
+                            with Image.open(file_path) as img:
+                                width, height = img.size
+                        except Exception as e:
+                            print(f"Could not read dimensions for {filename}: {e}")
+
+                    # Determine MIME type
+                    mime_types = {
+                        '.jpg': 'image/jpeg',
+                        '.jpeg': 'image/jpeg',
+                        '.png': 'image/png',
+                        '.gif': 'image/gif',
+                        '.svg': 'image/svg+xml'
+                    }
+                    mime_type = mime_types.get(file_ext, 'application/octet-stream')
+
+                    media_files.append({
+                        'filename': filename,
+                        'path': f"/media/{rel_path}",
+                        'size': file_size,
+                        'width': width,
+                        'height': height,
+                        'modified': modified_time,
+                        'mime_type': mime_type
+                    })
 
         # Sort by filename
         media_files.sort(key=lambda x: x['filename'])
@@ -586,10 +625,577 @@ def delete_media(path: str):
         raise HTTPException(status_code=500, detail=f"Failed to delete file: {str(e)}")
 
 
+@app.post("/api/v1/scenarios/{scenario_id}/generate-social-media")
+async def generate_social_media(scenario_id: str):
+    """Generate social media images for all social injects in the scenario."""
+    from playwright.async_api import async_playwright
+
+    # Load scenario to get teams
+    scenario_path = os.path.join(SCENARIOS_DIR, f"{scenario_id}.json")
+    if not os.path.exists(scenario_path):
+        raise HTTPException(status_code=404, detail=f"Scenario '{scenario_id}' not found.")
+
+    try:
+        with open(scenario_path, 'r') as f:
+            scenario_data = json.load(f)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error reading scenario: {str(e)}")
+
+    # Create output directory for generated media
+    generated_dir = os.path.join(MEDIA_DIR, scenario_id, "generated")
+    os.makedirs(generated_dir, exist_ok=True)
+
+    # Load templates
+    templates_dir = os.path.join(SCENARIOS_DIR, "templates", "social")
+    twitter_template_path = os.path.join(templates_dir, "twitter.html")
+    facebook_template_path = os.path.join(templates_dir, "facebook.html")
+
+    if not os.path.exists(twitter_template_path) or not os.path.exists(facebook_template_path):
+        raise HTTPException(status_code=500, detail="Social media templates not found")
+
+    with open(twitter_template_path, 'r') as f:
+        twitter_template = f.read()
+    with open(facebook_template_path, 'r') as f:
+        facebook_template = f.read()
+
+    generated_count = 0
+
+    # Process each team's timeline
+    for team in scenario_data.get('teams', []):
+        team_id = team['id']
+        timeline_file = team.get('timeline_file')
+
+        if not timeline_file:
+            continue
+
+        timeline_path = os.path.join(SCENARIOS_DIR, timeline_file)
+        if not os.path.exists(timeline_path):
+            continue
+
+        # Load timeline
+        with open(timeline_path, 'r') as f:
+            timeline_data = json.load(f)
+
+        timeline_modified = False
+
+        # Process each inject
+        for inject in timeline_data.get('injects', []):
+            if inject.get('type') != 'social':
+                continue
+
+            # PHASE 1: Platform Detection
+            content = inject.get('content', {})
+            platform = content.get('platform', 'twitter')
+
+            if platform not in ['twitter', 'facebook']:
+                print(f"Warning: Unsupported platform '{platform}' for inject {inject.get('id')}")
+                continue
+
+            # Extract data from inject content
+            source = content.get('source', '@unknown')
+            body = content.get('body', '')
+
+            # PHASE 3: Parse Display Name & Avatar based on platform
+            if platform == 'twitter':
+                # Twitter: "@JennyMartinez94"
+                if source.startswith('@'):
+                    handle = source
+                    # Derive display name from handle: @JennyMartinez94 → Jenny Martinez
+                    name_part = source[1:]  # Remove @
+                    # Split by numbers/underscores and capitalize
+                    words = re.split(r'[_\d]+', name_part)
+                    display_name = ' '.join(word.capitalize() for word in words if word)
+                    if not display_name:
+                        display_name = source  # Fallback to handle
+                    avatar_initial = source[1].upper()  # First letter after @
+                else:
+                    # Already a name
+                    handle = source
+                    display_name = source
+                    avatar_initial = source[0].upper()
+
+            elif platform == 'facebook':
+                # Facebook: "Student Action Darwin" or "Greenpeace Australia"
+                display_name = source
+                handle = None  # Facebook doesn't use handles
+                avatar_initial = source[0].upper()
+
+            # PHASE 4: Calculate Timestamp
+            turn = inject.get('turn', 1)
+            time_minutes = inject.get('time', 0)
+
+            # Each turn represents 2 hours of exercise time
+            base_hours = (turn - 1) * 2
+            total_minutes = (base_hours * 60) + time_minutes
+
+            # Format as relative time
+            if total_minutes < 60:
+                timestamp = f"{total_minutes}m ago" if total_minutes > 0 else "just now"
+            elif total_minutes < 1440:  # Less than 24 hours
+                hours = total_minutes // 60
+                mins = total_minutes % 60
+                if mins > 0:
+                    timestamp = f"{hours}h {mins}m ago"
+                else:
+                    timestamp = f"{hours}h ago"
+            else:  # 24+ hours
+                days = total_minutes // 1440
+                remaining_hours = (total_minutes % 1440) // 60
+                if remaining_hours > 0:
+                    timestamp = f"{days}d {remaining_hours}h ago"
+                else:
+                    timestamp = f"{days}d ago"
+
+            # PHASE 2: Generate Random Stats
+            if platform == 'twitter':
+                stats = {
+                    'retweets': random.randint(10, 500),
+                    'likes': random.randint(50, 2000),
+                    'views': random.randint(1000, 50000)
+                }
+            else:  # facebook
+                stats = {
+                    'reactions': random.randint(50, 500),
+                    'comments': random.randint(5, 50),
+                    'shares': random.randint(5, 100)
+                }
+
+            # PHASE 5: Generate Filename & Delete Old File (Duplicate Prevention)
+            inject_id = inject.get('id', f"inject_{time_minutes}")
+            safe_id = re.sub(r'[^\w\-]', '_', inject_id)
+            safe_team_id = re.sub(r'[^\w\-]', '_', team_id)
+            filename = f"{safe_team_id}_{safe_id}_{platform}.png"
+            file_path = os.path.join(generated_dir, filename)
+
+            # Delete existing file if present
+            if os.path.exists(file_path):
+                os.remove(file_path)
+
+            # PHASE 7: Render Template
+            async with async_playwright() as p:
+                browser = await p.chromium.launch()
+                page = await browser.new_page(viewport={'width': 650, 'height': 800})
+
+                if platform == 'twitter':
+                    html = twitter_template
+                    html = html.replace('{{AVATAR_INITIAL}}', avatar_initial)
+                    html = html.replace('{{DISPLAY_NAME}}', display_name)
+                    html = html.replace('{{SOURCE}}', handle)
+                    html = html.replace('{{BODY}}', body)
+                    html = html.replace('{{TIMESTAMP}}', timestamp)
+                    html = html.replace('{{RETWEETS}}', str(stats['retweets']))
+                    html = html.replace('{{LIKES}}', str(stats['likes']))
+                    html = html.replace('{{VIEWS}}', str(stats['views']))
+
+                    await page.set_content(html)
+                    await page.wait_for_timeout(500)
+                    element = await page.query_selector('.tweet-container')
+                    await element.screenshot(path=file_path)
+
+                else:  # facebook
+                    html = facebook_template
+                    html = html.replace('{{AVATAR_INITIAL}}', avatar_initial)
+                    html = html.replace('{{DISPLAY_NAME}}', display_name)
+                    html = html.replace('{{TIMESTAMP}}', timestamp)
+                    html = html.replace('{{BODY}}', body)
+                    html = html.replace('{{REACTIONS}}', str(stats['reactions']))
+                    html = html.replace('{{SHARES}}', str(stats['shares']))
+
+                    await page.set_content(html)
+                    await page.wait_for_timeout(500)
+                    element = await page.query_selector('.post-container')
+                    await element.screenshot(path=file_path)
+
+                await browser.close()
+
+            # PHASE 6: Update Inject with Media Path (single platform)
+            media_path = f"/media/{scenario_id}/generated/{filename}"
+            inject['media'] = [media_path]
+            timeline_modified = True
+            generated_count += 1
+
+        # Save updated timeline if modified
+        if timeline_modified:
+            with open(timeline_path, 'w') as f:
+                json.dump(timeline_data, f, indent=2)
+
+    return {
+        "status": "success",
+        "generated_count": generated_count,
+        "message": f"Generated {generated_count} social media images"
+    }
+
+
+@app.post("/api/v1/scenarios/{scenario_id}/generate-breaking-news")
+async def generate_breaking_news(scenario_id: str):
+    """Generate breaking news images for news-type injects."""
+    from playwright.async_api import async_playwright
+
+    # Load scenario to get teams
+    scenario_path = os.path.join(SCENARIOS_DIR, f"{scenario_id}.json")
+    if not os.path.exists(scenario_path):
+        raise HTTPException(status_code=404, detail=f"Scenario '{scenario_id}' not found.")
+
+    try:
+        with open(scenario_path, 'r') as f:
+            scenario_data = json.load(f)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error reading scenario: {str(e)}")
+
+    # Create output directory for generated media
+    generated_dir = os.path.join(MEDIA_DIR, scenario_id, "generated")
+    os.makedirs(generated_dir, exist_ok=True)
+
+    # Load template
+    template_path = os.path.join(SCENARIOS_DIR, "templates", "news", "breaking-news.html")
+    if not os.path.exists(template_path):
+        raise HTTPException(status_code=500, detail="Breaking news template not found")
+
+    with open(template_path, 'r') as f:
+        template = f.read()
+
+    generated_count = 0
+
+    # Process each team's timeline
+    for team in scenario_data.get('teams', []):
+        team_id = team['id']
+        timeline_file = team.get('timeline_file')
+
+        if not timeline_file:
+            continue
+
+        timeline_path = os.path.join(SCENARIOS_DIR, timeline_file)
+        if not os.path.exists(timeline_path):
+            continue
+
+        # Load timeline
+        with open(timeline_path, 'r') as f:
+            timeline_data = json.load(f)
+
+        timeline_modified = False
+
+        # Process each inject
+        for inject in timeline_data.get('injects', []):
+            if inject.get('type') != 'news':
+                continue
+
+            # Extract content
+            content = inject.get('content', {})
+            headline = content.get('headline', 'Breaking News')
+            body = content.get('body', '')
+            source = content.get('source', 'News Source')
+
+            # Calculate timestamp (same logic as social media)
+            turn = inject.get('turn', 1)
+            time_minutes = inject.get('time', 0)
+            base_hours = (turn - 1) * 2
+            total_minutes = (base_hours * 60) + time_minutes
+
+            if total_minutes < 60:
+                timestamp = f"{total_minutes}m ago" if total_minutes > 0 else "just now"
+            elif total_minutes < 1440:
+                hours = total_minutes // 60
+                mins = total_minutes % 60
+                timestamp = f"{hours}h {mins}m ago" if mins > 0 else f"{hours}h ago"
+            else:
+                days = total_minutes // 1440
+                remaining_hours = (total_minutes % 1440) // 60
+                timestamp = f"{days}d {remaining_hours}h ago" if remaining_hours > 0 else f"{days}d ago"
+
+            # Process images from media array (max 3)
+            images_html = ""
+            media_paths = inject.get('media', [])
+
+            for idx, media_path in enumerate(media_paths[:3]):
+                # Convert /media/... path to filesystem path
+                if media_path.startswith('/media/'):
+                    relative_path = media_path[7:]  # Remove '/media/'
+                    file_path = os.path.join(MEDIA_DIR, relative_path)
+
+                    if os.path.exists(file_path):
+                        try:
+                            # Read image and convert to base64
+                            with open(file_path, 'rb') as img_file:
+                                img_data = img_file.read()
+                                img_base64 = base64.b64encode(img_data).decode()
+
+                            # Determine MIME type
+                            ext = os.path.splitext(file_path)[1].lower()
+                            mime_types = {
+                                '.jpg': 'image/jpeg',
+                                '.jpeg': 'image/jpeg',
+                                '.png': 'image/png',
+                                '.gif': 'image/gif'
+                            }
+                            mime_type = mime_types.get(ext, 'image/jpeg')
+
+                            # Create img tag with embedded data
+                            images_html += f'<img src="data:{mime_type};base64,{img_base64}" class="news-image" alt="News image {idx + 1}">\n'
+                        except Exception as e:
+                            print(f"Error embedding image {media_path}: {e}")
+
+            # Generate filename
+            inject_id = inject.get('id', f"inject_{time_minutes}")
+            safe_id = re.sub(r'[^\w\-]', '_', inject_id)
+            safe_team_id = re.sub(r'[^\w\-]', '_', team_id)
+            filename = f"{safe_team_id}_{safe_id}_breaking_news.png"
+            file_path = os.path.join(generated_dir, filename)
+
+            # Delete existing file if present
+            if os.path.exists(file_path):
+                os.remove(file_path)
+
+            # Render template
+            async with async_playwright() as p:
+                browser = await p.chromium.launch()
+                page = await browser.new_page(viewport={'width': 650, 'height': 1200})
+
+                html = template
+                html = html.replace('{{HEADLINE}}', headline)
+                html = html.replace('{{BODY}}', body)
+                html = html.replace('{{SOURCE}}', source)
+                html = html.replace('{{TIMESTAMP}}', timestamp)
+                html = html.replace('{{IMAGES}}', images_html)
+
+                await page.set_content(html)
+                await page.wait_for_timeout(500)
+                element = await page.query_selector('.news-container')
+                await element.screenshot(path=file_path)
+
+                await browser.close()
+
+            # Update inject with media path
+            media_path = f"/media/{scenario_id}/generated/{filename}"
+
+            # Preserve existing media paths and add generated one
+            existing_media = inject.get('media', [])
+            # Remove any previous breaking_news.png for this inject
+            existing_media = [m for m in existing_media if not m.endswith('_breaking_news.png')]
+            # Add new generated image
+            existing_media.append(media_path)
+            inject['media'] = existing_media
+
+            timeline_modified = True
+            generated_count += 1
+
+        # Save updated timeline if modified
+        if timeline_modified:
+            with open(timeline_path, 'w') as f:
+                json.dump(timeline_data, f, indent=2)
+
+    return {
+        "status": "success",
+        "generated_count": generated_count,
+        "message": f"Generated {generated_count} breaking news images"
+    }
+
+
+@app.post("/api/v1/scenarios/{scenario_id}/generate-intelligence")
+async def generate_intelligence(scenario_id: str):
+    """Generate intelligence report images for intelligence-type injects."""
+    from playwright.async_api import async_playwright
+
+    # Load scenario to get teams
+    scenario_path = os.path.join(SCENARIOS_DIR, f"{scenario_id}.json")
+    if not os.path.exists(scenario_path):
+        raise HTTPException(status_code=404, detail=f"Scenario '{scenario_id}' not found.")
+
+    try:
+        with open(scenario_path, 'r') as f:
+            scenario_data = json.load(f)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error reading scenario: {str(e)}")
+
+    # Create output directory for generated media
+    generated_dir = os.path.join(MEDIA_DIR, scenario_id, "generated")
+    os.makedirs(generated_dir, exist_ok=True)
+
+    # Load template
+    template_path = os.path.join(SCENARIOS_DIR, "templates", "intelligence", "intelligence.html")
+    if not os.path.exists(template_path):
+        raise HTTPException(status_code=500, detail="Intelligence template not found")
+
+    with open(template_path, 'r') as f:
+        template = f.read()
+
+    generated_count = 0
+
+    # Process each team's timeline
+    for team in scenario_data.get('teams', []):
+        team_id = team['id']
+        timeline_file = team.get('timeline_file')
+
+        if not timeline_file:
+            continue
+
+        timeline_path = os.path.join(SCENARIOS_DIR, timeline_file)
+        if not os.path.exists(timeline_path):
+            continue
+
+        # Load timeline
+        with open(timeline_path, 'r') as f:
+            timeline_data = json.load(f)
+
+        timeline_modified = False
+
+        # Process each inject
+        for inject in timeline_data.get('injects', []):
+            if inject.get('type') != 'intelligence':
+                continue
+
+            # Extract content
+            content = inject.get('content', {})
+            headline = content.get('headline', 'Intelligence Report')
+            body = content.get('body', '')
+            source = content.get('source', 'Intelligence Source')
+
+            # Calculate timestamp (same logic as breaking news)
+            turn = inject.get('turn', 1)
+            time_minutes = inject.get('time', 0)
+            base_hours = (turn - 1) * 2
+            total_minutes = (base_hours * 60) + time_minutes
+
+            if total_minutes < 60:
+                timestamp = f"{total_minutes}m ago" if total_minutes > 0 else "just now"
+            elif total_minutes < 1440:
+                hours = total_minutes // 60
+                mins = total_minutes % 60
+                timestamp = f"{hours}h {mins}m ago" if mins > 0 else f"{hours}h ago"
+            else:
+                days = total_minutes // 1440
+                remaining_hours = (total_minutes % 1440) // 60
+                timestamp = f"{days}d {remaining_hours}h ago" if remaining_hours > 0 else f"{days}d ago"
+
+            # Generate filename
+            inject_id = inject.get('id', f"inject_{time_minutes}")
+            safe_id = re.sub(r'[^\w\-]', '_', inject_id)
+            safe_team_id = re.sub(r'[^\w\-]', '_', team_id)
+            filename = f"{safe_team_id}_{safe_id}_intelligence.png"
+            file_path = os.path.join(generated_dir, filename)
+
+            # Delete existing file if present
+            if os.path.exists(file_path):
+                os.remove(file_path)
+
+            # Render template
+            async with async_playwright() as p:
+                browser = await p.chromium.launch()
+                page = await browser.new_page(viewport={'width': 650, 'height': 1200})
+
+                html = template
+                html = html.replace('{{HEADLINE}}', headline)
+                html = html.replace('{{BODY}}', body)
+                html = html.replace('{{SOURCE}}', source)
+                html = html.replace('{{TIMESTAMP}}', timestamp)
+
+                await page.set_content(html)
+                await page.wait_for_timeout(500)
+                element = await page.query_selector('.intel-container')
+                await element.screenshot(path=file_path)
+
+                await browser.close()
+
+            # Update inject with media path
+            media_path = f"/media/{scenario_id}/generated/{filename}"
+
+            # Preserve existing media and append generated one
+            existing_media = inject.get('media', [])
+            # Remove any previous intelligence.png for this inject
+            existing_media = [m for m in existing_media if not m.endswith('_intelligence.png')]
+            # Add new generated image
+            existing_media.append(media_path)
+            inject['media'] = existing_media
+
+            timeline_modified = True
+            generated_count += 1
+
+        # Save updated timeline if modified
+        if timeline_modified:
+            with open(timeline_path, 'w') as f:
+                json.dump(timeline_data, f, indent=2)
+
+    return {
+        "status": "success",
+        "generated_count": generated_count,
+        "message": f"Generated {generated_count} intelligence report images"
+    }
+
+
+@app.get("/api/v1/scenarios/{scenario_id}/export-news-items")
+async def export_news_items(scenario_id: str):
+    """Export all news items with DALL-E prompts for image generation."""
+
+    # Load scenario to get teams
+    scenario_path = os.path.join(SCENARIOS_DIR, f"{scenario_id}.json")
+    if not os.path.exists(scenario_path):
+        raise HTTPException(status_code=404, detail=f"Scenario '{scenario_id}' not found.")
+
+    try:
+        with open(scenario_path, 'r') as f:
+            scenario_data = json.load(f)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error reading scenario: {str(e)}")
+
+    news_items = []
+
+    # Process each team's timeline
+    for team in scenario_data.get('teams', []):
+        team_id = team['id']
+        timeline_file = team.get('timeline_file')
+
+        if not timeline_file:
+            continue
+
+        timeline_path = os.path.join(SCENARIOS_DIR, timeline_file)
+        if not os.path.exists(timeline_path):
+            continue
+
+        # Load timeline
+        with open(timeline_path, 'r') as f:
+            timeline_data = json.load(f)
+
+        # Process each inject
+        for inject in timeline_data.get('injects', []):
+            if inject.get('type') != 'news':
+                continue
+
+            # Extract content
+            content = inject.get('content', {})
+            headline = content.get('headline', '')
+            body = content.get('body', '')
+            source = content.get('source', 'News Source')
+            inject_id = inject.get('id', '')
+
+            # Create DALL-E prompt based on headline and body
+            # Extract key visual elements from the content
+            prompt = f"Photorealistic news photograph: {headline}. "
+
+            # Add context from body for better image generation
+            body_excerpt = body[:200] if len(body) > 200 else body
+            prompt += f"{body_excerpt}. "
+            prompt += "Professional news photography style, high quality, realistic lighting, journalistic composition."
+
+            news_items.append({
+                "id": inject_id,
+                "team": team_id,
+                "headline": headline,
+                "body": body,
+                "source": source,
+                "filename": f"{inject_id}.png",
+                "dalle_prompt": prompt
+            })
+
+    return {
+        "scenario_id": scenario_id,
+        "total_news_items": len(news_items),
+        "news_items": news_items
+    }
+
+
 @app.get("/api/v1/status")
 def get_status():
     """Checks the status of backend services."""
-    
+
     # Check MQTT status
     mqtt_status = "disconnected"
     try:

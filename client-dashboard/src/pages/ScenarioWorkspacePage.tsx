@@ -49,6 +49,10 @@ interface ExerciseStatus {
     url: string;
   }>;
   dashboard_urls?: {[key: string]: string};
+  turn_based?: boolean;
+  current_turn?: number;
+  total_turns?: number;
+  waiting_for_next_turn?: boolean;
 }
 
 const ScenarioWorkspacePage: React.FC = () => {
@@ -62,6 +66,8 @@ const ScenarioWorkspacePage: React.FC = () => {
   const [dashboardUrls, setDashboardUrls] = useState<{[key: string]: string} | null>(null);
   const [exerciseStatus, setExerciseStatus] = useState<ExerciseStatus | null>(null);
   const [showStopConfirm, setShowStopConfirm] = useState(false);
+  const [generatingMedia, setGeneratingMedia] = useState(false);
+  const [generationStatus, setGenerationStatus] = useState<string>('');
 
   useEffect(() => {
     fetchScenarioData();
@@ -242,6 +248,34 @@ const ScenarioWorkspacePage: React.FC = () => {
     }
   };
 
+  const nextTurn = async () => {
+    if (!scenarioId) return;
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/v1/exercises/${scenarioId}/next-turn`, {
+        method: 'POST',
+      });
+      if (response.ok) {
+        fetchCurrentExercise();
+      }
+    } catch (error) {
+      console.error("Error advancing turn:", error);
+    }
+  };
+
+  const resumeScenario = async () => {
+    if (!scenarioId) return;
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/v1/exercises/${scenarioId}/resume`, {
+        method: 'POST',
+      });
+      if (response.ok) {
+        fetchCurrentExercise();
+      }
+    } catch (error) {
+      console.error("Error resuming scenario:", error);
+    }
+  };
+
   const stopScenario = async () => {
     if (!scenarioId) return;
     setDeployStatus(`Tearing down ${scenarioId}...`);
@@ -260,6 +294,75 @@ const ScenarioWorkspacePage: React.FC = () => {
     } catch (error) {
       setDeployStatus(`Failed to connect to orchestration service.`);
       console.error("There was an error stopping the scenario:", error);
+    }
+  };
+
+  const generateSocialMedia = async () => {
+    if (!scenarioId) return;
+    setGeneratingMedia(true);
+    setGenerationStatus('Generating social media images...');
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/v1/scenarios/${scenarioId}/generate-social-media`, {
+        method: 'POST',
+      });
+      const data = await response.json();
+      if (response.ok) {
+        setGenerationStatus(`✓ Generated ${data.generated_count} social media images`);
+        setTimeout(() => setGenerationStatus(''), 5000);
+      } else {
+        setGenerationStatus(`Error: ${data.detail || 'Failed to generate media'}`);
+      }
+    } catch (error) {
+      setGenerationStatus(`Error: Failed to connect to service`);
+      console.error("Error generating social media:", error);
+    } finally {
+      setGeneratingMedia(false);
+    }
+  };
+
+  const generateBreakingNews = async () => {
+    if (!scenarioId) return;
+    setGeneratingMedia(true);
+    setGenerationStatus('Generating breaking news images...');
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/v1/scenarios/${scenarioId}/generate-breaking-news`, {
+        method: 'POST',
+      });
+      const data = await response.json();
+      if (response.ok) {
+        setGenerationStatus(`✓ Generated ${data.generated_count} breaking news images`);
+        setTimeout(() => setGenerationStatus(''), 5000);
+      } else {
+        setGenerationStatus(`Error: ${data.detail || 'Failed to generate news'}`);
+      }
+    } catch (error) {
+      setGenerationStatus(`Error: Failed to connect to service`);
+      console.error("Error generating breaking news:", error);
+    } finally {
+      setGeneratingMedia(false);
+    }
+  };
+
+  const generateIntelligence = async () => {
+    if (!scenarioId) return;
+    setGeneratingMedia(true);
+    setGenerationStatus('Generating intelligence images...');
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/v1/scenarios/${scenarioId}/generate-intelligence`, {
+        method: 'POST',
+      });
+      const data = await response.json();
+      if (response.ok) {
+        setGenerationStatus(`✓ Generated ${data.generated_count} intelligence images`);
+        setTimeout(() => setGenerationStatus(''), 5000);
+      } else {
+        setGenerationStatus(`Error: ${data.detail || 'Failed to generate intelligence'}`);
+      }
+    } catch (error) {
+      setGenerationStatus(`Error: Failed to connect to service`);
+      console.error("Error generating intelligence:", error);
+    } finally {
+      setGeneratingMedia(false);
     }
   };
 
@@ -337,7 +440,7 @@ const ScenarioWorkspacePage: React.FC = () => {
               </div>
 
               {/* Deploy/Stop Buttons */}
-              <div className="flex gap-2">
+              <div className="flex gap-2 flex-wrap mb-3">
                 <button
                   onClick={deployScenario}
                   className="bg-primary hover:bg-blue-700 text-white font-bold py-2 px-6 rounded disabled:opacity-50 disabled:cursor-not-allowed"
@@ -353,6 +456,36 @@ const ScenarioWorkspacePage: React.FC = () => {
                   End Exercise
                 </button>
               </div>
+
+              {/* Media Generation Buttons */}
+              <div className="flex gap-2 flex-wrap">
+                <button
+                  onClick={generateSocialMedia}
+                  className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-6 rounded disabled:opacity-50 disabled:cursor-not-allowed"
+                  disabled={generatingMedia}
+                >
+                  {generatingMedia ? 'Generating...' : 'Generate Social Media'}
+                </button>
+                <button
+                  onClick={generateBreakingNews}
+                  className="bg-orange-600 hover:bg-orange-700 text-white font-bold py-2 px-6 rounded disabled:opacity-50 disabled:cursor-not-allowed"
+                  disabled={generatingMedia}
+                >
+                  {generatingMedia ? 'Generating...' : 'Generate Breaking News'}
+                </button>
+                <button
+                  onClick={generateIntelligence}
+                  className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded disabled:opacity-50 disabled:cursor-not-allowed"
+                  disabled={generatingMedia}
+                >
+                  {generatingMedia ? 'Generating...' : 'Generate Intelligence'}
+                </button>
+              </div>
+              {generationStatus && (
+                <div className="mt-2 text-sm text-text-secondary">
+                  {generationStatus}
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -416,29 +549,61 @@ const ScenarioWorkspacePage: React.FC = () => {
                 {exerciseStatus.state}
               </span>
             </div>
-            <div className="text-2xl font-mono text-primary">
-              {exerciseStatus.timer.formatted}
+            <div>
+              {exerciseStatus.turn_based && exerciseStatus.current_turn && exerciseStatus.current_turn > 0 && (
+                <div className="text-lg font-semibold text-text-primary mb-1 text-right">
+                  Turn {exerciseStatus.current_turn}{exerciseStatus.total_turns ? ` of ${exerciseStatus.total_turns}` : ''}
+                </div>
+              )}
+              <div className="text-2xl font-mono text-primary">
+                {exerciseStatus.timer.formatted}
+              </div>
+              {exerciseStatus.waiting_for_next_turn && (
+                <div className="text-sm text-yellow-500 text-right mt-1">⏸ Waiting for next turn</div>
+              )}
             </div>
           </div>
 
           {/* Control Buttons */}
           <div className="flex gap-2 mb-4">
-            <button
-              onClick={startScenario}
-              disabled={exerciseStatus.state === 'RUNNING' || exerciseStatus.state === 'FINISHED'}
-              className="flex items-center gap-2 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              <Play size={16} />
-              Start
-            </button>
-            <button
-              onClick={pauseScenario}
-              disabled={exerciseStatus.state !== 'RUNNING'}
-              className="flex items-center gap-2 px-4 py-2 bg-yellow-600 hover:bg-yellow-700 text-white rounded disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              <Pause size={16} />
-              Pause
-            </button>
+            {exerciseStatus.state === 'NOT_STARTED' && (
+              <button
+                onClick={startScenario}
+                className="flex items-center gap-2 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded"
+              >
+                <Play size={16} />
+                {exerciseStatus.turn_based ? 'Start Turn 1' : 'Start'}
+              </button>
+            )}
+            {exerciseStatus.state === 'RUNNING' && (
+              <button
+                onClick={pauseScenario}
+                className="flex items-center gap-2 px-4 py-2 bg-yellow-600 hover:bg-yellow-700 text-white rounded"
+              >
+                <Pause size={16} />
+                Pause
+              </button>
+            )}
+            {exerciseStatus.state === 'PAUSED' && (
+              <>
+                {exerciseStatus.turn_based && exerciseStatus.waiting_for_next_turn ? (
+                  <button
+                    onClick={nextTurn}
+                    className="flex items-center gap-2 px-4 py-2 bg-primary hover:bg-primary/80 text-white rounded"
+                  >
+                    ➡ Next Turn {exerciseStatus.current_turn && exerciseStatus.total_turns ? `(${exerciseStatus.current_turn + 1}/${exerciseStatus.total_turns})` : ''}
+                  </button>
+                ) : (
+                  <button
+                    onClick={resumeScenario}
+                    className="flex items-center gap-2 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded"
+                  >
+                    <Play size={16} />
+                    Resume
+                  </button>
+                )}
+              </>
+            )}
             <button
               onClick={() => setShowStopConfirm(true)}
               disabled={exerciseStatus.state === 'FINISHED'}

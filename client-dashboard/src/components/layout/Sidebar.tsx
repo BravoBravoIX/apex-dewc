@@ -5,6 +5,7 @@ const navigation = [
   { name: 'Dashboard', href: '/' },
   { name: 'Scenarios', href: '/scenarios' },
   { name: 'Media Library', href: '/media' },
+  { name: 'Media Templates', href: '/media-templates' },
   { name: 'IQ Library', href: '/iq-library' },
   { name: 'Exercise Control', href: '/control' },
   { name: 'Analytics', href: '/analytics' },

@@ -10,6 +10,7 @@ import ScenarioWorkspacePage from './pages/ScenarioWorkspacePage';
 import TimelinesPage from './pages/TimelinesPage';
 import TimelineViewerPage from './pages/TimelineViewerPage';
 import MediaLibraryPage from './pages/MediaLibraryPage';
+import MediaTemplatesPage from './pages/MediaTemplatesPage';
 import IQLibraryPage from './pages/IQLibraryPage';
 import ExerciseControlPage from './pages/ExerciseControlPage';
 import AnalyticsPage from './pages/AnalyticsPage';
@@ -31,6 +32,7 @@ function App() {
                 <Route path="/timelines" element={<TimelinesPage />} />
                 <Route path="/timelines/:scenarioId/:teamId" element={<TimelineViewerPage />} />
                 <Route path="/media" element={<MediaLibraryPage />} />
+                <Route path="/media-templates" element={<MediaTemplatesPage />} />
                 <Route path="/iq-library" element={<IQLibraryPage />} />
                 <Route path="/control" element={<ExerciseControlPage />} />
                 <Route path="/analytics" element={<AnalyticsPage />} />
