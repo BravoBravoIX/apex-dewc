@@ -2,6 +2,7 @@
   "id": "indopac-2025",
   "name": "IndoPac 2025",
   "description": "Indo-Pacific regional crisis scenario with turn-based inject delivery",
+  "duration_minutes": 300,
   "turn_based": true,
   "total_turns": 3,
   "teams": [

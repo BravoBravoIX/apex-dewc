@@ -4,6 +4,7 @@
   "description": "Minimal 2-turn test scenario for validating turn-based inject delivery",
   "turn_based": true,
   "total_turns": 2,
+  "hidden": true,
   "teams": [
     {
       "id": "test",

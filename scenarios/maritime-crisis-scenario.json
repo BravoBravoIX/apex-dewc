@@ -5,6 +5,7 @@
   "description": "A multi-domain crisis response scenario requiring coordination between naval, intelligence, and diplomatic teams.",
   "thumbnail": "maritime-scenario.png",
   "duration_minutes": 60,
+  "hidden": true,
   "teams": [
     {
       "id": "blue",

@@ -233,6 +233,10 @@ def list_scenarios():
                     with open(scenario_path, 'r') as f:
                         scenario_data = json.load(f)
 
+                        # Skip hidden scenarios
+                        if scenario_data.get("hidden", False):
+                            continue
+
                         # Count total injects across all teams
                         total_injects = 0
                         for team in scenario_data.get("teams", []):
