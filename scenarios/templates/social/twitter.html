@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: transparent;
+    margin: 0;
+    padding: 0;
+  }
+  .tweet-container {
+    background: #000000;
+    width: 100%;
+    padding: 16px;
+    border: 1px solid #2f3336;
+  }
+  .tweet-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  .avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #1d9bf0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    margin-right: 12px;
+  }
+  .user-info {
+    display: flex;
+    flex-direction: column;
+  }
+  .user-name {
+    color: #e7e9ea;
+    font-weight: 700;
+    font-size: 15px;
+  }
+  .user-handle {
+    color: #71767b;
+    font-size: 13px;
+  }
+  .tweet-content {
+    color: #e7e9ea;
+    font-size: 15px;
+    line-height: 20px;
+    margin-bottom: 12px;
+    word-wrap: break-word;
+  }
+  .tweet-timestamp {
+    color: #71767b;
+    font-size: 13px;
+    margin-bottom: 16px;
+  }
+  .tweet-stats {
+    display: flex;
+    gap: 24px;
+    padding-top: 12px;
+    border-top: 1px solid #2f3336;
+    color: #71767b;
+    font-size: 13px;
+  }
+  .stat-value {
+    color: #e7e9ea;
+    font-weight: 700;
+    margin-right: 4px;
+  }
+  .tweet-actions {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 12px;
+    border-top: 1px solid #2f3336;
+    margin-top: 12px;
+  }
+  .action-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #71767b;
+    cursor: pointer;
+  }
+  .action-icon:hover {
+    background: rgba(29, 155, 240, 0.1);
+    color: #1d9bf0;
+  }
+</style>
+</head>
+<body>
+  <div class="tweet-container">
+    <div class="tweet-header">
+      <div class="avatar">{{AVATAR_INITIAL}}</div>
+      <div class="user-info">
+        <div class="user-name">{{DISPLAY_NAME}}</div>
+        <div class="user-handle">{{SOURCE}}</div>
+      </div>
+    </div>
+    <div class="tweet-content">{{BODY}}</div>
+    <div class="tweet-timestamp">{{TIMESTAMP}}</div>
+    <div class="tweet-stats">
+      <span><span class="stat-value">{{RETWEETS}}</span> Reposts</span>
+      <span><span class="stat-value">{{LIKES}}</span> Likes</span>
+      <span><span class="stat-value">{{VIEWS}}</span> Views</span>
+    </div>
+    <div class="tweet-actions">
+      <div class="action-icon">💬</div>
+      <div class="action-icon">🔁</div>
+      <div class="action-icon">♥</div>
+      <div class="action-icon">↗</div>
+    </div>
+  </div>
+</body>
+</html>

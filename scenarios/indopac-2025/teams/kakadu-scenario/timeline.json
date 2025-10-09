@@ -1,0 +1,385 @@
+{
+  "scenario_id": "indopac-2025",
+  "injects": [
+    {
+      "id": "kak-t1-001",
+      "turn": 1,
+      "time": 0,
+      "type": "intelligence",
+      "content": {
+        "headline": "Electronic Anomalies Detected",
+        "body": "Multiple vessels reporting GPS degradation and radar intermittent returns. Pattern suggests active jamming but no emitter identified. Frequency analysis ongoing. Merchant traffic also affected - not isolated to military systems.",
+        "source": "Electronic Warfare Cell"
+      }
+    },
+    {
+      "id": "kak-t1-002",
+      "turn": 1,
+      "time": 5,
+      "type": "intelligence",
+      "content": {
+        "headline": "EW Attack Confirmed",
+        "body": "Classification: SECRET. Electronic warfare signature confirmed. Type-3 jamming pattern consistent with Red Team EW platforms. All vessels experiencing radar blackout. Switching to backup navigation. Recommend immediate EMCON posture.",
+        "source": "Task Force Intel Officer"
+      }
+    },
+    {
+      "id": "kak-t1-003",
+      "turn": 1,
+      "time": 21,
+      "type": "email",
+      "content": {
+        "from": "Task Force Commander",
+        "subject": "Full Radar Blackout - Action Required",
+        "body": "All units report complete radar failure as of 1435hrs. Visual navigation only. High risk of blue-on-blue without IFF. Request immediate technical support and ROE clarification for degraded sensors environment. Red Team units likely exploiting our blindness."
+      }
+    },
+    {
+      "id": "kak-t1-004",
+      "turn": 1,
+      "time": 64,
+      "type": "email",
+      "content": {
+        "from": "Coalition Liaison Cell",
+        "subject": "Singapore ROE Interpretation Differs",
+        "body": "Singapore Navy insists their ROE permits warning shots in current scenario. This contradicts agreed coalition framework. Their commodore is adamant. Need resolution before someone does something regrettable. Please advise ASAP."
+      }
+    },
+    {
+      "id": "kak-t1-005",
+      "turn": 1,
+      "time": 86,
+      "type": "sms",
+      "content": {
+        "from": "Bridge Officer HMAS Perth",
+        "body": "Confusion on weapons free. Singapore frigate just asked if we're weapons free. We said no. They seem confused. This could go bad fast."
+      }
+    },
+    {
+      "id": "kak-t1-006",
+      "turn": 1,
+      "time": 129,
+      "type": "intelligence",
+      "content": {
+        "headline": "Submarine Contact Report",
+        "body": "Passive sonar contact bearing 270, range estimated 8000 yards. Tonals consistent with diesel submarine. No friendly subs scheduled in area. Contact is at creep speed, possibly collecting intelligence. Classification confidence: Medium.",
+        "source": "ASW Coordinator"
+      }
+    },
+    {
+      "id": "kak-t1-007",
+      "turn": 1,
+      "time": 150,
+      "type": "email",
+      "content": {
+        "from": "Submarine Operations Authority",
+        "subject": "No Allied Subs in Area",
+        "body": "Confirming zero friendly submarines within 200nm of your position. US, UK, and French boats all accounted for elsewhere. Contact is either Red Team or third party. Treat as potentially hostile."
+      }
+    },
+    {
+      "id": "kak-t1-008",
+      "turn": 1,
+      "time": 171,
+      "type": "intelligence",
+      "content": {
+        "headline": "Contact Behavior Analysis",
+        "body": "Submarine contact maintaining position relative to task force. Assess high confidence this is intelligence collection operation. Acoustic signature 65% match to Red Team KILO-class. Recommend maintain track without active prosecution.",
+        "source": "Intelligence Fusion Center"
+      }
+    },
+    {
+      "id": "kak-t1-009",
+      "turn": 1,
+      "time": 214,
+      "type": "sms",
+      "content": {
+        "from": "Maritime Operations",
+        "body": "MAYDAY - Cruise ship fire. Costa Pacifica declaring emergency. Engine room fire. 1847 souls on board. Position 45nm from you."
+      }
+    },
+    {
+      "id": "kak-t1-010",
+      "turn": 1,
+      "time": 236,
+      "type": "social",
+      "content": {
+        "headline": "Fire on cruise ship - military nearby!",
+        "body": "On Costa Pacifica and there's smoke everywhere! They say Navy ships are coming to help. So scared right now. Kids are crying. #emergency #helpus",
+        "source": "@TommyBrown_Pax"
+      },
+      "media": [
+        "/media/indopac-2025/generated/kakadu-scenario_kak-t1-010_twitter.png"
+      ]
+    },
+    {
+      "id": "kak-t1-011",
+      "turn": 1,
+      "time": 257,
+      "type": "social",
+      "content": {
+        "headline": "Passengers panicking need help",
+        "body": "BREAKING: Multiple passengers posting videos from Costa Pacifica showing smoke in corridors. 1800+ people aboard. Australian Navy responding but are they equipped for this scale? This could be catastrophic.",
+        "source": "@CruiseReporter"
+      },
+      "media": [
+        "/media/indopac-2025/generated/kakadu-scenario_kak-t1-011_twitter.png"
+      ]
+    },
+    {
+      "id": "kak-t1-012",
+      "turn": 1,
+      "time": 279,
+      "type": "news",
+      "content": {
+        "headline": "Navy Diverts to Cruise Ship Emergency",
+        "body": "Australian and partner naval vessels are racing to assist cruise ship Costa Pacifica after fire broke out in the engine room. With over 1,800 passengers and crew aboard, this represents one of the largest maritime rescue operations in recent memory. The ships were participating in the Kakadu military exercise when the distress call came through.",
+        "source": "Channel 9 News"
+      },
+      "media": [
+        "/media/indopac-2025/library/kak-t1-012.jpg",
+        "/media/indopac-2025/generated/kakadu-scenario_kak-t1-012_breaking_news.png"
+      ]
+    },
+    {
+      "id": "kak-t2-001",
+      "turn": 2,
+      "time": 0,
+      "type": "intelligence",
+      "content": {
+        "headline": "Tropical Cyclone Forming",
+        "body": "Tropical Low 04U has intensified to Category 2 cyclone. Current track takes it directly through exercise area. Expected to reach Cat 3 within 12 hours. Recommend immediate suspension of flight operations. Sea state will deteriorate rapidly.",
+        "source": "Bureau of Meteorology"
+      }
+    },
+    {
+      "id": "kak-t2-002",
+      "turn": 2,
+      "time": 25,
+      "type": "email",
+      "content": {
+        "from": "Maritime Safety Authority",
+        "subject": "Exercise Suspension Required",
+        "body": "All vessels must seek shelter within 6 hours. Cyclone Nathan now Cat 3 and strengthening. This is not optional - we cannot have military vessels at risk during civilian emergency response phase. Port Darwin preparing for multiple vessel arrivals."
+      }
+    },
+    {
+      "id": "kak-t2-003",
+      "turn": 2,
+      "time": 75,
+      "type": "social",
+      "content": {
+        "headline": "FAKE: Australian ship sunk!",
+        "body": "BREAKING: Australian frigate reportedly sunk during Kakadu exercise! Multiple casualties reported. Military covering it up. Share before deleted! #KakaduDisaster #CoverUp",
+        "source": "@InfoWars_Pacific"
+      },
+      "media": [
+        "/media/indopac-2025/generated/kakadu-scenario_kak-t2-003_twitter.png"
+      ]
+    },
+    {
+      "id": "kak-t2-004",
+      "turn": 2,
+      "time": 100,
+      "type": "social",
+      "content": {
+        "headline": "This is completely false!!",
+        "body": "The viral posts about a ship sinking are COMPLETELY FALSE. All vessels are safe. This is deliberate disinformation. Do not share unverified content. All our people are accounted for and safe.",
+        "source": "@RAN_Official"
+      },
+      "media": [
+        "/media/indopac-2025/generated/kakadu-scenario_kak-t2-004_twitter.png"
+      ]
+    },
+    {
+      "id": "kak-t2-005",
+      "turn": 2,
+      "time": 125,
+      "type": "news",
+      "content": {
+        "headline": "False Reports Plague Exercise",
+        "body": "Defence officials are battling a sophisticated disinformation campaign targeting the Kakadu exercise. False reports of casualties and ship sinkings have been viewed millions of times on social media. 'This is information warfare in real-time,' says cyber expert Dr. James Chen.",
+        "source": "Australian Financial Review"
+      },
+      "media": [
+        "/media/indopac-2025/library/kak-t2-005.jpg",
+        "/media/indopac-2025/generated/kakadu-scenario_kak-t2-005_breaking_news.png"
+      ]
+    },
+    {
+      "id": "kak-t2-006",
+      "turn": 2,
+      "time": 150,
+      "type": "intelligence",
+      "content": {
+        "headline": "Attribution Confirmed",
+        "body": "Bot network analysis complete. Disinformation campaign originates from Red Team information operations unit. Over 50,000 bot accounts activated. Narrative being amplified by state media. Recommend immediate counter-messaging strategy.",
+        "source": "Cyber Intelligence Unit"
+      }
+    },
+    {
+      "id": "kak-t2-007",
+      "turn": 2,
+      "time": 200,
+      "type": "email",
+      "content": {
+        "from": "Engineering Officer HMAS Hobart",
+        "subject": "Fuel Contamination Detected",
+        "body": "Water contamination found in fuel samples from multiple ships. All took fuel from same Darwin facility. This is not natural contamination - someone added water deliberately. Estimate 30% power reduction until cleaned. Investigating scope of sabotage."
+      }
+    },
+    {
+      "id": "kak-t2-008",
+      "turn": 2,
+      "time": 225,
+      "type": "intelligence",
+      "content": {
+        "headline": "Sabotage Confirmation",
+        "body": "Security footage shows unauthorized personnel near fuel farm 72 hours ago. Facial recognition matches known Red Team intelligence asset. This was planned before exercise began. Recommend immediate security sweep all logistics nodes.",
+        "source": "Counter-Intelligence Team"
+      }
+    },
+    {
+      "id": "kak-t2-009",
+      "turn": 2,
+      "time": 275,
+      "type": "email",
+      "content": {
+        "from": "Diplomatic Liaison",
+        "subject": "Vietnam Requests Observer Status",
+        "body": "Vietnamese Navy formally requesting to send observer to remainder of exercise. This is unprecedented - they've never shown interest before. Assess this as genuine opportunity to improve relations. State Dept supportive. Need response within 2 hours."
+      }
+    },
+    {
+      "id": "kak-t2-010",
+      "turn": 2,
+      "time": 300,
+      "type": "intelligence",
+      "content": {
+        "headline": "Strategic Opportunity Assessment",
+        "body": "Vietnam observer request represents major shift. They're hedging against Red Team influence. If we accept, expect positive regional response. Minimal intelligence risk as exercise already compromised. Recommend immediate acceptance with ceremonial welcome.",
+        "source": "Regional Analyst"
+      }
+    },
+    {
+      "id": "kak-t3-001",
+      "turn": 3,
+      "time": 0,
+      "type": "intelligence",
+      "content": {
+        "headline": "Threat Stream - Closing Ceremony",
+        "body": "Credible threat against Darwin ceremony. HUMINT indicates possible drone attack during final port visit. Source reliability B2. Large crowd expected including families. Recommend low-profile security increase without causing panic.",
+        "source": "Security Intelligence"
+      }
+    },
+    {
+      "id": "kak-t3-002",
+      "turn": 3,
+      "time": 25,
+      "type": "email",
+      "content": {
+        "from": "NT Police Commander",
+        "subject": "Security Measures Required",
+        "body": "We're implementing enhanced security for tomorrow's ceremony based on your intelligence. Need to balance visible deterrence with avoiding panic. Media will be present in force. Suggest we coordinate messaging if questioned."
+      }
+    },
+    {
+      "id": "kak-t3-003",
+      "turn": 3,
+      "time": 75,
+      "type": "email",
+      "content": {
+        "from": "Exercise Planning Cell",
+        "subject": "Partner Nations Disagree on Success",
+        "body": "Japan considers exercise 'highly successful' while Indonesia calls it 'adequate with lessons identified.' Singapore wanting to emphasize humanitarian success, Malaysia focused on interoperability challenges. Need unified message for press conference in 3 hours."
+      }
+    },
+    {
+      "id": "kak-t3-004",
+      "turn": 3,
+      "time": 100,
+      "type": "sms",
+      "content": {
+        "from": "Public Affairs Officer",
+        "body": "Media asking about disagreements. Journos heard about partner disagreements. ABC wants comment. What's our line?"
+      }
+    },
+    {
+      "id": "kak-t3-005",
+      "turn": 3,
+      "time": 125,
+      "type": "news",
+      "content": {
+        "headline": "Questions Over Exercise Success",
+        "body": "Sources within the Kakadu exercise suggest partner nations can't agree on whether the massive drill was successful. 'There are definitely different perspectives,' one military official said on condition of anonymity. The disagreement threatens to overshadow tomorrow's closing ceremony.",
+        "source": "The Age"
+      },
+      "media": [
+        "/media/indopac-2025/generated/kakadu-scenario_kak-t3-005_breaking_news.png"
+      ]
+    },
+    {
+      "id": "kak-t3-006",
+      "turn": 3,
+      "time": 175,
+      "type": "email",
+      "content": {
+        "from": "Maritime Patrol Aircraft",
+        "subject": "Illegal Fishing Fleet Located",
+        "body": "Located approximately 300 illegal fishing vessels in protected waters. Clear environmental crimes in progress - using banned nets, destroying reef. Do we report and intervene or maintain exercise focus? Videos and evidence collected."
+      }
+    },
+    {
+      "id": "kak-t3-007",
+      "turn": 3,
+      "time": 200,
+      "type": "intelligence",
+      "content": {
+        "headline": "Legal Obligations",
+        "body": "We have obligation to report environmental crimes to AFMA and Indonesian authorities. However, this will reveal our surveillance capabilities and positions. Recommend report through civilian channels after 6-hour delay.",
+        "source": "Legal Advisor"
+      }
+    },
+    {
+      "id": "kak-t3-008",
+      "turn": 3,
+      "time": 225,
+      "type": "news",
+      "content": {
+        "headline": "Navy Discovers Major Environmental Crimes",
+        "body": "The Royal Australian Navy has uncovered what appears to be the largest illegal fishing operation in northern waters during the Kakadu exercise. Sources indicate hundreds of vessels were documented destroying protected marine habitats. Environmental groups are demanding immediate action.",
+        "source": "Sydney Morning Herald"
+      },
+      "media": [
+        "/media/indopac-2025/library/kak-t3-008.jpg",
+        "/media/indopac-2025/generated/kakadu-scenario_kak-t3-008_breaking_news.png"
+      ]
+    },
+    {
+      "id": "kak-t3-009",
+      "turn": 3,
+      "time": 275,
+      "type": "email",
+      "content": {
+        "from": "Exercise Director",
+        "subject": "Exercise Objectives Exceeded",
+        "body": "All primary objectives achieved, zero safety incidents, humanitarian mission success. Indonesian partnership announcement ready. Media briefing pack prepared. This is the good news story we needed."
+      }
+    },
+    {
+      "id": "kak-t3-010",
+      "turn": 3,
+      "time": 300,
+      "type": "news",
+      "content": {
+        "headline": "Kakadu Exercise Hailed as Success",
+        "body": "The biennial Kakadu exercise has concluded with defence officials declaring it an unprecedented success. The highlight was Indonesia's surprise announcement of plans to increase participation in future exercises, signaling warming defence ties. 'This exercise demonstrated our ability to work as one,' said the Chief of Navy.",
+        "source": "Defence Media"
+      },
+      "media": [
+        "/media/indopac-2025/library/kak-t3-010.jpg",
+        "/media/indopac-2025/generated/kakadu-scenario_kak-t3-010_breaking_news.png"
+      ]
+    }
+  ]
+}

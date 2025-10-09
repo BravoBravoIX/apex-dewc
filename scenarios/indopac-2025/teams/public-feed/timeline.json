@@ -1,0 +1,257 @@
+{
+  "scenario_id": "indopac-2025",
+  "injects": [
+    {
+      "id": "pf-t1-001",
+      "turn": 1,
+      "time": 0,
+      "type": "news",
+      "content": {
+        "headline": "Emergency Summit Between Asian Powers",
+        "body": "SINGAPORE - Diplomatic sources confirm India and China have called an emergency summit for tomorrow. Maritime security and regional frameworks expected to dominate agenda. Markets nervous about potential shift in Indo-Pacific power dynamics.",
+        "source": "Bloomberg"
+      },
+      "media": [
+        "/media/indopac-2025/generated/public-feed_pf-t1-001_breaking_news.png"
+      ]
+    },
+    {
+      "id": "pf-t1-002",
+      "turn": 1,
+      "time": 30,
+      "type": "news",
+      "content": {
+        "headline": "India-China Announce Joint Maritime Framework",
+        "body": "NEW DELHI - In a surprise move, India and China have announced a joint Indo-Pacific Maritime Security Framework, calling for 'regional solutions to regional challenges.' The agreement, signed hours ago, questions the need for external military exercises in Asian waters.",
+        "source": "Reuters"
+      },
+      "media": [
+        "/media/indopac-2025/generated/public-feed_pf-t1-002_breaking_news.png"
+      ]
+    },
+    {
+      "id": "pf-t1-003",
+      "turn": 1,
+      "time": 45,
+      "type": "news",
+      "content": {
+        "headline": "ASEAN Nations Welcome New Framework",
+        "body": "Southeast Asian nations are cautiously welcoming the India-China maritime framework. 'This could reduce tensions significantly,' says Singapore Foreign Minister. The announcement comes as Australia conducts large-scale naval exercises in the region.",
+        "source": "Channel News Asia"
+      },
+      "media": [
+        "/media/indopac-2025/generated/public-feed_pf-t1-003_breaking_news.png"
+      ]
+    },
+    {
+      "id": "pf-t1-004",
+      "turn": 1,
+      "time": 60,
+      "type": "news",
+      "content": {
+        "headline": "Australia Commits to Continue Exercises",
+        "body": "Despite the surprise India-China agreement, Australian Defence officials confirm the Kakadu exercise will proceed. 'We remain committed to our partners and to regional stability,' spokesperson says. The decision is already drawing mixed reactions from neighboring nations.",
+        "source": "ABC News"
+      },
+      "media": [
+        "/media/indopac-2025/generated/public-feed_pf-t1-004_breaking_news.png"
+      ]
+    },
+    {
+      "id": "pf-t1-005",
+      "turn": 1,
+      "time": 210,
+      "type": "social",
+      "content": {
+        "headline": "Military families worried about escalation",
+        "body": "Anyone else worried about what this India-China thing means for our people? My husband says they're continuing the exercise but everyone's on edge. Stay safe everyone! \ud83c\udde6\ud83c\uddfa",
+        "source": "Facebook Military Families Group"
+      },
+      "media": [
+        "/media/indopac-2025/generated/public-feed_pf-t1-005_twitter.png"
+      ]
+    },
+    {
+      "id": "pf-t1-006",
+      "turn": 1,
+      "time": 300,
+      "type": "news",
+      "content": {
+        "headline": "Regional Analysts Debate Power Shift",
+        "body": "The India-China maritime framework represents a fundamental shift in regional dynamics. Australia must adapt or risk isolation. Full analysis shows traditional security arrangements under pressure.",
+        "source": "Lowy Institute Analysis"
+      },
+      "media": [
+        "/media/indopac-2025/generated/public-feed_pf-t1-006_breaking_news.png"
+      ]
+    },
+    {
+      "id": "pf-t2-001",
+      "turn": 2,
+      "time": 0,
+      "type": "news",
+      "content": {
+        "headline": "Major Internet Outage Across Indo-Pacific",
+        "body": "Widespread internet outages reported across Southeast Asia and Northern Australia as multiple undersea cables fail simultaneously. Banking, communications, and government services affected. Authorities investigating cause, not ruling out sabotage.",
+        "source": "Tech News Global"
+      },
+      "media": [
+        "/media/indopac-2025/generated/public-feed_pf-t2-001_breaking_news.png"
+      ]
+    },
+    {
+      "id": "pf-t2-002",
+      "turn": 2,
+      "time": 17,
+      "type": "news",
+      "content": {
+        "headline": "Undersea Cables Deliberately Cut",
+        "body": "Investigation confirms multiple undersea cables were deliberately severed in what appears to be coordinated sabotage. Three critical cables serving military and commercial networks damaged. No group has claimed responsibility.",
+        "source": "BBC Breaking"
+      },
+      "media": [
+        "/media/indopac-2025/generated/public-feed_pf-t2-002_breaking_news.png"
+      ]
+    },
+    {
+      "id": "pf-t2-003",
+      "turn": 2,
+      "time": 33,
+      "type": "news",
+      "content": {
+        "headline": "Markets Tumble on Infrastructure Attack",
+        "body": "Asian markets down 3-5% as undersea cable sabotage disrupts digital commerce. Military exercises in region continuing despite communication challenges. Analysts warn of vulnerability of critical infrastructure.",
+        "source": "Financial Times"
+      },
+      "media": [
+        "/media/indopac-2025/generated/public-feed_pf-t2-003_breaking_news.png"
+      ]
+    },
+    {
+      "id": "pf-t2-004",
+      "turn": 2,
+      "time": 200,
+      "type": "news",
+      "content": {
+        "headline": "Cable Repairs Could Take Weeks",
+        "body": "Repair ships dispatched but full restoration of undersea cables could take 2-3 weeks. Military and commercial users implementing workarounds. Vulnerability of digital infrastructure now major concern.",
+        "source": "Tech Industry News"
+      },
+      "media": [
+        "/media/indopac-2025/generated/public-feed_pf-t2-004_breaking_news.png"
+      ]
+    },
+    {
+      "id": "pf-t2-005",
+      "turn": 2,
+      "time": 300,
+      "type": "social",
+      "content": {
+        "headline": "Conspiracy theories spreading fast",
+        "body": "Multiple theories about who cut the cables. Some saying China, others saying false flag. Military exercise continuing despite comms being down seems suspicious. What aren't they telling us?",
+        "source": "Reddit r/geopolitics"
+      },
+      "media": [
+        "/media/indopac-2025/generated/public-feed_pf-t2-005_twitter.png"
+      ]
+    },
+    {
+      "id": "pf-t3-001",
+      "turn": 3,
+      "time": 0,
+      "type": "news",
+      "content": {
+        "headline": "Military Forces Mobilizing Across Region",
+        "body": "Satellite imagery shows unusual military activity at bases across Indo-Pacific. Multiple nations appear to be mobilizing forces though no official explanation given. UN expressing concern about escalating tensions.",
+        "source": "Al Jazeera"
+      },
+      "media": [
+        "/media/indopac-2025/generated/public-feed_pf-t3-001_breaking_news.png"
+      ]
+    },
+    {
+      "id": "pf-t3-002",
+      "turn": 3,
+      "time": 17,
+      "type": "news",
+      "content": {
+        "headline": "UN Security Council Emergency Session",
+        "body": "The Security Council has been called into emergency session following reports of military confrontation in Indo-Pacific waters. Secretary-General appeals for immediate de-escalation. 'We are closer to conflict than any time in decades,' diplomatic sources report.",
+        "source": "UN News Service"
+      },
+      "media": [
+        "/media/indopac-2025/generated/public-feed_pf-t3-002_breaking_news.png"
+      ]
+    },
+    {
+      "id": "pf-t3-003",
+      "turn": 3,
+      "time": 33,
+      "type": "news",
+      "content": {
+        "headline": "Armed Standoff in Disputed Waters",
+        "body": "BREAKING: Naval forces from multiple nations in tense standoff in disputed waters. Weapons systems reportedly locked on. Any miscalculation could trigger wider conflict. Australian forces believed to be in vicinity.",
+        "source": "CNN International"
+      },
+      "media": [
+        "/media/indopac-2025/generated/public-feed_pf-t3-003_breaking_news.png"
+      ]
+    },
+    {
+      "id": "pf-t3-004",
+      "turn": 3,
+      "time": 50,
+      "type": "social",
+      "content": {
+        "headline": "WW3 trending worldwide",
+        "body": "#WW3 #IndoPacificCrisis #PrayForPeace all trending globally as news of naval standoff spreads. Videos claiming to show military confrontation going viral. Panic buying reported in several cities.",
+        "source": "Twitter Trends"
+      },
+      "media": [
+        "/media/indopac-2025/generated/public-feed_pf-t3-004_twitter.png"
+      ]
+    },
+    {
+      "id": "pf-t3-005",
+      "turn": 3,
+      "time": 67,
+      "type": "news",
+      "content": {
+        "headline": "Australia Announces De-escalation Measures",
+        "body": "Australian government announces immediate de-escalation measures as regional crisis deepens. Military exercises to conclude with humanitarian focus. Prime Minister calling for calm and dialogue.",
+        "source": "Sydney Morning Herald"
+      },
+      "media": [
+        "/media/indopac-2025/generated/public-feed_pf-t3-005_breaking_news.png"
+      ]
+    },
+    {
+      "id": "pf-t3-006",
+      "turn": 3,
+      "time": 200,
+      "type": "news",
+      "content": {
+        "headline": "Tensions Ease After Australian Gesture",
+        "body": "Regional tensions beginning to ease after Australia announced humanitarian focus for exercise conclusion. Diplomatic sources report back-channel communications active. Markets recovering on de-escalation news.",
+        "source": "Associated Press"
+      },
+      "media": [
+        "/media/indopac-2025/generated/public-feed_pf-t3-006_breaking_news.png"
+      ]
+    },
+    {
+      "id": "pf-t3-007",
+      "turn": 3,
+      "time": 300,
+      "type": "news",
+      "content": {
+        "headline": "Historic Week Reshapes Indo-Pacific",
+        "body": "The dramatic events of the Kakadu exercise - from diplomatic realignment to infrastructure attacks to near-conflict - have fundamentally altered the Indo-Pacific strategic landscape. Analysis of winners and losers from this week's crisis.",
+        "source": "The Economist"
+      },
+      "media": [
+        "/media/indopac-2025/generated/public-feed_pf-t3-007_breaking_news.png"
+      ]
+    }
+  ]
+}

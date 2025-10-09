@@ -1,0 +1,442 @@
+{
+  "scenario_id": "indopac-2025",
+  "injects": [
+    {
+      "id": "rop-t1-001",
+      "turn": 1,
+      "time": 0,
+      "type": "social",
+      "content": {
+        "platform": "facebook",
+        "headline": "#DarwinProtest organising",
+        "body": "Meeting 6am at uni. Buses leaving 7am sharp. Bring water, signs, friends. This is our moment to demand transparency! #RightToKnow #NoMoreSecrets",
+        "source": "Student Action Darwin"
+      },
+      "media": [
+        "/media/indopac-2025/generated/rights-of-passage_rop-t1-001_facebook.png"
+      ]
+    },
+    {
+      "id": "rop-t1-002",
+      "turn": 1,
+      "time": 0,
+      "type": "social",
+      "content": {
+        "platform": "twitter",
+        "headline": "Protest crowd growing fast",
+        "body": "Holy shit there's like 500+ people here already! Students from CDU, workers, even some families. The energy is insane \ud83d\udd25 #DarwinProtest",
+        "source": "@JennyMartinez94"
+      },
+      "media": [
+        "/media/indopac-2025/generated/rights-of-passage_rop-t1-002_twitter.png"
+      ]
+    },
+    {
+      "id": "rop-t1-003",
+      "turn": 1,
+      "time": 0,
+      "type": "news",
+      "content": {
+        "headline": "Students Block Darwin Naval Base",
+        "body": "DARWIN - Hundreds of students have blockaded all three gates at Robertson Barracks, demanding greater transparency about the Right of Passage naval exercise. Police estimate 800 protesters are preventing vehicle access to the base. The demonstration began at 0800hrs with protesters sitting across entrance roads. Base spokesperson declined immediate comment. More to follow.",
+        "source": "ABC News Darwin"
+      },
+      "media": [
+        "/media/indopac-2025/library/rop-t1-003.jpg",
+        "/media/indopac-2025/generated/rights-of-passage_rop-t1-003_breaking_news.png"
+      ]
+    },
+    {
+      "id": "rop-t1-004",
+      "turn": 1,
+      "time": 10,
+      "type": "social",
+      "content": {
+        "platform": "twitter",
+        "headline": "Police moving in at Gate 3!",
+        "body": "Cops in riot gear at north gate! They're telling people to move but we're staying! Peaceful resistance! Stream this everywhere! #DarwinProtest",
+        "source": "@DarwinActivist"
+      },
+      "media": [
+        "/media/indopac-2025/generated/rights-of-passage_rop-t1-004_twitter.png"
+      ]
+    },
+    {
+      "id": "rop-t1-005",
+      "turn": 1,
+      "time": 15,
+      "type": "email",
+      "content": {
+        "headline": "Industrial Action Notice",
+        "body": "Please be advised that Maritime Union of Australia members have voted for immediate protected industrial action effective 0900hrs today. All fuel transfer operations at Darwin Port are suspended pending resolution of longstanding workplace agreement disputes. Expected duration unknown. This will affect scheduled fuel delivery to Robertson Barracks (Contract #RB-2025-FL-447). Alternative arrangements should be made urgently.",
+        "from": "Darwin Port Authority"
+      }
+    },
+    {
+      "id": "rop-t1-006",
+      "turn": 1,
+      "time": 20,
+      "type": "email",
+      "content": {
+        "headline": "Fuel Status Critical",
+        "body": "Current fuel reserves at 72% capacity. With port strike and no deliveries, we have 48-52 hours at current operational tempo. Recommend immediate contingency planning. Commercial alternatives being investigated but all require 24+ hour lead time. Exercise impact assessment attached.",
+        "from": "Fleet Logistics Officer"
+      }
+    },
+    {
+      "id": "rop-t1-007",
+      "turn": 1,
+      "time": 30,
+      "type": "intelligence",
+      "content": {
+        "headline": "SIGINT Flash Report",
+        "body": "Classification: SECRET. Exercise planning documents detected on non-secure channels. Initial assessment indicates partial compromise of OPORD Annex B (logistics timings and routes). Documents appearing on multiple encrypted messaging platforms popular with foreign intelligence services. Damage assessment underway. Recommend immediate OPSEC review and assumption that Red Team has visibility of our logistics plan.",
+        "source": "Intelligence Cell"
+      }
+    },
+    {
+      "id": "rop-t1-008",
+      "turn": 1,
+      "time": 35,
+      "type": "social",
+      "content": {
+        "platform": "twitter",
+        "headline": "Documents leaked - check this",
+        "body": "LEAKED: Australian military planning docs show aggressive posturing toward regional neighbors. They call it 'Right of Passage' but it's clearly provocation. See for yourself: [encrypted link]. RT before they take it down!",
+        "source": "@InfoLiberation2025"
+      },
+      "media": [
+        "/media/indopac-2025/generated/rights-of-passage_rop-t1-008_twitter.png"
+      ]
+    },
+    {
+      "id": "rop-t1-009",
+      "turn": 1,
+      "time": 40,
+      "type": "news",
+      "content": {
+        "headline": "Leaked Documents Question Exercise Intent",
+        "body": "Classified Australian Defence Force documents circulating on social media appear to show the true scope of the Right of Passage exercise extends well beyond stated humanitarian objectives. The leaked materials, which the ADF has not verified as authentic, suggest coordination with US forces for 'maritime denial operations.' Defence Minister's office has not responded to requests for comment.",
+        "source": "The Australian"
+      },
+      "media": [
+        "/media/indopac-2025/library/rop-t1-009.jpg",
+        "/media/indopac-2025/generated/rights-of-passage_rop-t1-009_breaking_news.png"
+      ]
+    },
+    {
+      "id": "rop-t1-010",
+      "turn": 1,
+      "time": 50,
+      "type": "news",
+      "content": {
+        "headline": "Regional Media Questions Australian Intentions",
+        "body": "JAKARTA - Australian naval exercises near Indonesian waters are being viewed with increasing suspicion following today's document leak. 'This appears to be more than routine training,' says maritime analyst Dr. Wahyu Pratama. 'The positioning and timing suggest Australia is testing our response capabilities.' The Indonesian Navy has increased patrols in the Arafura Sea.",
+        "source": "Jakarta Post"
+      },
+      "media": [
+        "/media/indopac-2025/library/rop-t1-010.jpg",
+        "/media/indopac-2025/generated/rights-of-passage_rop-t1-010_breaking_news.png"
+      ]
+    },
+    {
+      "id": "rop-t1-011",
+      "turn": 1,
+      "time": 55,
+      "type": "social",
+      "content": {
+        "platform": "twitter",
+        "headline": "#AustralianAggression trending",
+        "body": "#AustralianAggression now trending in Indonesia, Malaysia, and Philippines with 47K posts in past hour. Sentiment analysis shows 73% negative reaction to Right of Passage exercise.",
+        "source": "Regional Twitter Trends"
+      },
+      "media": [
+        "/media/indopac-2025/generated/rights-of-passage_rop-t1-011_twitter.png"
+      ]
+    },
+    {
+      "id": "rop-t2-001",
+      "turn": 2,
+      "time": 0,
+      "type": "intelligence",
+      "content": {
+        "headline": "Cyber Intrusion Detected",
+        "body": "Multiple failed authentication attempts detected across NIPR and SIPR networks. Pattern consistent with known APT (Advanced Persistent Threat) tactics. Two-factor authentication preventing access but attempt frequency increasing. Assess medium confidence this is targeted reconnaissance related to exercise systems.",
+        "source": "Cyber Security Operations"
+      }
+    },
+    {
+      "id": "rop-t2-002",
+      "turn": 2,
+      "time": 7,
+      "type": "email",
+      "content": {
+        "headline": "System Isolation Required",
+        "body": "Isolating affected systems as precaution. This will degrade C2 capabilities by approximately 30%. Alternative communication methods being established. All units check authentication logs and report anomalies immediately.",
+        "from": "IT Security Manager"
+      }
+    },
+    {
+      "id": "rop-t2-003",
+      "turn": 2,
+      "time": 10,
+      "type": "social",
+      "content": {
+        "platform": "twitter",
+        "headline": "OMG refugee boat spotted",
+        "body": "Not supposed to post this but there's a boat full of people taking on water about 20nm from us. Looks really bad. Why aren't we helping?? #RightOfPassage",
+        "source": "@SailorJake_RAN"
+      },
+      "media": [
+        "/media/indopac-2025/generated/rights-of-passage_rop-t2-003_twitter.png"
+      ]
+    },
+    {
+      "id": "rop-t2-004",
+      "turn": 2,
+      "time": 15,
+      "type": "social",
+      "content": {
+        "platform": "facebook",
+        "headline": "200+ people need help NOW",
+        "body": "URGENT: We've received distress call from vessel with 200+ asylum seekers including children. Position approx 50nm NW of Darwin. Taking water, no power. Australian Navy vessels nearby but not responding. Every minute counts!",
+        "source": "Refugee Action Australia"
+      },
+      "media": [
+        "/media/indopac-2025/generated/rights-of-passage_rop-t2-004_facebook.png"
+      ]
+    },
+    {
+      "id": "rop-t2-005",
+      "turn": 2,
+      "time": 20,
+      "type": "news",
+      "content": {
+        "headline": "Navy Diverts to Refugee Rescue",
+        "body": "BREAKING: Australian Navy vessels participating in Right of Passage exercise are diverting to assist a refugee boat in distress north of Darwin. The vessel, reportedly carrying over 200 people, issued a mayday call 30 minutes ago. This marks the third such incident during military exercises this year, raising questions about the balance between operational security and humanitarian obligations.",
+        "source": "Sky News Australia"
+      },
+      "media": [
+        "/media/indopac-2025/library/rop-t2-005.jpg",
+        "/media/indopac-2025/generated/rights-of-passage_rop-t2-005_breaking_news.png"
+      ]
+    },
+    {
+      "id": "rop-t2-006",
+      "turn": 2,
+      "time": 35,
+      "type": "email",
+      "content": {
+        "headline": "Partner Withdrawal Warning",
+        "body": "Confidential: Political pressure mounting for NZDF to withdraw from exercise. PM's office concerned about optics given refugee situation and negative media. Need something positive in next 2 hours or we're ordered home. Can you give me anything? - CDRE Thompson",
+        "from": "NZ Defence Liaison"
+      }
+    },
+    {
+      "id": "rop-t2-007",
+      "turn": 2,
+      "time": 40,
+      "type": "intelligence",
+      "content": {
+        "headline": "Red Team Movement Detected",
+        "body": "Significant Red Team naval assets departing Hainan and Cam Ranh Bay. Course and speed consistent with transit toward exercise area. Assess high confidence this is response to refugee rescue - likely propaganda opportunity. ETA to exercise periphery: 18-24 hours.",
+        "source": "Maritime Domain Awareness"
+      }
+    },
+    {
+      "id": "rop-t2-008",
+      "turn": 2,
+      "time": 50,
+      "type": "news",
+      "content": {
+        "headline": "Oil Spill During Naval Exercise",
+        "body": "A minor oil spill has occurred during refueling operations as part of the Right of Passage naval exercise. Approximately 100 liters of marine diesel escaped containment during a replenishment-at-sea evolution. Clean-up operations are underway. The spill poses no immediate threat to marine life. Full investigation to follow.",
+        "source": "Environment Australia Media Release"
+      },
+      "media": [
+        "/media/indopac-2025/library/rop-t2-008.jpg",
+        "/media/indopac-2025/generated/rights-of-passage_rop-t2-008_breaking_news.png"
+      ]
+    },
+    {
+      "id": "rop-t2-009",
+      "turn": 2,
+      "time": 55,
+      "type": "social",
+      "content": {
+        "platform": "facebook",
+        "headline": "Military destroying our ocean!",
+        "body": "SHOCKING: Satellite images show oil slick from military exercise. While they play war games, they're poisoning our waters. This is exactly why we oppose militarisation of our seas! [Satellite image attached] #ProtectOurOceans #StopRightOfPassage",
+        "source": "Greenpeace Australia"
+      },
+      "media": [
+        "/media/indopac-2025/generated/rights-of-passage_rop-t2-009_facebook.png"
+      ]
+    },
+    {
+      "id": "rop-t2-010",
+      "turn": 2,
+      "time": 60,
+      "type": "news",
+      "content": {
+        "headline": "Environmental Groups Demand Exercise Halt",
+        "body": "Environmental organisations are calling for immediate suspension of the Right of Passage exercise following confirmation of an oil spill during naval operations. 'This is exactly what we warned would happen,' says Greenpeace spokesperson Sarah Chen. 'You cannot conduct massive military operations without environmental consequences.' The spill, though described as minor by officials, has become a rallying point for exercise critics.",
+        "source": "Guardian Australia"
+      },
+      "media": [
+        "/media/indopac-2025/library/rop-t2-010.jpg",
+        "/media/indopac-2025/generated/rights-of-passage_rop-t2-010_breaking_news.png"
+      ]
+    },
+    {
+      "id": "rop-t2-011",
+      "turn": 2,
+      "time": 62,
+      "type": "sms",
+      "content": {
+        "headline": "EPA investigating",
+        "body": "Environmental Protection Authority launching formal investigation. They want all logs from refueling evolution. This could get messy.",
+        "from": "Environmental Officer"
+      }
+    },
+    {
+      "id": "rop-t3-001",
+      "turn": 3,
+      "time": 0,
+      "type": "intelligence",
+      "content": {
+        "headline": "Flash - Dangerous Approach",
+        "body": "Red Team vessel conducting aggressive approach on HMAS Brisbane. CPA will be less than 50 meters at current course/speed. Assess deliberate harassment. Master has ordered collision stations. Bridge camera recording. Recommend immediate flash precedence to Canberra.",
+        "source": "Maritime Operations Center"
+      }
+    },
+    {
+      "id": "rop-t3-002",
+      "turn": 3,
+      "time": 5,
+      "type": "sms",
+      "content": {
+        "headline": "Emergency breakaway executed",
+        "body": "Had to emergency breakaway. Red destroyer crossed bow at 30m. Have video evidence. No collision but bloody close. Media surely saw this.",
+        "from": "CO HMAS Brisbane"
+      }
+    },
+    {
+      "id": "rop-t3-003",
+      "turn": 3,
+      "time": 10,
+      "type": "news",
+      "content": {
+        "headline": "Near Collision in Exercise Waters",
+        "body": "DARWIN - Tensions escalated dramatically during the Right of Passage exercise as Australian and foreign naval vessels nearly collided in what witnesses describe as 'aggressive maneuvering.' Video obtained by Reuters shows two warships passing dangerously close, with crew members visible on deck. Australian Defence confirmed an 'interaction at sea' but provided no details.",
+        "source": "Reuters"
+      },
+      "media": [
+        "/media/indopac-2025/library/rop-t3-003.jpg",
+        "/media/indopac-2025/generated/rights-of-passage_rop-t3-003_breaking_news.png"
+      ]
+    },
+    {
+      "id": "rop-t3-004",
+      "turn": 3,
+      "time": 20,
+      "type": "intelligence",
+      "content": {
+        "headline": "Security Breach Confirmed",
+        "body": "Positive confirmation of insider threat. Digital forensics indicate classified exercise plans were accessed by authorized user and transmitted externally. User identified as civilian contractor with base access. Currently unlocated. Assess exercise comprehensively compromised. Recommend immediate operational security review.",
+        "source": "Counter-Intelligence Unit"
+      }
+    },
+    {
+      "id": "rop-t3-005",
+      "turn": 3,
+      "time": 25,
+      "type": "email",
+      "content": {
+        "headline": "Urgent - Insider Threat Active",
+        "body": "All units be advised: Civilian contractor James Mitchell (ID: CIV-4429) is wanted for questioning regarding security breach. Do not approach. Last seen 0600 near commcen. May still be on base. This is now criminal investigation - AFP notified.",
+        "from": "Security Commander"
+      }
+    },
+    {
+      "id": "rop-t3-006",
+      "turn": 3,
+      "time": 35,
+      "type": "sms",
+      "content": {
+        "headline": "Medical emergency Stirling",
+        "body": "Sailor collapsed - suspected heart attack. Need immediate casevac. Weather closing in. Will expose position but no choice.",
+        "from": "Ship Medical Officer"
+      }
+    },
+    {
+      "id": "rop-t3-007",
+      "turn": 3,
+      "time": 40,
+      "type": "social",
+      "content": {
+        "platform": "facebook",
+        "headline": "Prayers for my brother",
+        "body": "Please pray for my brother serving on HMAS Stirling. Just got message he's being medivaced. They won't tell us anything else. These war games aren't worth lives! \ud83d\ude22\ud83d\ude4f",
+        "source": "Amy Taylor"
+      },
+      "media": [
+        "/media/indopac-2025/generated/rights-of-passage_rop-t3-007_facebook.png"
+      ]
+    },
+    {
+      "id": "rop-t3-008",
+      "turn": 3,
+      "time": 45,
+      "type": "news",
+      "content": {
+        "headline": "Medical Emergency During Exercise",
+        "body": "A sailor has been evacuated from HMAS Stirling during the Right of Passage exercise following a medical emergency. Family members have expressed concern on social media about the incident. Navy officials confirm the evacuation but won't discuss details citing privacy.",
+        "source": "7 News"
+      },
+      "media": [
+        "/media/indopac-2025/generated/rights-of-passage_rop-t3-008_breaking_news.png"
+      ]
+    },
+    {
+      "id": "rop-t3-009",
+      "turn": 3,
+      "time": 50,
+      "type": "intelligence",
+      "content": {
+        "headline": "Indonesia Signals Partnership Interest",
+        "body": "HUMINT reports Indonesian Navy Chief privately suggesting interest in future bilateral exercises if Right of Passage concludes successfully. Represents major shift in regional alignment. Requires exercise success in next 4 hours to capitalize. Do not acknowledge via open channels.",
+        "source": "Diplomatic Intelligence"
+      }
+    },
+    {
+      "id": "rop-t3-010",
+      "turn": 3,
+      "time": 60,
+      "type": "news",
+      "content": {
+        "headline": "Exercise Concludes with Regional Partnership",
+        "body": "The Right of Passage exercise has concluded with announcement of expanded regional cooperation. In a surprise development, Indonesia has signaled interest in joining future exercises. 'This demonstrates Australia's commitment to inclusive regional security,' Defence Minister stated at the closing ceremony in Darwin. The exercise, despite early challenges, is being hailed as a diplomatic success.",
+        "source": "ABC News"
+      },
+      "media": [
+        "/media/indopac-2025/generated/rights-of-passage_rop-t3-010_breaking_news.png"
+      ]
+    },
+    {
+      "id": "rop-t3-011",
+      "turn": 3,
+      "time": 65,
+      "type": "social",
+      "content": {
+        "platform": "twitter",
+        "headline": "What a turnaround!",
+        "body": "From near disaster to diplomatic triumph. Indonesia partnership changes everything for Australian security. Sometimes crisis creates opportunity. Well played RAN. #RightOfPassage",
+        "source": "@DefenceExpert_AU"
+      },
+      "media": [
+        "/media/indopac-2025/generated/rights-of-passage_rop-t3-011_twitter.png"
+      ]
+    }
+  ]
+}

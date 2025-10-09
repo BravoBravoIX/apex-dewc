@@ -1,0 +1,395 @@
+{
+  "scenario_id": "indopac-2025",
+  "injects": [
+    {
+      "id": "red-t1-001",
+      "turn": 1,
+      "time": 0,
+      "type": "intelligence",
+      "content": {
+        "headline": "Red Team Surface Group Departing",
+        "body": "Intercepted communications indicate Red Team destroyer and two frigates departing Yulin Naval Base. Course 185, speed 18kts. Expected arrival exercise periphery 24-28 hours. Electronic warfare suite active.",
+        "source": "SIGINT Collection"
+      }
+    },
+    {
+      "id": "red-t1-002",
+      "turn": 1,
+      "time": 21,
+      "type": "sms",
+      "content": {
+        "from": "Bridge Watch HMAS Sydney",
+        "body": "Red ship 300m starboard! Red destroyer matching our course and speed. Way too close. This is harassment."
+      }
+    },
+    {
+      "id": "red-t1-003",
+      "turn": 1,
+      "time": 43,
+      "type": "intelligence",
+      "content": {
+        "headline": "Electronic Surveillance Confirmed",
+        "body": "Red Team vessel conducting aggressive SIGINT collection. Multiple radar emissions detected. They're mapping our electronic signatures. Recommend EMCON Alpha immediately.",
+        "source": "Electronic Warfare Cell"
+      }
+    },
+    {
+      "id": "red-t1-004",
+      "turn": 1,
+      "time": 86,
+      "type": "social",
+      "content": {
+        "headline": "Australia militarising our seas!",
+        "body": "Australian warships conducting aggressive exercises near our waters. This is provocation! They claim 'freedom of navigation' but it's really intimidation. The region won't stand for this! #StopAustralianAggression",
+        "source": "@PeacefulPacific2025"
+      },
+      "media": [
+        "/media/indopac-2025/generated/red-team_red-t1-004_twitter.png"
+      ]
+    },
+    {
+      "id": "red-t1-005",
+      "turn": 1,
+      "time": 107,
+      "type": "news",
+      "content": {
+        "headline": "Regional Concern Over Australian Exercises",
+        "body": "Military analysts across the Indo-Pacific are questioning the timing and location of Australia's Right of Passage exercise. 'This appears designed to provoke rather than promote stability,' says Beijing-based strategic expert Dr. Wei Fenghe.",
+        "source": "Global Times English"
+      },
+      "media": [
+        "/media/indopac-2025/generated/red-team_red-t1-005_breaking_news.png"
+      ]
+    },
+    {
+      "id": "red-t1-006",
+      "turn": 1,
+      "time": 129,
+      "type": "intelligence",
+      "content": {
+        "headline": "Information Operations Campaign Active",
+        "body": "Coordinated narrative across 50K+ social accounts. Hashtags #AustralianAggression and #PacificProvocation trending in 6 countries. Bot signatures match Red Team information warfare unit. Amplification rate increasing.",
+        "source": "Cyber Intelligence"
+      }
+    },
+    {
+      "id": "red-t1-007",
+      "turn": 1,
+      "time": 171,
+      "type": "intelligence",
+      "content": {
+        "headline": "Maritime Militia Movement",
+        "body": "Satellite shows 60+ fishing vessels departing simultaneously from three different ports. Movement pattern consistent with maritime militia operations. Will arrive exercise area in 8-10 hours. Assess harassment mission.",
+        "source": "Imagery Analysis"
+      }
+    },
+    {
+      "id": "red-t1-008",
+      "turn": 1,
+      "time": 193,
+      "type": "sms",
+      "content": {
+        "from": "Maritime Domain Awareness",
+        "body": "Fishing boats everywhere. Count 47 fishing vessels converging on task force. Too many to be coincidence."
+      }
+    },
+    {
+      "id": "red-t1-009",
+      "turn": 1,
+      "time": 236,
+      "type": "email",
+      "content": {
+        "from": "UN Liaison Officer",
+        "subject": "UN Protest Filed",
+        "body": "Red Team has filed formal protest at UN claiming Australian exercise violates regional stability agreements. They're calling for emergency ASEAN session. Several members indicating support. This is gaining traction."
+      }
+    },
+    {
+      "id": "red-t1-010",
+      "turn": 1,
+      "time": 257,
+      "type": "news",
+      "content": {
+        "headline": "China Protests Australian Naval Exercise",
+        "body": "Beijing has lodged a formal complaint with the United Nations over Australia's Right of Passage exercise, calling it 'destabilising and provocative.' The move has garnered support from several regional nations concerned about militarisation.",
+        "source": "Financial Times"
+      },
+      "media": [
+        "/media/indopac-2025/generated/red-team_red-t1-010_breaking_news.png"
+      ]
+    },
+    {
+      "id": "red-t1-011",
+      "turn": 1,
+      "time": 279,
+      "type": "email",
+      "content": {
+        "from": "Coalition Coordinator",
+        "subject": "Partners Wavering",
+        "body": "Malaysia and Thailand expressing concerns about Red Team reaction. Both considering reducing participation. Philippines asking for guarantees about economic protection. Coalition unity fracturing."
+      }
+    },
+    {
+      "id": "red-t1-012",
+      "turn": 1,
+      "time": 300,
+      "type": "news",
+      "content": {
+        "headline": "ASEAN Nations Question Exercise",
+        "body": "Several ASEAN members are reconsidering participation in Australian-led naval exercise following diplomatic pressure. 'We must balance security cooperation with regional harmony,' says unnamed senior diplomat.",
+        "source": "Straits Times"
+      },
+      "media": [
+        "/media/indopac-2025/generated/red-team_red-t1-012_breaking_news.png"
+      ]
+    },
+    {
+      "id": "red-t2-001",
+      "turn": 2,
+      "time": 0,
+      "type": "intelligence",
+      "content": {
+        "headline": "Submarine Contact Classified",
+        "body": "Contact positively identified as Red Team KILO-class SSK. Bearing drift indicates intelligence collection mission. Currently 6000 yards off port beam. No hostile intent but clear surveillance.",
+        "source": "Acoustic Analysis"
+      }
+    },
+    {
+      "id": "red-t2-002",
+      "turn": 2,
+      "time": 27,
+      "type": "sms",
+      "content": {
+        "from": "Sonar Supervisor",
+        "body": "Lost the submarine. Contact disappeared. Last bearing 270. Could be anywhere now."
+      }
+    },
+    {
+      "id": "red-t2-003",
+      "turn": 2,
+      "time": 82,
+      "type": "intelligence",
+      "content": {
+        "headline": "Cyber Attack Indicators",
+        "body": "Detecting reconnaissance scanning on exercise networks. Sophisticated techniques - not script kiddies. Pattern matches Red Team cyber doctrine. They're looking for vulnerabilities.",
+        "source": "Cyber Defence Team"
+      }
+    },
+    {
+      "id": "red-t2-004",
+      "turn": 2,
+      "time": 109,
+      "type": "email",
+      "content": {
+        "from": "IT Security Manager",
+        "subject": "Systems Compromised",
+        "body": "Multiple systems showing compromise indicators. Nothing critical yet but they're in our networks. Attempting isolation but they're using zero-day exploits. Forensics points to Red Team APT group."
+      }
+    },
+    {
+      "id": "red-t2-005",
+      "turn": 2,
+      "time": 136,
+      "type": "intelligence",
+      "content": {
+        "headline": "False Flag Warning",
+        "body": "Attack signatures deliberately sloppy. Assess this may be false flag to make us blame Red Team. Could be third party. Recommend careful attribution before response.",
+        "source": "Counter-Intelligence"
+      }
+    },
+    {
+      "id": "red-t2-006",
+      "turn": 2,
+      "time": 191,
+      "type": "news",
+      "content": {
+        "headline": "Trade Warning to Exercise Partners",
+        "body": "In an unprecedented move, Beijing has warned nations participating in the Kakadu exercise about potential 'trade relationship reviews.' Smaller nations particularly vulnerable to economic pressure are reconsidering involvement.",
+        "source": "Bloomberg"
+      },
+      "media": [
+        "/media/indopac-2025/generated/red-team_red-t2-006_breaking_news.png"
+      ]
+    },
+    {
+      "id": "red-t2-007",
+      "turn": 2,
+      "time": 218,
+      "type": "email",
+      "content": {
+        "from": "Liaison Officer",
+        "subject": "Malaysia Withdrawing",
+        "body": "Confidential: Malaysian government ordered immediate withdrawal. Can't risk trade relationship. Ship departing in 2 hours. They're apologetic but firm."
+      }
+    },
+    {
+      "id": "red-t2-008",
+      "turn": 2,
+      "time": 273,
+      "type": "intelligence",
+      "content": {
+        "headline": "Space Asset Proximity Operations",
+        "body": "Red Team satellite conducting unusual maneuvers near AUS military comms satellite. Distance closing to 50km. This is aggressive but not quite hostile. They're demonstrating capability.",
+        "source": "Space Command"
+      }
+    },
+    {
+      "id": "red-t2-009",
+      "turn": 2,
+      "time": 300,
+      "type": "sms",
+      "content": {
+        "from": "Signals Officer",
+        "body": "Comms degraded 40%. Satellite link keeps dropping. Coincidence? Doubt it."
+      }
+    },
+    {
+      "id": "red-t3-001",
+      "turn": 3,
+      "time": 0,
+      "type": "sms",
+      "content": {
+        "from": "CO HMAS Hobart",
+        "body": "EMERGENCY - Breaking away now! Red destroyer cut across bow. 25 meters! Have video. Nearly rammed us."
+      }
+    },
+    {
+      "id": "red-t3-002",
+      "turn": 3,
+      "time": 21,
+      "type": "intelligence",
+      "content": {
+        "headline": "Dangerous Maneuver Analysis",
+        "body": "Video confirms Red Team vessel deliberately crossed collision course. Master displayed exceptional seamanship avoiding impact. This was planned provocation. Recommend measured response.",
+        "source": "Naval Operations"
+      }
+    },
+    {
+      "id": "red-t3-003",
+      "turn": 3,
+      "time": 43,
+      "type": "news",
+      "content": {
+        "headline": "Near Collision at Sea",
+        "body": "Dramatic footage shows moment when Australian and Chinese warships nearly collided during Kakadu exercise. Video shows vessels passing within meters. Both nations blame the other for 'dangerous seamanship.'",
+        "source": "BBC Breaking"
+      },
+      "media": [
+        "/media/indopac-2025/generated/red-team_red-t3-003_breaking_news.png"
+      ]
+    },
+    {
+      "id": "red-t3-004",
+      "turn": 3,
+      "time": 86,
+      "type": "sms",
+      "content": {
+        "from": "Maritime Surveillance",
+        "body": "Yacht seized - Aussies aboard. Civilian yacht 'Southern Cross' being boarded by Red Team coast guard. 3 Australians on board."
+      }
+    },
+    {
+      "id": "red-t3-005",
+      "turn": 3,
+      "time": 107,
+      "type": "news",
+      "content": {
+        "headline": "Australians Detained at Sea",
+        "body": "Three Australian citizens aboard a yacht have been detained by Chinese maritime forces claiming territorial violation. Families are pleading for government intervention. The incident occurs during heightened tensions over naval exercises.",
+        "source": "Sky News"
+      },
+      "media": [
+        "/media/indopac-2025/generated/red-team_red-t3-005_breaking_news.png"
+      ]
+    },
+    {
+      "id": "red-t3-006",
+      "turn": 3,
+      "time": 129,
+      "type": "email",
+      "content": {
+        "from": "DFAT Crisis Team",
+        "subject": "Hostage Negotiation Required",
+        "body": "Red Team claims yacht entered their claimed EEZ illegally. They want acknowledgment of their maritime claims for release. This is hostage diplomacy. Media doesn't know yet but will soon. Need strategy."
+      }
+    },
+    {
+      "id": "red-t3-007",
+      "turn": 3,
+      "time": 150,
+      "type": "social",
+      "content": {
+        "headline": "My dad is detained! Please help!",
+        "body": "Chinese navy has my father! He was just sailing! @ScottMorrisonMP @MarisePayne DO SOMETHING! They won't let him call us! #BringThemHome",
+        "source": "@SarahMitchell_Syd"
+      },
+      "media": [
+        "/media/indopac-2025/generated/red-team_red-t3-007_twitter.png"
+      ]
+    },
+    {
+      "id": "red-t3-008",
+      "turn": 3,
+      "time": 193,
+      "type": "intelligence",
+      "content": {
+        "headline": "New Capability Demonstration",
+        "body": "FLASH: Red Team conducting live fire exercise with new hypersonic anti-ship missile. Launch detected from destroyer. Impact zone cleared but message clear. Speed Mach 8+, range 1000km+.",
+        "source": "Technical Intelligence"
+      }
+    },
+    {
+      "id": "red-t3-009",
+      "turn": 3,
+      "time": 214,
+      "type": "news",
+      "content": {
+        "headline": "China Tests 'Carrier Killer' During Exercise",
+        "body": "China has demonstrated its newest hypersonic anti-ship missile during the Kakadu exercise, a clear signal to US and Australian forces. The weapon, capable of Mach 8+ speeds, represents a game-changing capability experts warn.",
+        "source": "Defense News"
+      },
+      "media": [
+        "/media/indopac-2025/generated/red-team_red-t3-009_breaking_news.png"
+      ]
+    },
+    {
+      "id": "red-t3-010",
+      "turn": 3,
+      "time": 257,
+      "type": "news",
+      "content": {
+        "headline": "China Proposes Regional Peace Framework",
+        "body": "President Xi announces comprehensive Indo-Pacific Peace and Prosperity Framework, calling for demilitarisation and economic cooperation. The proposal, timed during Australian military exercises, offers alternative to 'confrontational approaches.'",
+        "source": "Xinhua News"
+      },
+      "media": [
+        "/media/indopac-2025/generated/red-team_red-t3-010_breaking_news.png"
+      ]
+    },
+    {
+      "id": "red-t3-011",
+      "turn": 3,
+      "time": 279,
+      "type": "email",
+      "content": {
+        "from": "Intelligence Summary",
+        "subject": "Five Nations Supporting Peace Plan",
+        "body": "Indonesia, Thailand, Cambodia, Laos, and Myanmar have indicated support for Red Team peace proposal. Framing Australian exercise as choosing militarisation over dialogue. Major diplomatic victory for Red Team."
+      }
+    },
+    {
+      "id": "red-t3-012",
+      "turn": 3,
+      "time": 300,
+      "type": "news",
+      "content": {
+        "headline": "Australia Isolated as Region Embraces Peace Plan",
+        "body": "Australia finds itself increasingly isolated as regional nations embrace China's peace initiative. 'We must choose between military confrontation and peaceful development,' says Indonesian Foreign Minister. The Kakadu exercise now seen as symbol of old thinking.",
+        "source": "South China Morning Post"
+      },
+      "media": [
+        "/media/indopac-2025/generated/red-team_red-t3-012_breaking_news.png"
+      ]
+    }
+  ]
+}

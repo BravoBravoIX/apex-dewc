@@ -1,11 +1,11 @@
 {
   "scenario_usage": {
     "maritime-crisis-scenario": {
-      "total_deployments": 52,
+      "total_deployments": 54,
       "total_duration_minutes": 0,
       "completion_count": 0,
       "average_duration_minutes": 0,
-      "last_deployment": "2025-10-03T07:01:38.838880"
+      "last_deployment": "2025-10-08T23:42:40.095619"
     },
     "satcom-disruption-scenario": {
       "total_deployments": 36,
@@ -15,11 +15,25 @@
       "last_deployment": "2025-10-02T05:55:37.322979"
     },
     "sdr-rf-monitoring-scenario": {
-      "total_deployments": 6,
+      "total_deployments": 7,
       "total_duration_minutes": 0,
       "completion_count": 0,
       "average_duration_minutes": 0,
-      "last_deployment": "2025-10-03T06:13:42.738232"
+      "last_deployment": "2025-10-09T06:06:19.905283"
+    },
+    "turn-test": {
+      "total_deployments": 10,
+      "total_duration_minutes": 0,
+      "completion_count": 0,
+      "average_duration_minutes": 0,
+      "last_deployment": "2025-10-09T01:11:42.727306"
+    },
+    "indopac-2025": {
+      "total_deployments": 22,
+      "total_duration_minutes": 0,
+      "completion_count": 0,
+      "average_duration_minutes": 0,
+      "last_deployment": "2025-10-09T06:59:59.554381"
     }
   },
   "exercise_history": []

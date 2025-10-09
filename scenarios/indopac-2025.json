@@ -1,0 +1,40 @@
+{
+  "id": "indopac-2025",
+  "name": "IndoPac 2025",
+  "description": "Indo-Pacific regional crisis scenario with turn-based inject delivery",
+  "turn_based": true,
+  "total_turns": 3,
+  "teams": [
+    {
+      "id": "rights-of-passage",
+      "name": "Rights of Passage",
+      "timeline_file": "indopac-2025/teams/rights-of-passage/timeline.json",
+      "dashboard_port": 3127
+    },
+    {
+      "id": "kakadu-scenario",
+      "name": "Kakadu Scenario",
+      "timeline_file": "indopac-2025/teams/kakadu-scenario/timeline.json",
+      "dashboard_port": 3142
+    },
+    {
+      "id": "humanitarian-aid",
+      "name": "Humanitarian Aid",
+      "timeline_file": "indopac-2025/teams/humanitarian-aid/timeline.json",
+      "dashboard_port": 3158
+    },
+    {
+      "id": "red-team",
+      "name": "Red Team",
+      "timeline_file": "indopac-2025/teams/red-team/timeline.json",
+      "dashboard_port": 3173
+    },
+    {
+      "id": "public-feed",
+      "name": "Public Feed",
+      "timeline_file": "indopac-2025/teams/public-feed/timeline.json",
+      "dashboard_port": 3191
+    }
+  ],
+  "thumbnail": "indopac-2025.png"
+}

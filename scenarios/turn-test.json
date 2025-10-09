@@ -1,0 +1,14 @@
+{
+  "id": "turn-test",
+  "name": "Turn-Based Test Scenario",
+  "description": "Minimal 2-turn test scenario for validating turn-based inject delivery",
+  "turn_based": true,
+  "total_turns": 2,
+  "teams": [
+    {
+      "id": "test",
+      "name": "Test Team",
+      "timeline_file": "turn-test/teams/test/timeline.json"
+    }
+  ]
+}

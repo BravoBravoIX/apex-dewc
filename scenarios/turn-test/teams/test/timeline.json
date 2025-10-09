@@ -1,0 +1,54 @@
+{
+  "scenario_id": "turn-test",
+  "injects": [
+    {
+      "id": "t1-immediate",
+      "turn": 1,
+      "time": 0,
+      "type": "news",
+      "message": "Turn 1 - Immediate delivery (T+0:00 from turn start)",
+      "content": {
+        "headline": "Turn 1 Started",
+        "body": "This inject should deliver immediately when Turn 1 begins.",
+        "source": "Test System"
+      }
+    },
+    {
+      "id": "t1-delayed",
+      "turn": 1,
+      "time": 10,
+      "type": "email",
+      "message": "Turn 1 - Delayed 10 seconds",
+      "content": {
+        "from": "test@example.com",
+        "to": "team@test.com",
+        "subject": "Turn 1 - 10 Second Delay",
+        "body": "This inject should deliver 10 seconds after Turn 1 starts."
+      }
+    },
+    {
+      "id": "t2-immediate",
+      "turn": 2,
+      "time": 0,
+      "type": "intel",
+      "message": "Turn 2 - Immediate delivery",
+      "content": {
+        "headline": "Turn 2 Started",
+        "body": "This inject should deliver immediately when Turn 2 begins (after facilitator clicks Next Turn).",
+        "source": "Test System"
+      }
+    },
+    {
+      "id": "t2-delayed",
+      "turn": 2,
+      "time": 15,
+      "type": "alert",
+      "message": "Turn 2 - Delayed 15 seconds",
+      "content": {
+        "headline": "Turn 2 Alert",
+        "body": "This inject should deliver 15 seconds after Turn 2 starts. This is the last inject.",
+        "source": "Test System"
+      }
+    }
+  ]
+}

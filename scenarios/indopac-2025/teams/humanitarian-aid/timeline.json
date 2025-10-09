@@ -1,0 +1,445 @@
+{
+  "scenario": "indopac-2025",
+  "team": "humanitarian-aid",
+  "injects": [
+    {
+      "id": "ha-t1-001",
+      "turn": 1,
+      "time": 0,
+      "type": "sms",
+      "content": {
+        "from": "Maritime Rescue Coord",
+        "body": "Beacon activated 12.3S 131.5E. Vessel taking water. Visual confirms 200+ POB including children. You are closest asset."
+      }
+    },
+    {
+      "id": "ha-t1-002",
+      "turn": 1,
+      "time": 19,
+      "type": "intelligence",
+      "content": {
+        "headline": "Refugee Vessel Assessment",
+        "body": "Vessel is 65ft wooden fishing boat, severely overloaded. List increasing 5 degrees last 30min. No life rafts visible. Assess 2-3 hours before critical. Weather deteriorating. Families visible on deck.",
+        "source": "Maritime Patrol Aircraft"
+      }
+    },
+    {
+      "id": "ha-t1-003",
+      "turn": 1,
+      "time": 38,
+      "type": "social",
+      "content": {
+        "platform": "twitter",
+        "headline": "Please help these people!",
+        "body": "Australian Navy ships visible on horizon from refugee boat but not moving to help! Children on board! Every minute matters! How can they just watch? RT to pressure them! #SaveLivesNow",
+        "source": "@AsylumSeekerResource"
+      },
+      "media": [
+        "/media/indopac-2025/generated/humanitarian-aid_ha-t1-003_twitter.png"
+      ]
+    },
+    {
+      "id": "ha-t1-004",
+      "turn": 1,
+      "time": 56,
+      "type": "email",
+      "content": {
+        "from": "UNHCR Regional Protection",
+        "subject": "Legal Obligations - Immediate Response Required",
+        "body": "Under maritime law and Safety of Life at Sea convention, immediate assistance required. Non-negotiable legal obligation. We have medical team standing by in Darwin. Confirm your response immediately. Regional office watching closely."
+      }
+    },
+    {
+      "id": "ha-t1-005",
+      "turn": 1,
+      "time": 94,
+      "type": "news",
+      "content": {
+        "headline": "Dengue Outbreak Overwhelms Timor Hospitals",
+        "body": "DILI - A severe dengue fever outbreak has pushed Timor-Leste's health system to breaking point. With over 2,000 cases reported this week, hospitals have run out of essential supplies. 'We're seeing children die from preventable complications,' reports Dr. Maria Santos, MSF coordinator.",
+        "source": "World Health Organization"
+      },
+      "media": [
+        "/media/indopac-2025/generated/humanitarian-aid_ha-t1-005_breaking_news.png"
+      ]
+    },
+    {
+      "id": "ha-t1-006",
+      "turn": 1,
+      "time": 113,
+      "type": "social",
+      "content": {
+        "platform": "twitter",
+        "headline": "Children dying while military plays games",
+        "body": "3 kids died today. No IV fluids. No fever meds. Australian military has medical supplies 100km away for their exercise. How many more must die? This is criminal! \ud83d\ude22",
+        "source": "@TimorHealthWorker"
+      },
+      "media": [
+        "/media/indopac-2025/generated/humanitarian-aid_ha-t1-006_twitter.png"
+      ]
+    },
+    {
+      "id": "ha-t1-007",
+      "turn": 1,
+      "time": 131,
+      "type": "news",
+      "content": {
+        "headline": "Pressure Mounts to Divert Military Medical Supplies",
+        "body": "Health organizations are calling on the Australian Defence Force to immediately release medical supplies from the Kakadu exercise to combat Timor-Leste's dengue crisis. 'They have what we need to save lives,' says Red Cross coordinator Emma Thompson. 'Every hour of delay costs lives.'",
+        "source": "Guardian Australia"
+      },
+      "media": [
+        "/media/indopac-2025/generated/humanitarian-aid_ha-t1-007_breaking_news.png"
+      ]
+    },
+    {
+      "id": "ha-t1-008",
+      "turn": 1,
+      "time": 169,
+      "type": "email",
+      "content": {
+        "from": "Radar Operations",
+        "subject": "Vessel Approaching Exercise Area",
+        "body": "Small vessel approaching from bearing 045, 15 knots, not responding to radio. AIS shows registered to 'Ocean Witness' - environmental NGO. They're heading straight for the exercise box."
+      }
+    },
+    {
+      "id": "ha-t1-009",
+      "turn": 1,
+      "time": 188,
+      "type": "social",
+      "content": {
+        "platform": "twitter",
+        "headline": "LIVE: Approaching military exercise",
+        "body": "We're exercising our right to freedom of navigation and transparency. Military forces conducting operations in our waters must be accountable. Streaming live as we approach. They're trying to warn us off but seas are free! \ud83c\udf0a",
+        "source": "@OceanWitness"
+      },
+      "media": [
+        "/media/indopac-2025/generated/humanitarian-aid_ha-t1-009_twitter.png"
+      ]
+    },
+    {
+      "id": "ha-t1-010",
+      "turn": 1,
+      "time": 225,
+      "type": "intelligence",
+      "content": {
+        "headline": "Seismic Event Detected",
+        "body": "Magnitude 7.2 earthquake recorded 08:45 local time. Epicenter: Alor Island, Indonesia. Depth 10km. Tsunami warning issued. Major damage expected. Multiple aftershocks detected.",
+        "source": "Geoscience Australia"
+      }
+    },
+    {
+      "id": "ha-t1-011",
+      "turn": 1,
+      "time": 244,
+      "type": "email",
+      "content": {
+        "from": "Indonesian Government",
+        "subject": "Formal Request for Assistance",
+        "body": "Indonesia formally requests immediate humanitarian assistance following devastating earthquake. Naval medical facilities and helicopter support urgently needed. Death toll rising. Your forces are closest available assets."
+      }
+    },
+    {
+      "id": "ha-t1-012",
+      "turn": 1,
+      "time": 263,
+      "type": "news",
+      "content": {
+        "headline": "Hundreds Feared Dead in Indonesia Quake",
+        "body": "BREAKING: A powerful 7.2 earthquake has devastated Indonesia's Alor Island. Local officials report entire villages collapsed. 'The scale of destruction is catastrophic,' says Indonesian disaster agency spokesperson. Australian naval forces conducting nearby exercises are being called to assist.",
+        "source": "CNN International"
+      },
+      "media": [
+        "/media/indopac-2025/generated/humanitarian-aid_ha-t1-012_breaking_news.png"
+      ]
+    },
+    {
+      "id": "ha-t1-013",
+      "turn": 1,
+      "time": 281,
+      "type": "social",
+      "content": {
+        "platform": "twitter",
+        "headline": "Stop the war games and help!",
+        "body": "Australian Navy conducting exercises while our people are buried alive just 200km away! Helicopters playing war games instead of saving lives! This is shameful! #HelpIndonesia #StopKakadu",
+        "source": "@IndonesianRedCross"
+      },
+      "media": [
+        "/media/indopac-2025/generated/humanitarian-aid_ha-t1-013_twitter.png"
+      ]
+    },
+    {
+      "id": "ha-t1-014",
+      "turn": 1,
+      "time": 300,
+      "type": "email",
+      "content": {
+        "from": "UN OCHA Jakarta",
+        "subject": "UN Humanitarian Coordination",
+        "body": "Formal request: All available military assets needed for search and rescue. Your helicopters and medical facilities could save hundreds. Every hour critical in first 72hrs. Can you redirect from exercise immediately?"
+      }
+    },
+    {
+      "id": "ha-t2-001",
+      "turn": 2,
+      "time": 0,
+      "type": "email",
+      "content": {
+        "from": "Rote Island Council",
+        "subject": "Fishing Grounds Destroyed",
+        "body": "Your naval exercises have destroyed our fishing grounds with sonar and ship movements. Fish have fled. Our people face starvation. Three villages have no food. Formal complaint filed. Demand immediate compensation or food aid."
+      }
+    },
+    {
+      "id": "ha-t2-002",
+      "turn": 2,
+      "time": 23,
+      "type": "news",
+      "content": {
+        "headline": "Island Communities Face Starvation",
+        "body": "Remote Indonesian fishing communities claim Australian naval exercises have destroyed their livelihoods. 'The fish are gone since the warships came,' says village elder Pak Ahmad. Local authorities report food shortages affecting 5,000 people.",
+        "source": "ABC Radio Australia"
+      },
+      "media": [
+        "/media/indopac-2025/generated/humanitarian-aid_ha-t2-002_breaking_news.png"
+      ]
+    },
+    {
+      "id": "ha-t2-003",
+      "turn": 2,
+      "time": 69,
+      "type": "sms",
+      "content": {
+        "from": "Medical Officer HMAS Canberra",
+        "body": "12 cases resp symptoms on Singapore vessel. Fever, cough. They want to keep it quiet. Could be COVID variant."
+      }
+    },
+    {
+      "id": "ha-t2-004",
+      "turn": 2,
+      "time": 92,
+      "type": "intelligence",
+      "content": {
+        "headline": "Disease Outbreak Assessment",
+        "body": "Singapore vessel reporting 18 personnel with ILI (influenza-like illness). Symptoms consistent with novel respiratory pathogen. R0 appears >2. Without quarantine, could spread through entire task force within 72 hours.",
+        "source": "Health Security Unit"
+      }
+    },
+    {
+      "id": "ha-t2-005",
+      "turn": 2,
+      "time": 115,
+      "type": "email",
+      "content": {
+        "from": "Chief Medical Officer ADF",
+        "subject": "Quarantine Protocols Required",
+        "body": "Implement immediate quarantine of affected vessel. No personnel transfers. This could compromise entire exercise but alternative is potential fleet-wide outbreak. Singapore refusing to acknowledge publicly. Handle diplomatically."
+      }
+    },
+    {
+      "id": "ha-t2-006",
+      "turn": 2,
+      "time": 162,
+      "type": "email",
+      "content": {
+        "from": "Indigenous Heritage Council",
+        "subject": "Sacred Site in Exercise Area",
+        "body": "Underwater archaeological survey confirms sacred Aboriginal site directly in your operations area. Site is 8,000 years old - drowned when sea levels rose. Any anchor or sonar damage would be catastrophic cultural loss. Immediate cessation required."
+      }
+    },
+    {
+      "id": "ha-t2-007",
+      "turn": 2,
+      "time": 185,
+      "type": "social",
+      "content": {
+        "platform": "twitter",
+        "headline": "Military destroying sacred sites!",
+        "body": "BREAKING: Navy exercises happening over our ancestors' sacred sites! They were warned but ignored us. This is cultural vandalism! Our heritage matters! Stop this now! @UNHumanRights",
+        "source": "@IndigenousAusVoice"
+      },
+      "media": [
+        "/media/indopac-2025/generated/humanitarian-aid_ha-t2-007_twitter.png"
+      ]
+    },
+    {
+      "id": "ha-t2-008",
+      "turn": 2,
+      "time": 208,
+      "type": "news",
+      "content": {
+        "headline": "Federal Court Injunction Threatened",
+        "body": "Traditional owners are seeking an urgent Federal Court injunction to halt naval exercises over a newly discovered underwater sacred site. 'This is our ancestors' resting place,' says elder Mary Tungarra. Legal experts say the case has merit.",
+        "source": "The Australian"
+      },
+      "media": [
+        "/media/indopac-2025/generated/humanitarian-aid_ha-t2-008_breaking_news.png"
+      ]
+    },
+    {
+      "id": "ha-t2-009",
+      "turn": 2,
+      "time": 254,
+      "type": "sms",
+      "content": {
+        "from": "Tuvalu Government",
+        "body": "Worst tide in decade. Moving whole villages. 300 people in boats heading your way. No choice."
+      }
+    },
+    {
+      "id": "ha-t2-010",
+      "turn": 2,
+      "time": 277,
+      "type": "intelligence",
+      "content": {
+        "headline": "Climate Displacement Event",
+        "body": "Catastrophic king tide has made three Tuvalu villages uninhabitable. Approximately 300 climate refugees in small boats seeking higher ground. Your vessels are only safe harbor in range. International law requires assistance.",
+        "source": "Pacific Climate Monitor"
+      }
+    },
+    {
+      "id": "ha-t2-011",
+      "turn": 2,
+      "time": 300,
+      "type": "news",
+      "content": {
+        "headline": "Climate Refugees Flee Rising Seas",
+        "body": "Dramatic scenes as hundreds of Tuvaluans flee their homes in small boats as king tides swallow their villages. Australian naval vessels nearby for military exercises may be their only hope. This is climate change happening in real-time.",
+        "source": "BBC World"
+      },
+      "media": [
+        "/media/indopac-2025/generated/humanitarian-aid_ha-t2-011_breaking_news.png"
+      ]
+    },
+    {
+      "id": "ha-t3-001",
+      "turn": 3,
+      "time": 0,
+      "type": "email",
+      "content": {
+        "from": "International Criminal Court",
+        "subject": "ICC Evidence Collection Request",
+        "body": "Confidential: Requesting RAN assistance collecting evidence of alleged war crimes in maritime zone 14.2S 128.3E. Mass grave site located underwater. Your divers and forensics capability needed. Highly sensitive - no media disclosure."
+      }
+    },
+    {
+      "id": "ha-t3-002",
+      "turn": 3,
+      "time": 23,
+      "type": "intelligence",
+      "content": {
+        "headline": "War Crimes Site Confirmed",
+        "body": "Imagery confirms mass burial site at seafloor. Appears to be 50+ bodies, weighted and dumped. Age approximately 6 months. Pattern consistent with ethnic cleansing operations in region. Involvement risks diplomatic crisis with multiple nations.",
+        "source": "Intelligence Assessment"
+      }
+    },
+    {
+      "id": "ha-t3-003",
+      "turn": 3,
+      "time": 69,
+      "type": "email",
+      "content": {
+        "from": "UN Headquarters Geneva",
+        "subject": "UN Humanitarian Award Nomination",
+        "body": "Australian Defence Force nominated for UN Humanitarian Service Medal for regional disaster response. Award ceremony in 48 hours. Secretary-General will attend. Would require diverting flagship from exercise for ceremony."
+      }
+    },
+    {
+      "id": "ha-t3-004",
+      "turn": 3,
+      "time": 92,
+      "type": "news",
+      "content": {
+        "headline": "Australian Forces Nominated for UN Honor",
+        "body": "The United Nations has nominated Australian military forces for prestigious humanitarian award recognizing disaster response efforts. The ceremony conflicts with ongoing exercises, forcing choice between operational readiness and diplomatic recognition.",
+        "source": "Reuters"
+      },
+      "media": [
+        "/media/indopac-2025/generated/humanitarian-aid_ha-t3-004_breaking_news.png"
+      ]
+    },
+    {
+      "id": "ha-t3-005",
+      "turn": 3,
+      "time": 138,
+      "type": "intelligence",
+      "content": {
+        "headline": "Human Trafficking Vessel Identified",
+        "body": "High confidence: Vessel at 13.5S 130.2E is trafficking operation. Thermal imaging shows 50+ people in cargo hold. Indonesian flagged but fake registration. Pattern matches known trafficking route. Window for intercept closing.",
+        "source": "Border Force Intelligence"
+      }
+    },
+    {
+      "id": "ha-t3-006",
+      "turn": 3,
+      "time": 162,
+      "type": "sms",
+      "content": {
+        "from": "AFP Maritime Unit",
+        "body": "Trafficking vessel will reach international waters in 2hrs. After that, no jurisdiction. 50+ victims aboard. Request immediate support."
+      }
+    },
+    {
+      "id": "ha-t3-007",
+      "turn": 3,
+      "time": 185,
+      "type": "social",
+      "content": {
+        "platform": "twitter",
+        "headline": "BREAKING: Navy rescues trafficking victims",
+        "body": "Australian Navy just rescued 50+ trafficking victims including children! Amazing work by our forces! Heroes! \ud83c\udde6\ud83c\uddfa #ProudAustralian",
+        "source": "@9NewsAustralia"
+      },
+      "media": [
+        "/media/indopac-2025/generated/humanitarian-aid_ha-t3-007_twitter.png"
+      ]
+    },
+    {
+      "id": "ha-t3-008",
+      "turn": 3,
+      "time": 231,
+      "type": "email",
+      "content": {
+        "from": "Regional Health Emergency Network",
+        "subject": "Mass Casualty Event - Three Nations",
+        "body": "Major incidents in PNG (landslide, 200+ casualties), Solomon Islands (hospital generator failure, ICU patients critical), and Vanuatu (measles outbreak). All requesting medical assistance. Your medical facilities can only support one location. Please advise priority."
+      }
+    },
+    {
+      "id": "ha-t3-009",
+      "turn": 3,
+      "time": 254,
+      "type": "news",
+      "content": {
+        "headline": "Multiple Medical Emergencies Strain Resources",
+        "body": "Three simultaneous medical emergencies across the Pacific are testing Australia's humanitarian response capacity. With military medical assets committed to exercises, officials face impossible choices about which crisis to address.",
+        "source": "Medical Journal of Australia"
+      },
+      "media": [
+        "/media/indopac-2025/generated/humanitarian-aid_ha-t3-009_breaking_news.png"
+      ]
+    },
+    {
+      "id": "ha-t3-010",
+      "turn": 3,
+      "time": 277,
+      "type": "sms",
+      "content": {
+        "from": "Defence Strategic Communications",
+        "body": "Which emergency are we responding to? Media conference in 30min. Need decision immediately."
+      }
+    },
+    {
+      "id": "ha-t3-011",
+      "turn": 3,
+      "time": 300,
+      "type": "email",
+      "content": {
+        "from": "Joint Health Command",
+        "subject": "Triage Decision Required",
+        "body": "Based on survivability and impact: PNG has highest save rate, Solomons most critical timeline, Vanuatu affects most children. No perfect answer. Your call will be scrutinized regardless. Recommend PNG based on numbers alone, but prepared for backlash."
+      }
+    }
+  ]
+}
