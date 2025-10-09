@@ -31,6 +31,5 @@ RUN playwright install chromium
 RUN playwright install-deps chromium
 
 COPY ./app /app/
-COPY ./scenarios /scenarios/
 EXPOSE 8001
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8001"]
