@@ -11,6 +11,9 @@ interface Scenario {
   duration_minutes: number;
   team_count: number;
   thumbnail?: string;
+  turn_based?: boolean;
+  total_turns?: number;
+  inject_count?: number;
 }
 
 const ScenariosPage = () => {
@@ -109,6 +112,18 @@ const ScenariosPage = () => {
                     <span>Duration: {scenario.duration_minutes} min</span>
                     <span>•</span>
                     <span>Teams: {scenario.team_count}</span>
+                    {scenario.turn_based && scenario.total_turns && (
+                      <>
+                        <span>•</span>
+                        <span>{scenario.total_turns} Turns</span>
+                      </>
+                    )}
+                    {scenario.inject_count !== undefined && (
+                      <>
+                        <span>•</span>
+                        <span>{scenario.inject_count} Injects</span>
+                      </>
+                    )}
                   </div>
                 </div>
                 <div className="flex gap-2">
