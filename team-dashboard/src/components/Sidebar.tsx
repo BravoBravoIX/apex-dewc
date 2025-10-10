@@ -13,11 +13,14 @@ export const Sidebar = () => {
       social: 0,
       email: 0,
       sms: 0,
+      intel: 0,
     };
 
     injects.forEach(inject => {
       const type = inject.type?.toLowerCase();
-      if (type && type in typeCounts) {
+      if (type === 'intel' || type === 'intelligence') {
+        typeCounts.intel++;
+      } else if (type && type in typeCounts) {
         typeCounts[type as keyof typeof typeCounts]++;
       }
     });
@@ -41,6 +44,7 @@ export const Sidebar = () => {
     { name: 'Social', href: `/social${queryString}`, count: counts.social },
     { name: 'Email', href: `/email${queryString}`, count: counts.email },
     { name: 'SMS', href: `/sms${queryString}`, count: counts.sms },
+    { name: 'Intel', href: `/intel${queryString}`, count: counts.intel },
   ];
 
   return (

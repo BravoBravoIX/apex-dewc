@@ -69,6 +69,74 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ type, content, onChange }
           </>
         );
 
+      case 'social':
+        return (
+          <>
+            <div className="mb-3">
+              <label className="block text-sm font-medium text-text-secondary mb-1">
+                Platform
+              </label>
+              <select
+                value={content.platform || ''}
+                onChange={(e) => handleFieldChange('platform', e.target.value)}
+                className="w-full px-3 py-2 bg-surface border border-border rounded text-text-primary focus:outline-none focus:border-primary"
+              >
+                <option value="">Auto-detect (default: Twitter)</option>
+                <option value="twitter">Twitter / X</option>
+                <option value="facebook">Facebook</option>
+              </select>
+              <p className="text-xs text-text-muted mt-1">
+                Optional - used for image generation
+              </p>
+            </div>
+
+            <div className="mb-3">
+              <label className="block text-sm font-medium text-text-secondary mb-1">
+                Headline
+              </label>
+              <input
+                type="text"
+                value={content.headline || ''}
+                onChange={(e) => handleFieldChange('headline', e.target.value)}
+                maxLength={200}
+                className="w-full px-3 py-2 bg-surface border border-border rounded text-text-primary focus:outline-none focus:border-primary"
+                placeholder="Short title or topic"
+              />
+            </div>
+
+            <div className="mb-3">
+              <label className="block text-sm font-medium text-text-secondary mb-1">
+                Source <span className="text-red-400">*</span>
+              </label>
+              <input
+                type="text"
+                value={content.source || ''}
+                onChange={(e) => handleFieldChange('source', e.target.value)}
+                maxLength={100}
+                className="w-full px-3 py-2 bg-surface border border-border rounded text-text-primary focus:outline-none focus:border-primary"
+                placeholder="@username or User Name"
+              />
+            </div>
+
+            <div className="mb-3">
+              <label className="block text-sm font-medium text-text-secondary mb-1">
+                Body <span className="text-red-400">*</span>
+              </label>
+              <textarea
+                value={content.body || ''}
+                onChange={(e) => handleFieldChange('body', e.target.value)}
+                maxLength={1000}
+                rows={3}
+                className="w-full px-3 py-2 bg-surface border border-border rounded text-text-primary focus:outline-none focus:border-primary resize-y"
+                placeholder="Post content"
+              />
+              <p className="text-xs text-text-muted mt-1">
+                {(content.body || '').length} / 1000 characters
+              </p>
+            </div>
+          </>
+        );
+
       case 'social_media':
         return (
           <>
@@ -84,8 +152,6 @@ const ContentEditor: React.FC<ContentEditorProps> = ({ type, content, onChange }
                 <option value="">Select platform...</option>
                 <option value="twitter">Twitter / X</option>
                 <option value="facebook">Facebook</option>
-                <option value="instagram">Instagram</option>
-                <option value="linkedin">LinkedIn</option>
               </select>
             </div>
 

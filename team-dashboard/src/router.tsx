@@ -5,6 +5,7 @@ import { NewsPage } from './pages/NewsPage';
 import { SocialPage } from './pages/SocialPage';
 import { EmailPage } from './pages/EmailPage';
 import { SMSPage } from './pages/SMSPage';
+import { IntelPage } from './pages/IntelPage';
 
 export const router = createBrowserRouter([
   {
@@ -16,6 +17,7 @@ export const router = createBrowserRouter([
       { path: 'social', element: <SocialPage /> },
       { path: 'email', element: <EmailPage /> },
       { path: 'sms', element: <SMSPage /> },
+      { path: 'intel', element: <IntelPage /> },
     ],
   },
 ]);

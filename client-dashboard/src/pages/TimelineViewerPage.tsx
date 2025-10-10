@@ -11,6 +11,7 @@ interface Inject {
   priority?: string;
   content?: any;
   media?: string[];
+  turn?: number;
   action?: {
     type: string;
     data?: any;
@@ -35,15 +36,24 @@ interface MediaFile {
   mime_type: string;
 }
 
+interface Scenario {
+  id: string;
+  name: string;
+  turn_based?: boolean;
+  total_turns?: number;
+}
+
 const TimelineViewerPage: React.FC = () => {
   const { scenarioId, teamId } = useParams<{ scenarioId: string; teamId: string }>();
   const [timeline, setTimeline] = useState<Timeline | null>(null);
+  const [scenario, setScenario] = useState<Scenario | null>(null);
   const [editedInjects, setEditedInjects] = useState<Map<string, number>>(new Map());
   const [editedMedia, setEditedMedia] = useState<Map<string, string[]>>(new Map());
   const [editedContent, setEditedContent] = useState<Map<string, any>>(new Map());
   const [editedPriority, setEditedPriority] = useState<Map<string, string | undefined>>(new Map());
   const [editedActions, setEditedActions] = useState<Map<string, any>>(new Map());
   const [editedTypes, setEditedTypes] = useState<Map<string, string>>(new Map());
+  const [editedTurns, setEditedTurns] = useState<Map<string, number | undefined>>(new Map());
   const [timeInputs, setTimeInputs] = useState<Map<string, string>>(new Map());
   const [expandedInject, setExpandedInject] = useState<string | null>(null);
   const [creatingNewInject, setCreatingNewInject] = useState(false);
@@ -57,9 +67,11 @@ const TimelineViewerPage: React.FC = () => {
   const [selectedInjectForMedia, setSelectedInjectForMedia] = useState<string | null>(null);
   const [mediaFiles, setMediaFiles] = useState<MediaFile[]>([]);
   const [loadingMedia, setLoadingMedia] = useState(false);
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
 
   useEffect(() => {
     fetchTimeline();
+    fetchScenario();
   }, [scenarioId, teamId]);
 
   const fetchTimeline = async () => {
@@ -79,6 +91,19 @@ const TimelineViewerPage: React.FC = () => {
       setError(err instanceof Error ? err.message : 'Failed to load timeline');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const fetchScenario = async () => {
+    try {
+      const response = await fetch(`/api/v1/scenarios/${scenarioId}`);
+      if (response.ok) {
+        const data = await response.json();
+        setScenario(data);
+      }
+    } catch (err) {
+      console.error('Failed to fetch scenario metadata:', err);
+      // Non-critical - don't show error
     }
   };
 
@@ -173,7 +198,7 @@ const TimelineViewerPage: React.FC = () => {
     return editedMedia.get(inject.id) || inject.media || [];
   };
 
-  const hasChanges = () => editedInjects.size > 0 || editedMedia.size > 0 || editedContent.size > 0 || editedPriority.size > 0 || editedActions.size > 0 || editedTypes.size > 0;
+  const hasChanges = () => editedInjects.size > 0 || editedMedia.size > 0 || editedContent.size > 0 || editedPriority.size > 0 || editedActions.size > 0 || editedTypes.size > 0 || editedTurns.size > 0;
 
   const saveChanges = async () => {
     if (!timeline || !hasChanges()) return;
@@ -232,6 +257,16 @@ const TimelineViewerPage: React.FC = () => {
             updatedInject.type = editedTypes.get(inject.id);
           }
 
+          // Update turn if changed
+          if (editedTurns.has(inject.id)) {
+            const newTurn = editedTurns.get(inject.id);
+            if (newTurn !== undefined) {
+              updatedInject.turn = newTurn;
+            } else {
+              delete updatedInject.turn;
+            }
+          }
+
           return updatedInject;
         })
       };
@@ -257,6 +292,7 @@ const TimelineViewerPage: React.FC = () => {
       setEditedPriority(new Map());
       setEditedActions(new Map());
       setEditedTypes(new Map());
+      setEditedTurns(new Map());
       setTimeInputs(new Map());
       setExpandedInject(null);
       setSuccessMessage('Timeline saved successfully!');
@@ -279,6 +315,7 @@ const TimelineViewerPage: React.FC = () => {
     priority?: string | undefined;
     action?: any;
     type?: string;
+    turn?: number | undefined;
   }) => {
     if (updates.content !== undefined) {
       setEditedContent(prev => new Map(prev).set(injectId, updates.content));
@@ -291,6 +328,9 @@ const TimelineViewerPage: React.FC = () => {
     }
     if (updates.type !== undefined) {
       setEditedTypes(prev => new Map(prev).set(injectId, updates.type!));
+    }
+    if (updates.turn !== undefined || updates.turn === undefined) {
+      setEditedTurns(prev => new Map(prev).set(injectId, updates.turn));
     }
     setExpandedInject(null);
   };
@@ -317,6 +357,7 @@ const TimelineViewerPage: React.FC = () => {
     priority?: string | undefined;
     action?: any;
     type?: string;
+    turn?: number | undefined;
   }) => {
     if (!newInject || !timeline) return;
 
@@ -326,7 +367,8 @@ const TimelineViewerPage: React.FC = () => {
       type: updates.type || newInject.type,
       content: updates.content || {},
       priority: updates.priority,
-      action: updates.action
+      action: updates.action,
+      turn: updates.turn
     };
 
     // Add to timeline
@@ -391,6 +433,11 @@ const TimelineViewerPage: React.FC = () => {
       return newMap;
     });
     setEditedTypes(prev => {
+      const newMap = new Map(prev);
+      newMap.delete(deleteConfirmInject.id);
+      return newMap;
+    });
+    setEditedTurns(prev => {
       const newMap = new Map(prev);
       newMap.delete(deleteConfirmInject.id);
       return newMap;
@@ -498,32 +545,246 @@ const TimelineViewerPage: React.FC = () => {
             inject={newInject}
             onSave={handleNewInjectSave}
             onCancel={handleNewInjectCancel}
+            turnBased={scenario?.turn_based}
+            totalTurns={scenario?.total_turns}
           />
         </div>
       )}
 
       {/* Timeline Grid */}
-      <div className="bg-surface rounded-lg card overflow-hidden">
-        <div className="grid grid-cols-12 gap-4 p-4 bg-surface-light font-semibold text-sm text-text-primary border-b border-border">
-          <div className="col-span-1 flex items-center gap-1">
-            <Clock size={14} />
-            Time
-          </div>
-          <div className="col-span-1">Type</div>
-          <div className="col-span-2">ID</div>
-          <div className="col-span-5">Content</div>
-          <div className="col-span-2">Media</div>
-          <div className="col-span-1 text-center">Actions</div>
-        </div>
+      {scenario?.turn_based ? (
+        // TURN-BASED: Grouped by turn
+        <div className="space-y-6">
+          {(() => {
+            // Group injects by turn
+            const groups: Record<number, typeof timeline.injects> = {};
+            timeline.injects.forEach(inject => {
+              const currentTurn = editedTurns.has(inject.id) ? editedTurns.get(inject.id) : inject.turn;
+              const turn = currentTurn ?? 0;
+              if (!groups[turn]) groups[turn] = [];
+              groups[turn].push(inject);
+            });
 
-        <div className="divide-y divide-border">
-          {timeline.injects
-            .sort((a, b) => {
-              const timeA = editedInjects.get(a.id) ?? a.time;
-              const timeB = editedInjects.get(b.id) ?? b.time;
-              return timeA - timeB;
-            })
-            .map((inject) => {
+            // Sort each group by time
+            Object.values(groups).forEach(injects => {
+              injects.sort((a, b) => {
+                const timeA = editedInjects.get(a.id) ?? a.time;
+                const timeB = editedInjects.get(b.id) ?? b.time;
+                return timeA - timeB;
+              });
+            });
+
+            return Object.entries(groups)
+              .sort(([a], [b]) => parseInt(a) - parseInt(b))
+              .map(([turn, injects]) => (
+                <div key={turn} className="bg-surface rounded-lg card overflow-hidden">
+                  {/* Turn Header */}
+                  <div className="bg-primary/10 px-4 py-3 border-l-4 border-primary">
+                    <div className="flex items-center justify-between">
+                      <h3 className="text-lg font-semibold text-text-primary">
+                        {turn === '0' ? 'Unassigned Injects' : `Turn ${turn}`}
+                      </h3>
+                      <span className="text-sm text-text-secondary">
+                        {injects.length} inject{injects.length !== 1 ? 's' : ''}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Column Headers */}
+                  <div className="grid grid-cols-12 gap-4 p-4 bg-surface-light font-semibold text-sm text-text-primary border-b border-border">
+                    <div className="col-span-1 flex items-center gap-1">
+                      <Clock size={14} />
+                      Time
+                    </div>
+                    <div className="col-span-1">Type</div>
+                    <div className="col-span-2">ID</div>
+                    <div className="col-span-5">Content</div>
+                    <div className="col-span-2">Media</div>
+                    <div className="col-span-1 text-center">Actions</div>
+                  </div>
+
+                  {/* Injects in this turn */}
+                  <div className="divide-y divide-border">
+                    {injects.map((inject) => {
+              const currentTime = editedInjects.get(inject.id) ?? inject.time;
+              const isEdited = editedInjects.has(inject.id) || editedMedia.has(inject.id) ||
+                               editedContent.has(inject.id) || editedPriority.has(inject.id) ||
+                               editedActions.has(inject.id) || editedTypes.has(inject.id) ||
+                               editedTurns.has(inject.id);
+              const inputValue = timeInputs.get(inject.id) ?? formatTime(currentTime);
+              const injectMedia = getInjectMedia(inject);
+              const currentType = editedTypes.get(inject.id) || inject.type;
+
+              return (
+                <React.Fragment key={inject.id}>
+                  <div className={`grid grid-cols-12 gap-4 p-4 hover:bg-surface-light/50 ${isEdited ? 'bg-yellow-500/10' : ''}`}>
+                  <div className="col-span-1">
+                    <input
+                      type="text"
+                      value={inputValue}
+                      onChange={(e) => handleTimeInputChange(inject.id, e.target.value)}
+                      className={`w-full px-2 py-1 bg-surface border rounded text-sm font-mono text-text-primary ${
+                        isEdited ? 'border-yellow-500 bg-yellow-500/20' : 'border-border'
+                      } focus:outline-none focus:border-primary`}
+                      placeholder="M:SS"
+                    />
+                  </div>
+
+                  <div className="col-span-1 flex items-center">
+                    <span className={`text-xs font-semibold ${editedTypes.has(inject.id) ? 'text-yellow-400' : 'text-primary'}`}>
+                      {getInjectTypeLabel(currentType)}
+                    </span>
+                  </div>
+
+                  <div className="col-span-2 text-sm">
+                    <div className="font-mono text-xs text-text-secondary">{inject.id}</div>
+                    {inject.priority && (
+                      <span className={`inline-block px-2 py-0.5 text-xs rounded-full mt-1 ${
+                        inject.priority === 'high' ? 'bg-red-500/20 text-red-400' :
+                        inject.priority === 'medium' ? 'bg-yellow-500/20 text-yellow-400' :
+                        'bg-surface-light text-text-secondary'
+                      }`}>
+                        {inject.priority}
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="col-span-5 text-sm">
+                    {inject.content && (
+                      <div>
+                        {typeof inject.content === 'string' ? (
+                          <p className="text-text-primary">{inject.content}</p>
+                        ) : (
+                          <div>
+                            {inject.content.headline && (
+                              <p className="font-semibold text-text-primary">{inject.content.headline}</p>
+                            )}
+                            {inject.content.body && (
+                              <p className="text-text-secondary mt-1">{inject.content.body}</p>
+                            )}
+                            {inject.content.text && (
+                              <p className="text-text-secondary mt-1 italic">"{inject.content.text}"</p>
+                            )}
+                            {inject.content.source && (
+                              <p className="text-xs text-text-muted mt-1">Source: {inject.content.source}</p>
+                            )}
+                            {inject.content.platform && (
+                              <p className="text-xs text-text-muted mt-1">
+                                Platform: {inject.content.platform}
+                                {inject.content.username && ` - ${inject.content.username}`}
+                              </p>
+                            )}
+                            {inject.content.command && (
+                              <p className="font-mono text-xs bg-surface-light p-1 rounded mt-1">
+                                Command: {inject.content.command}
+                              </p>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Media Column */}
+                  <div className="col-span-2">
+                    <div className="space-y-1">
+                      {injectMedia.map((mediaPath, idx) => (
+                        <div key={idx} className="flex items-center gap-2 bg-surface-light px-2 py-1 rounded group">
+                          <img
+                            src={mediaPath}
+                            alt={mediaPath.split('/').pop()}
+                            className="w-8 h-8 object-cover rounded cursor-pointer hover:ring-2 hover:ring-primary flex-shrink-0"
+                            onClick={() => setPreviewImage(mediaPath)}
+                            title="Click to preview"
+                          />
+                          <span className="text-xs text-text-secondary truncate flex-1" title={mediaPath}>
+                            {mediaPath.split('/').pop()}
+                          </span>
+                          <button
+                            onClick={() => removeMediaFromInject(inject.id, mediaPath)}
+                            className="opacity-0 group-hover:opacity-100 transition-opacity"
+                          >
+                            <X size={12} className="text-red-400 hover:text-red-300" />
+                          </button>
+                        </div>
+                      ))}
+                      <button
+                        onClick={() => openMediaBrowser(inject.id)}
+                        className="flex items-center gap-1 text-xs text-primary hover:text-primary/80 transition-colors"
+                      >
+                        <Plus size={12} />
+                        Add Media
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Actions Column */}
+                  <div className="col-span-1 flex items-center justify-center gap-1">
+                    {inject.action && (
+                      <div className="flex items-center gap-1 text-accent" title={`Action: ${inject.action.type}`}>
+                        <Zap size={14} />
+                      </div>
+                    )}
+                    <button
+                      onClick={() => setExpandedInject(expandedInject === inject.id ? null : inject.id)}
+                      className="p-1 hover:bg-surface-light rounded transition-colors"
+                      title="Edit inject"
+                    >
+                      <Edit2 size={14} className="text-primary hover:text-primary/80" />
+                    </button>
+                    <button
+                      onClick={() => handleDeleteInject(inject)}
+                      className="p-1 hover:bg-red-900/30 rounded transition-colors"
+                      title="Delete inject"
+                    >
+                      <Trash2 size={14} className="text-red-400 hover:text-red-300" />
+                    </button>
+                  </div>
+                  </div>
+
+                  {/* Expandable Editor */}
+                  {expandedInject === inject.id && (
+                    <div className="col-span-12">
+                      <InjectEditor
+                        inject={inject}
+                        onSave={(updates) => handleInjectEditorSave(inject.id, updates)}
+                        onCancel={handleInjectEditorCancel}
+                        turnBased={scenario?.turn_based}
+                        totalTurns={scenario?.total_turns}
+                      />
+                    </div>
+                  )}
+                </React.Fragment>
+              );
+            })}
+                  </div>
+                </div>
+              ));
+          })()}
+        </div>
+      ) : (
+        // TIME-BASED: Flat view
+        <div className="bg-surface rounded-lg card overflow-hidden">
+          <div className="grid grid-cols-12 gap-4 p-4 bg-surface-light font-semibold text-sm text-text-primary border-b border-border">
+            <div className="col-span-1 flex items-center gap-1">
+              <Clock size={14} />
+              Time
+            </div>
+            <div className="col-span-1">Type</div>
+            <div className="col-span-2">ID</div>
+            <div className="col-span-5">Content</div>
+            <div className="col-span-2">Media</div>
+            <div className="col-span-1 text-center">Actions</div>
+          </div>
+
+          <div className="divide-y divide-border">
+            {timeline.injects
+              .sort((a, b) => {
+                const timeA = editedInjects.get(a.id) ?? a.time;
+                const timeB = editedInjects.get(b.id) ?? b.time;
+                return timeA - timeB;
+              })
+              .map((inject) => {
               const currentTime = editedInjects.get(inject.id) ?? inject.time;
               const isEdited = editedInjects.has(inject.id) || editedMedia.has(inject.id) ||
                                editedContent.has(inject.id) || editedPriority.has(inject.id) ||
@@ -606,9 +867,15 @@ const TimelineViewerPage: React.FC = () => {
                   <div className="col-span-2">
                     <div className="space-y-1">
                       {injectMedia.map((mediaPath, idx) => (
-                        <div key={idx} className="flex items-center gap-2 text-xs bg-surface-light px-2 py-1 rounded group">
-                          <Image size={12} className="text-primary flex-shrink-0" />
-                          <span className="text-text-secondary truncate flex-1" title={mediaPath}>
+                        <div key={idx} className="flex items-center gap-2 bg-surface-light px-2 py-1 rounded group">
+                          <img
+                            src={mediaPath}
+                            alt={mediaPath.split('/').pop()}
+                            className="w-8 h-8 object-cover rounded cursor-pointer hover:ring-2 hover:ring-primary flex-shrink-0"
+                            onClick={() => setPreviewImage(mediaPath)}
+                            title="Click to preview"
+                          />
+                          <span className="text-xs text-text-secondary truncate flex-1" title={mediaPath}>
                             {mediaPath.split('/').pop()}
                           </span>
                           <button
@@ -660,14 +927,17 @@ const TimelineViewerPage: React.FC = () => {
                         inject={inject}
                         onSave={(updates) => handleInjectEditorSave(inject.id, updates)}
                         onCancel={handleInjectEditorCancel}
+                        turnBased={scenario?.turn_based}
+                        totalTurns={scenario?.total_turns}
                       />
                     </div>
                   )}
                 </React.Fragment>
               );
             })}
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Instructions */}
       <div className="mt-6 p-4 bg-surface rounded-lg card">
@@ -824,6 +1094,30 @@ const TimelineViewerPage: React.FC = () => {
                 Click on an image to add it to the inject
               </p>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Image Preview Modal */}
+      {previewImage && (
+        <div
+          className="fixed inset-0 bg-black/90 flex items-center justify-center z-50 p-4"
+          onClick={() => setPreviewImage(null)}
+        >
+          <div className="relative max-w-6xl max-h-[90vh] flex items-center justify-center">
+            <button
+              onClick={() => setPreviewImage(null)}
+              className="absolute top-4 right-4 p-2 bg-surface/80 hover:bg-surface rounded-full transition-colors"
+              title="Close"
+            >
+              <X size={24} className="text-text-primary" />
+            </button>
+            <img
+              src={previewImage}
+              alt="Preview"
+              className="max-w-full max-h-[90vh] object-contain rounded-lg"
+              onClick={(e) => e.stopPropagation()}
+            />
           </div>
         </div>
       )}

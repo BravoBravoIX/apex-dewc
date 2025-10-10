@@ -11,6 +11,7 @@ interface Inject {
   priority?: string;
   content?: any;
   media?: string[];
+  turn?: number;
   action?: {
     type: string;
     data?: any;
@@ -24,14 +25,18 @@ interface InjectEditorProps {
     priority?: string | undefined;
     action?: any;
     type?: string;
+    turn?: number | undefined;
   }) => void;
   onCancel: () => void;
+  turnBased?: boolean;
+  totalTurns?: number;
 }
 
-const InjectEditor: React.FC<InjectEditorProps> = ({ inject, onSave, onCancel }) => {
+const InjectEditor: React.FC<InjectEditorProps> = ({ inject, onSave, onCancel, turnBased, totalTurns }) => {
   const [type, setType] = useState(inject.type);
   const [content, setContent] = useState(inject.content || {});
   const [priority, setPriority] = useState<string | undefined>(inject.priority);
+  const [turn, setTurn] = useState<number | undefined>(inject.turn);
   const [action, setAction] = useState(inject.action);
   const [validationErrors, setValidationErrors] = useState<string[]>([]);
   const [showTypeChangeConfirm, setShowTypeChangeConfirm] = useState(false);
@@ -81,7 +86,8 @@ const InjectEditor: React.FC<InjectEditorProps> = ({ inject, onSave, onCancel })
       content,
       priority,
       action,
-      type: type !== inject.type ? type : undefined
+      type: type !== inject.type ? type : undefined,
+      turn: turn !== inject.turn ? turn : undefined
     });
   };
 
@@ -89,6 +95,8 @@ const InjectEditor: React.FC<InjectEditorProps> = ({ inject, onSave, onCancel })
     switch (type) {
       case 'news':
         return ['headline', 'body', 'source'];
+      case 'social':
+        return ['source', 'body'];
       case 'social_media':
         return ['platform', 'username', 'text'];
       case 'email':
@@ -129,7 +137,7 @@ const InjectEditor: React.FC<InjectEditorProps> = ({ inject, onSave, onCancel })
         </div>
       )}
 
-      <div className="grid grid-cols-2 gap-4 mb-4">
+      <div className={`grid gap-4 mb-4 ${turnBased ? 'grid-cols-3' : 'grid-cols-2'}`}>
         <div>
           <label className="block text-sm font-medium text-text-secondary mb-1">
             Type
@@ -140,7 +148,8 @@ const InjectEditor: React.FC<InjectEditorProps> = ({ inject, onSave, onCancel })
             className="w-full px-3 py-2 bg-surface border border-border rounded text-text-primary focus:outline-none focus:border-primary"
           >
             <option value="news">News</option>
-            <option value="social_media">Social Media</option>
+            <option value="social">Social</option>
+            <option value="social_media">Social Media (Legacy)</option>
             <option value="email">Email</option>
             <option value="sms">SMS</option>
             <option value="intelligence">Intelligence</option>
@@ -155,6 +164,26 @@ const InjectEditor: React.FC<InjectEditorProps> = ({ inject, onSave, onCancel })
           value={priority}
           onChange={setPriority}
         />
+
+        {turnBased && (
+          <div>
+            <label className="block text-sm font-medium text-text-secondary mb-1">
+              Turn
+            </label>
+            <select
+              value={turn ?? ''}
+              onChange={(e) => setTurn(e.target.value ? parseInt(e.target.value) : undefined)}
+              className="w-full px-3 py-2 bg-surface border border-border rounded text-text-primary focus:outline-none focus:border-primary"
+            >
+              <option value="">Not assigned</option>
+              {Array.from({ length: totalTurns || 10 }, (_, i) => i + 1).map(t => (
+                <option key={t} value={t}>
+                  Turn {t}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
       </div>
 
       {/* Type Change Confirmation Modal */}

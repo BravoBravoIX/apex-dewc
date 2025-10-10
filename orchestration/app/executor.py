@@ -40,6 +40,15 @@ class ExerciseExecutor:
         self.service_containers = []
         self.dashboard_urls = {}
 
+        # Turn-based state
+        self.turn_based = False
+        self.total_turns = None
+        self.current_turn = 0
+        self.turn_start_elapsed = None      # Elapsed seconds when current turn started
+        self.waiting_for_next_turn = False
+        self.auto_pause_elapsed = None      # When to auto-pause (absolute elapsed time)
+        self.state_lock = asyncio.Lock()    # Thread safety for state transitions
+
         print(f"Executor for {scenario_name} initialized with Redis support.")
 
     def _connect_mqtt(self):
@@ -60,6 +69,15 @@ class ExerciseExecutor:
         with open(scenario_path, 'r') as f:
             self.scenario_data = json.load(f)
         print("Scenario loaded successfully.")
+
+        # Detect turn-based mode
+        self.turn_based = self.scenario_data.get('turn_based', False)
+        self.total_turns = self.scenario_data.get('total_turns', None)
+
+        if self.turn_based:
+            print(f"Scenario is TURN-BASED with {self.total_turns or 'unknown'} turns")
+        else:
+            print("Scenario is TIME-BASED")
 
         # Load timelines for each team
         for team in self.scenario_data.get('teams', []):
@@ -213,6 +231,33 @@ class ExerciseExecutor:
             "dashboard_urls": self.dashboard_urls
         }
 
+    async def schedule_turn_injects(self, turn: int):
+        """Schedule all injects for a specific turn."""
+        print(f"Scheduling injects for Turn {turn}")
+
+        # Get all injects for this turn across all teams
+        turn_injects = []
+        for team_id, timeline in self.timelines.items():
+            team_injects = [
+                inject for inject in timeline.get('injects', [])
+                if inject.get('turn') == turn
+            ]
+            turn_injects.extend([(team_id, inject) for inject in team_injects])
+
+        if not turn_injects:
+            print(f"WARNING: No injects found for Turn {turn}")
+            # Set auto-pause for 5 seconds from now
+            self.auto_pause_elapsed = self.turn_start_elapsed + 5
+            return
+
+        # Find latest inject time in this turn
+        max_inject_time = max(inject['time'] for _, inject in turn_injects)
+
+        # Calculate when to auto-pause (absolute elapsed time)
+        self.auto_pause_elapsed = self.turn_start_elapsed + max_inject_time + 5
+
+        print(f"Turn {turn}: {len(turn_injects)} injects, last at +{max_inject_time}s, auto-pause at T+{int(self.auto_pause_elapsed)}s")
+
     async def begin(self):
         """
         Actually starts the exercise timer and inject delivery.
@@ -227,6 +272,15 @@ class ExerciseExecutor:
 
             # Update Redis state
             await self.redis_manager.set_exercise_state(self.scenario_name, "RUNNING")
+
+            # Turn-based initialization
+            if self.turn_based:
+                self.current_turn = 1
+                self.turn_start_elapsed = 0  # Turn 1 starts at T+0:00
+                print(f"Starting Turn 1 of {self.total_turns or '?'}")
+
+                # Schedule Turn 1 injects
+                await self.schedule_turn_injects(1)
 
             # Start the main exercise loop
             print(f"Creating task for run() method")
@@ -253,26 +307,27 @@ class ExerciseExecutor:
         Returns:
             Dict with pause status
         """
-        if self.state == "RUNNING":
-            self.state = "PAUSED"
-            self.pause_time = time.time()
-            self.elapsed_at_pause += (self.pause_time - self.start_time)
+        async with self.state_lock:
+            if self.state == "RUNNING":
+                self.state = "PAUSED"
+                self.pause_time = time.time()
+                self.elapsed_at_pause += (self.pause_time - self.start_time)
 
-            # Update Redis state
-            await self.redis_manager.set_exercise_state(self.scenario_name, "PAUSED")
+                # Update Redis state
+                await self.redis_manager.set_exercise_state(self.scenario_name, "PAUSED")
 
-            # Publish pause command via MQTT
-            pause_msg = {"command": "pause", "timestamp": self.pause_time}
-            self.mqtt_client.publish(
-                f"/exercise/{self.scenario_name}/control",
-                json.dumps(pause_msg),
-                qos=1
-            )
+                # Publish pause command via MQTT
+                pause_msg = {"command": "pause", "timestamp": self.pause_time}
+                self.mqtt_client.publish(
+                    f"/exercise/{self.scenario_name}/control",
+                    json.dumps(pause_msg),
+                    qos=1
+                )
 
-            print(f"Exercise {self.scenario_name} paused at {self.elapsed_at_pause:.1f} seconds")
-            return {"status": "Exercise paused", "elapsed": self.elapsed_at_pause}
+                print(f"Exercise {self.scenario_name} paused at {self.elapsed_at_pause:.1f} seconds")
+                return {"status": "Exercise paused", "elapsed": self.elapsed_at_pause}
 
-        return {"status": "Exercise not running", "error": "Cannot pause - not in RUNNING state"}
+            return {"status": "Exercise not running", "error": "Cannot pause - not in RUNNING state"}
 
     async def resume(self):
         """
@@ -281,25 +336,73 @@ class ExerciseExecutor:
         Returns:
             Dict with resume status
         """
-        if self.state == "PAUSED":
-            self.state = "RUNNING"
-            self.start_time = time.time()
+        async with self.state_lock:
+            if self.state == "PAUSED":
+                self.state = "RUNNING"
+                self.start_time = time.time()
 
-            # Update Redis state
-            await self.redis_manager.set_exercise_state(self.scenario_name, "RUNNING")
+                # Update Redis state
+                await self.redis_manager.set_exercise_state(self.scenario_name, "RUNNING")
 
-            # Publish resume command via MQTT
-            resume_msg = {"command": "resume", "timestamp": self.start_time}
-            self.mqtt_client.publish(
-                f"/exercise/{self.scenario_name}/control",
-                json.dumps(resume_msg),
-                qos=1
-            )
+                # Publish resume command via MQTT
+                resume_msg = {"command": "resume", "timestamp": self.start_time}
+                self.mqtt_client.publish(
+                    f"/exercise/{self.scenario_name}/control",
+                    json.dumps(resume_msg),
+                    qos=1
+                )
 
-            print(f"Exercise {self.scenario_name} resumed")
-            return {"status": "Exercise resumed"}
+                print(f"Exercise {self.scenario_name} resumed")
+                return {"status": "Exercise resumed"}
 
-        return {"status": "Exercise not paused", "error": "Cannot resume - not in PAUSED state"}
+            return {"status": "Exercise not paused", "error": "Cannot resume - not in PAUSED state"}
+
+    async def next_turn(self):
+        """Advance to the next turn in a turn-based scenario."""
+        if not self.turn_based:
+            print("WARNING: next_turn called on non-turn-based scenario")
+            return {"status": "error", "error": "Not a turn-based scenario"}
+
+        if not self.waiting_for_next_turn:
+            print("WARNING: next_turn called but not waiting for next turn")
+            return {"status": "error", "error": "Not waiting for next turn"}
+
+        # Check if we've reached the final turn
+        if self.current_turn >= self.total_turns:
+            print(f"WARNING: Already at final turn ({self.current_turn}/{self.total_turns})")
+            return {"status": "error", "error": "Already at final turn"}
+
+        # Advance turn
+        self.current_turn += 1
+
+        # When paused, current elapsed is just the paused time
+        # (start_time hasn't been reset yet, so we can't use the normal calculation)
+        self.turn_start_elapsed = self.elapsed_at_pause
+
+        # Clear waiting flag
+        self.waiting_for_next_turn = False
+
+        print(f"Advancing to Turn {self.current_turn} at T+{int(self.elapsed_at_pause)}s")
+
+        # Resume exercise if paused (resume has its own lock)
+        if self.state == 'PAUSED':
+            await self.resume()
+
+        # Schedule injects for new turn
+        await self.schedule_turn_injects(self.current_turn)
+
+        # Publish turn started event
+        self.mqtt_client.publish(
+            f"/exercise/{self.scenario_name}/control",
+            json.dumps({
+                'event': 'turn_started',
+                'turn': self.current_turn,
+                'total_turns': self.total_turns
+            }),
+            qos=1
+        )
+
+        return {"status": "Turn advanced", "turn": self.current_turn}
 
     async def run(self):
         """
@@ -315,6 +418,39 @@ class ExerciseExecutor:
                 now = time.time()
                 current_elapsed = self.elapsed_at_pause + (now - self.start_time)
                 elapsed_seconds = int(current_elapsed)
+
+                # Check for auto-pause (turn-based mode)
+                if self.turn_based and self.auto_pause_elapsed is not None:
+                    if current_elapsed >= self.auto_pause_elapsed and not self.waiting_for_next_turn:
+                        # Check if this is the final turn
+                        is_final_turn = self.current_turn >= self.total_turns
+
+                        if is_final_turn:
+                            print(f"Final turn complete (Turn {self.current_turn}/{self.total_turns}) at T+{elapsed_seconds}s - Exercise Complete")
+                        else:
+                            print(f"Auto-pausing after Turn {self.current_turn} at T+{elapsed_seconds}s")
+                            # Set flag BEFORE pausing (only if not final turn)
+                            self.waiting_for_next_turn = True
+
+                        # Pause the exercise
+                        await self.pause()
+
+                        # Publish turn complete event
+                        self.mqtt_client.publish(
+                            f"/exercise/{self.scenario_name}/control",
+                            json.dumps({
+                                "event": "turn_complete" if not is_final_turn else "exercise_complete",
+                                "turn": self.current_turn,
+                                "waiting_for_next_turn": not is_final_turn,
+                                "exercise_complete": is_final_turn
+                            }),
+                            qos=1
+                        )
+
+                        # Clear auto-pause time to prevent repeated pausing
+                        self.auto_pause_elapsed = None
+
+                        continue  # Skip rest of loop iteration
 
                 # Debug every second change
                 if elapsed_seconds != last_elapsed:
@@ -351,35 +487,68 @@ class ExerciseExecutor:
                     seconds = elapsed_seconds % 60
                     formatted_timer = f"T+{minutes:02d}:{seconds:02d}"
 
-                # Check and publish injects for all teams
-                for team_id, timeline in self.timelines.items():
-                    for inject in timeline.get('injects', []):
-                        inject_id = inject.get('id')
-                        inject_time = inject.get('time')
+                # Check and publish injects
+                if self.turn_based:
+                    # Turn-based: check injects for current turn only
+                    for team_id, timeline in self.timelines.items():
+                        for inject in timeline.get('injects', []):
+                            inject_id = inject.get('id')
 
-                        # Check if it's time to publish this inject
-                        if inject_time == elapsed_seconds and inject_id not in published_injects:
-                            topic = f"/exercise/{self.scenario_name}/team/{team_id}/feed"
+                            # Skip if not current turn
+                            if inject.get('turn') != self.current_turn:
+                                continue
 
-                            # Add metadata to inject (including media and action if present)
-                            inject_with_metadata = {
-                                **inject,
-                                "delivered_at": elapsed_seconds,
-                                "team_id": team_id,
-                                "exercise_id": self.scenario_name,
-                                "media": inject.get("media", []),  # Include media array if present
-                                "action": inject.get("action", None)  # Include action if present
-                            }
-                            payload = json.dumps(inject_with_metadata)
+                            # Calculate time since turn started
+                            time_since_turn_start = int(current_elapsed - self.turn_start_elapsed)
+                            inject_time = inject.get('time')
 
-                            print(f"Publishing inject {inject_id} to team {team_id} at {formatted_timer}")
-                            self.mqtt_client.publish(topic, payload, qos=1)
-                            published_injects.add(inject_id)
+                            # Check if time to deliver
+                            if inject_time == time_since_turn_start and inject_id not in published_injects:
+                                topic = f"/exercise/{self.scenario_name}/team/{team_id}/feed"
 
-                            # Record delivery in Redis
-                            await self.redis_manager.record_inject_delivery(
-                                self.scenario_name, team_id, inject_id, "delivered"
-                            )
+                                inject_with_metadata = {
+                                    **inject,
+                                    "delivered_at": elapsed_seconds,
+                                    "team_id": team_id,
+                                    "exercise_id": self.scenario_name,
+                                    "turn": self.current_turn,
+                                    "media": inject.get("media", []),
+                                    "action": inject.get("action", None)
+                                }
+
+                                print(f"[Turn {self.current_turn}] Delivering inject {inject_id} at T+{elapsed_seconds}s (turn time +{time_since_turn_start}s)")
+                                self.mqtt_client.publish(topic, json.dumps(inject_with_metadata), qos=1)
+                                published_injects.add(inject_id)
+
+                                await self.redis_manager.record_inject_delivery(
+                                    self.scenario_name, team_id, inject_id, "delivered"
+                                )
+                else:
+                    # Time-based: existing logic (absolute time)
+                    for team_id, timeline in self.timelines.items():
+                        for inject in timeline.get('injects', []):
+                            inject_id = inject.get('id')
+                            inject_time = inject.get('time')
+
+                            if inject_time == elapsed_seconds and inject_id not in published_injects:
+                                topic = f"/exercise/{self.scenario_name}/team/{team_id}/feed"
+
+                                inject_with_metadata = {
+                                    **inject,
+                                    "delivered_at": elapsed_seconds,
+                                    "team_id": team_id,
+                                    "exercise_id": self.scenario_name,
+                                    "media": inject.get("media", []),
+                                    "action": inject.get("action", None)
+                                }
+
+                                print(f"Publishing inject {inject_id} to team {team_id} at {formatted_timer}")
+                                self.mqtt_client.publish(topic, json.dumps(inject_with_metadata), qos=1)
+                                published_injects.add(inject_id)
+
+                                await self.redis_manager.record_inject_delivery(
+                                    self.scenario_name, team_id, inject_id, "delivered"
+                                )
 
                 # Debug output every 5 seconds
                 if elapsed_seconds % 5 == 0:

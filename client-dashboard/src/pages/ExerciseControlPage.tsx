@@ -17,6 +17,10 @@ interface ExerciseStatus {
   }>;
   scenario_name?: string;
   thumbnail?: string;
+  turn_based?: boolean;
+  current_turn?: number;
+  total_turns?: number;
+  waiting_for_next_turn?: boolean;
 }
 
 const ExerciseControlPage = () => {
@@ -128,6 +132,24 @@ const ExerciseControlPage = () => {
     }
   };
 
+  const handleNextTurn = async () => {
+    if (!status?.scenario_name) return;
+    setLoading(true);
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/v1/exercises/${status.scenario_name}/next-turn`, {
+        method: 'POST'
+      });
+      if (!res.ok) {
+        throw new Error('Failed to advance turn');
+      }
+    } catch (error) {
+      console.error('Failed to advance turn:', error);
+      setError('Failed to advance turn');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   if (error) {
     return (
       <div>
@@ -181,13 +203,37 @@ const ExerciseControlPage = () => {
           <div className="text-4xl font-bold text-primary mb-2 font-mono">
             {status.timer.formatted}
           </div>
+          {status.turn_based && status.current_turn && status.current_turn > 0 && (
+            <div className="text-xl font-semibold text-text-primary mb-2">
+              Turn {status.current_turn}{status.total_turns ? ` of ${status.total_turns}` : ''}
+            </div>
+          )}
           <div className="text-text-secondary">
             Status: <span className={`font-semibold ${
               status.state === 'RUNNING' ? 'text-green-500' :
               status.state === 'PAUSED' ? 'text-yellow-500' :
               'text-red-500'
             }`}>{status.state}</span>
+            {status.waiting_for_next_turn && (
+              <span className="ml-3 text-yellow-500">⏸ Waiting for next turn</span>
+            )}
           </div>
+
+          {/* Turn Progress Bar */}
+          {status.turn_based && status.current_turn && status.current_turn > 0 && status.total_turns && (
+            <div className="mt-4 max-w-md mx-auto">
+              <div className="flex justify-between text-sm text-text-secondary mb-2">
+                <span>Turn Progress</span>
+                <span>{Math.round(((status.current_turn ?? 0) / status.total_turns) * 100)}% Complete</span>
+              </div>
+              <div className="w-full bg-surface-light rounded-full h-3 overflow-hidden">
+                <div
+                  className="bg-primary h-3 rounded-full transition-all duration-500 ease-out"
+                  style={{ width: `${((status.current_turn ?? 0) / status.total_turns) * 100}%` }}
+                />
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
@@ -200,7 +246,7 @@ const ExerciseControlPage = () => {
               disabled={loading}
               className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              ▶ Start Exercise
+              ▶ {status.turn_based ? 'Start Turn 1' : 'Start Exercise'}
             </button>
           )}
           {status.state === 'RUNNING' && (
@@ -213,13 +259,29 @@ const ExerciseControlPage = () => {
             </button>
           )}
           {status.state === 'PAUSED' && (
-            <button
-              onClick={handleResume}
-              disabled={loading}
-              className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              ▶ Resume
-            </button>
+            <>
+              {status.turn_based && status.waiting_for_next_turn && status.current_turn && status.total_turns && status.current_turn < status.total_turns ? (
+                <button
+                  onClick={handleNextTurn}
+                  disabled={loading}
+                  className="bg-primary hover:bg-primary/80 text-white font-bold py-2 px-6 rounded disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  ➡ Next Turn {status.current_turn && status.total_turns ? `(${status.current_turn + 1}/${status.total_turns})` : ''}
+                </button>
+              ) : status.turn_based && status.current_turn && status.total_turns && status.current_turn >= status.total_turns ? (
+                <div className="bg-green-900/30 border border-green-600 text-green-400 font-bold py-2 px-6 rounded">
+                  ✓ Exercise Complete
+                </div>
+              ) : (
+                <button
+                  onClick={handleResume}
+                  disabled={loading}
+                  className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  ▶ Resume
+                </button>
+              )}
+            </>
           )}
           <button
             onClick={handleStop}

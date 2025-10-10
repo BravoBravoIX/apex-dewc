@@ -13,11 +13,14 @@ export const Navigation = () => {
       social: 0,
       email: 0,
       sms: 0,
+      intel: 0,
     };
 
     injects.forEach(inject => {
       const type = inject.type?.toLowerCase();
-      if (type && type in typeCounts) {
+      if (type === 'intel' || type === 'intelligence') {
+        typeCounts.intel++;
+      } else if (type && type in typeCounts) {
         typeCounts[type as keyof typeof typeCounts]++;
       }
     });
@@ -51,6 +54,7 @@ export const Navigation = () => {
     { to: `/social${queryString}`, label: 'Social', count: counts.social },
     { to: `/email${queryString}`, label: 'Email', count: counts.email },
     { to: `/sms${queryString}`, label: 'SMS', count: counts.sms },
+    { to: `/intel${queryString}`, label: 'Intel', count: counts.intel },
   ];
 
   return (

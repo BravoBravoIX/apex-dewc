@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Search, Grid, List, Image as ImageIcon, X, Upload, Trash2 } from 'lucide-react';
+import { Search, Grid, List, Image as ImageIcon, X, Upload, Trash2, RefreshCw } from 'lucide-react';
 import MediaUpload from '../components/MediaUpload';
 import { API_BASE_URL } from '../config';
 
@@ -50,13 +50,15 @@ const MediaLibraryPage: React.FC = () => {
     try {
       setLoading(true);
       setError(null);
-      const response = await fetch(`${API_BASE_URL}/api/v1/media`);
+      // Add timestamp to prevent caching
+      const timestamp = new Date().getTime();
+      const response = await fetch(`${API_BASE_URL}/api/v1/media?t=${timestamp}`);
       if (!response.ok) {
         throw new Error('Failed to fetch media files');
       }
       const data = await response.json();
-      setMediaFiles(data.media);
-      setFilteredFiles(data.media);
+      setMediaFiles(data.media || []);
+      setFilteredFiles(data.media || []);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to load media');
     } finally {
@@ -135,13 +137,23 @@ const MediaLibraryPage: React.FC = () => {
               Browse available images to use in timeline injects
             </p>
           </div>
-          <button
-            onClick={() => setShowUploadModal(true)}
-            className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/80 transition-colors"
-          >
-            <Upload size={18} />
-            Upload Media
-          </button>
+          <div className="flex gap-2">
+            <button
+              onClick={fetchMedia}
+              className="flex items-center gap-2 px-4 py-2 bg-surface border border-border text-text-primary rounded-lg hover:bg-surface-light transition-colors"
+              title="Refresh media library"
+            >
+              <RefreshCw size={18} />
+              Refresh
+            </button>
+            <button
+              onClick={() => setShowUploadModal(true)}
+              className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/80 transition-colors"
+            >
+              <Upload size={18} />
+              Upload Media
+            </button>
+          </div>
         </div>
       </div>
 
@@ -231,10 +243,18 @@ const MediaLibraryPage: React.FC = () => {
                 onClick={() => setSelectedImage(file)}
               >
                 <img
-                  src={file.path}
+                  src={`${file.path}?t=${file.modified}`}
                   alt={file.filename}
                   className="w-full h-full object-cover"
                   loading="lazy"
+                  onError={(e) => {
+                    const target = e.currentTarget;
+                    target.style.display = 'none';
+                    const errorDiv = document.createElement('div');
+                    errorDiv.className = 'text-xs text-red-400 p-2';
+                    errorDiv.textContent = 'Failed to load';
+                    target.parentElement?.appendChild(errorDiv);
+                  }}
                 />
               </div>
 

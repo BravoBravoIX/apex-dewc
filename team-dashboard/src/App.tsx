@@ -87,12 +87,14 @@ function App() {
   const hostname = window.location.hostname === 'localhost' ? '127.0.0.1' : window.location.hostname;
   const brokerUrl = import.meta.env.VITE_BROKER_URL || `ws://${hostname}:9001`;
 
-  // Calculate timer and control topics
+  // Calculate timer, control, and status topics
   const timerTopic = `/exercise/${exerciseName}/timer`;
   const controlTopic = `/exercise/${exerciseName}/control`;
+  const statusTopic = `/exercise/${exerciseName}/status`;
+  const publicFeedTopic = `/exercise/${exerciseName}/team/public-feed/feed`;
 
   // Memoize topics array to prevent recreation on every render
-  const mqttTopics = useMemo(() => [topic, timerTopic, controlTopic], [topic, timerTopic, controlTopic]);
+  const mqttTopics = useMemo(() => [topic, timerTopic, controlTopic, statusTopic, publicFeedTopic], [topic, timerTopic, controlTopic, statusTopic, publicFeedTopic]);
 
   // Subscribe to multiple topics
   const { messages, connectionStatus } = useMqtt(brokerUrl, mqttTopics);
@@ -101,6 +103,11 @@ function App() {
   const [injects, setInjects] = useState<Inject[]>([]);
   const [exerciseState, setExerciseState] = useState<'RUNNING' | 'PAUSED' | 'STOPPED'>('RUNNING');
   const [lastUpdate, setLastUpdate] = useState<Date | null>(null);
+  const [turnInfo, setTurnInfo] = useState<{
+    turn_based: boolean;
+    current_turn?: number;
+    total_turns?: number;
+  }>({ turn_based: false });
 
   useEffect(() => {
     messages.forEach(msg => {
@@ -111,6 +118,14 @@ function App() {
         if (parsed.formatted && parsed.elapsed !== undefined) {
           setTimer(parsed.formatted);
           setLastUpdate(new Date());
+        }
+        // Check if it's a status message with turn info
+        else if (parsed.turn_based !== undefined) {
+          setTurnInfo({
+            turn_based: parsed.turn_based,
+            current_turn: parsed.current_turn,
+            total_turns: parsed.total_turns
+          });
         }
         // Check if it's a control message
         else if (parsed.command) {
@@ -149,6 +164,7 @@ function App() {
       case 'email': return '📧';
       case 'social': return '📱';
       case 'intel': return '🔍';
+      case 'intelligence': return '🔍';
       case 'alert': return '🚨';
       case 'update': return '📊';
       default: return '📄';
@@ -175,6 +191,11 @@ function App() {
           </h1>
           <div className="flex items-center gap-4">
             <div className="text-right">
+              {turnInfo.turn_based && turnInfo.current_turn && turnInfo.current_turn > 0 && (
+                <div className="text-lg font-semibold text-text-primary mb-1">
+                  Turn {turnInfo.current_turn}{turnInfo.total_turns ? ` of ${turnInfo.total_turns}` : ''}
+                </div>
+              )}
               <div className="text-3xl font-mono font-bold text-primary">{timer}</div>
               <div className={`text-sm font-semibold ${getStateColor()}`}>
                 {exerciseState}
