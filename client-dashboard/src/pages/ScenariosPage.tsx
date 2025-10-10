@@ -14,8 +14,8 @@ interface Scenario {
 }
 
 const ScenariosPage = () => {
-  // Demo mode toggle - set to false to enable all scenarios
-  const DEMO_MODE = true;
+  // Disabled scenarios - template/testing scenarios not for production use
+  const DISABLED_SCENARIOS = ['maritime-crisis-scenario', 'turn-test', 'satcom-disruption-scenario', 'sdr-rf-monitoring-scenario'];
 
   const [scenarios, setScenarios] = useState<Scenario[]>([]);
   const [loading, setLoading] = useState(true);
@@ -33,10 +33,10 @@ const ScenariosPage = () => {
       const response = await fetch(`${API_BASE_URL}/api/v1/scenarios`);
       const data = await response.json();
       if (response.ok) {
-        // Sort scenarios: maritime first, then others
+        // Sort scenarios: indopac-2025 first, then others
         const sorted = [...data.scenarios].sort((a, b) => {
-          if (a.id === 'maritime-crisis-scenario') return -1;
-          if (b.id === 'maritime-crisis-scenario') return 1;
+          if (a.id === 'indopac-2025') return -1;
+          if (b.id === 'indopac-2025') return 1;
           return 0;
         });
         setScenarios(sorted);
@@ -74,12 +74,12 @@ const ScenariosPage = () => {
       ) : (
         <div className="space-y-4">
           {scenarios.map((scenario) => {
-            const isDemoReady = !DEMO_MODE || scenario.id === 'maritime-crisis-scenario';
+            const isDisabled = DISABLED_SCENARIOS.includes(scenario.id);
 
             return (
               <div key={scenario.id} className={`card p-6 flex justify-between items-center gap-4 ${
                 runningScenario === scenario.id ? 'border border-green-500/50 bg-green-900/10' : ''
-              } ${!isDemoReady ? 'opacity-50 pointer-events-none' : ''}`}>
+              } ${isDisabled ? 'opacity-50 pointer-events-none' : ''}`}>
                 {scenario.thumbnail && (
                   <div className="flex-shrink-0">
                     <img
@@ -98,9 +98,9 @@ const ScenariosPage = () => {
                         RUNNING
                       </span>
                     )}
-                    {!isDemoReady && (
+                    {isDisabled && (
                       <span className="inline-flex items-center px-2 py-1 text-xs font-semibold text-text-muted bg-surface rounded-full">
-                        Not Available
+                        Template
                       </span>
                     )}
                   </div>
@@ -112,7 +112,7 @@ const ScenariosPage = () => {
                   </div>
                 </div>
                 <div className="flex gap-2">
-                  {isDemoReady ? (
+                  {!isDisabled ? (
                     <Link
                       to={`/scenarios/${scenario.id}`}
                       className="flex items-center gap-2 bg-primary hover:bg-primary/80 text-white font-bold py-2 px-6 rounded transition-colors"
