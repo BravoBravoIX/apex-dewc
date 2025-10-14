@@ -35,6 +35,30 @@
       "name": "Public Feed",
       "timeline_file": "indopac-2025/teams/public-feed/timeline.json",
       "dashboard_port": 3191
+    },
+    {
+      "id": "rof-public",
+      "name": "ROF Public Feed",
+      "timeline_file": "indopac-2025/teams/rof-public/timeline.json",
+      "dashboard_port": 3200
+    },
+    {
+      "id": "kak-public",
+      "name": "Kak Public Feed",
+      "timeline_file": "indopac-2025/teams/kak-public/timeline.json",
+      "dashboard_port": 3210
+    },
+    {
+      "id": "hum-public",
+      "name": "Hum Public Feed",
+      "timeline_file": "indopac-2025/teams/hum-public/timeline.json",
+      "dashboard_port": 3220
+    },
+    {
+      "id": "red-public",
+      "name": "Red Public Feed",
+      "timeline_file": "indopac-2025/teams/red-public/timeline.json",
+      "dashboard_port": 3230
     }
   ],
   "thumbnail": "indopac-2025.png"
