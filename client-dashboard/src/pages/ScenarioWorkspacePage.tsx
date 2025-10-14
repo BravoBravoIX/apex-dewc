@@ -415,7 +415,7 @@ const ScenarioWorkspacePage: React.FC = () => {
             {scenario.thumbnail && (
               <div className="flex-shrink-0">
                 <img
-                  src={`/scenarios/${scenario.thumbnail}`}
+                  src={scenario.thumbnail}
                   alt={scenario.name}
                   className="w-48 h-48 object-cover rounded-lg"
                 />
@@ -455,6 +455,12 @@ const ScenarioWorkspacePage: React.FC = () => {
                 >
                   End Exercise
                 </button>
+                <Link
+                  to={`/scenarios/${scenarioId}/live-injects`}
+                  className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded disabled:opacity-50 disabled:cursor-not-allowed inline-flex items-center"
+                >
+                  Live Injects
+                </Link>
               </div>
 
               {/* Media Generation Buttons */}

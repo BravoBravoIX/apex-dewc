@@ -47,25 +47,25 @@ const MediaTemplatesPage = () => {
 
   useEffect(() => {
     // Load Twitter template
-    fetch('/scenarios/templates/social/twitter.html')
+    fetch('/api/scenarios/templates/social/twitter.html')
       .then(res => res.text())
       .then(html => setTwitterTemplate(html))
       .catch(err => console.error('Failed to load Twitter template:', err));
 
     // Load Facebook template
-    fetch('/scenarios/templates/social/facebook.html')
+    fetch('/api/scenarios/templates/social/facebook.html')
       .then(res => res.text())
       .then(html => setFacebookTemplate(html))
       .catch(err => console.error('Failed to load Facebook template:', err));
 
     // Load Breaking News template
-    fetch('/scenarios/templates/news/breaking-news.html')
+    fetch('/api/scenarios/templates/news/breaking-news.html')
       .then(res => res.text())
       .then(html => setBreakingNewsTemplate(html))
       .catch(err => console.error('Failed to load Breaking News template:', err));
 
     // Load Intelligence template
-    fetch('/scenarios/templates/intelligence/intelligence.html')
+    fetch('/api/scenarios/templates/intelligence/intelligence.html')
       .then(res => res.text())
       .then(html => setIntelligenceTemplate(html))
       .catch(err => console.error('Failed to load Intelligence template:', err));

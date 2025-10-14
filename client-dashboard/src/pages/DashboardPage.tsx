@@ -163,7 +163,7 @@ const DashboardPage = () => {
         {/* Scenario Preview Image */}
         <div className="md:col-span-2 flex items-start">
           <img
-            src="/scenarios/dashboard-image.png"
+            src="/api/scenarios/dashboard-image.png"
             alt="APEX Exercise Platform"
             className="w-full h-auto object-contain rounded-lg"
           />

@@ -1,6 +1,7 @@
 import { useLocation } from 'react-router-dom';
-import { Sun, Moon } from 'lucide-react';
+import { Sun, Moon, LogOut } from 'lucide-react';
 import { useTheme } from '../../contexts/ThemeContext';
+import { useAuth } from '../../contexts/AuthContext';
 
 const getTitle = (pathname: string) => {
   const name = pathname.split('/').pop() || 'dashboard';
@@ -12,6 +13,7 @@ const Header = () => {
   const location = useLocation();
   const title = getTitle(location.pathname);
   const { theme, toggleTheme } = useTheme();
+  const { requiresAuth, logout } = useAuth();
 
   return (
     <header className="bg-surface w-full p-4 border-b border-border">
@@ -44,6 +46,16 @@ const Header = () => {
             style={{ filter: theme === 'dark' ? 'brightness(0.9)' : 'none' }}
           />
           <div className="text-sm text-text-secondary">User: Admin</div>
+          {requiresAuth && (
+            <button
+              onClick={logout}
+              className="flex items-center gap-2 px-3 py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white text-sm transition-colors"
+              title="Logout"
+            >
+              <LogOut size={16} />
+              Logout
+            </button>
+          )}
         </div>
       </div>
     </header>

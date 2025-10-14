@@ -3,6 +3,7 @@ from fastapi import FastAPI, HTTPException, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
+from pydantic import BaseModel
 import paho.mqtt.client as mqtt
 import time
 import json
@@ -18,6 +19,7 @@ import asyncio
 import re
 import random
 import base64
+import uuid
 
 app = FastAPI()
 
@@ -40,24 +42,31 @@ SCENARIOS_DIR = "/scenarios"
 MEDIA_DIR = "/scenarios/media"
 IQ_LIBRARY_DIR = "/scenarios/iq_library"
 
+# Pydantic models for request validation
+class ManualInjectRequest(BaseModel):
+    team_ids: List[str]
+    type: str
+    content: dict
+    media: List[str] = []
+
 # Mount static files for media serving
-# This allows accessing files at http://localhost:8001/media/*
+# This allows accessing files at http://localhost:8001/api/media/*
 if os.path.exists(MEDIA_DIR):
-    app.mount("/media", StaticFiles(directory=MEDIA_DIR), name="media")
+    app.mount("/api/media", StaticFiles(directory=MEDIA_DIR), name="media")
 else:
     # Create media directory if it doesn't exist
     os.makedirs(MEDIA_DIR, exist_ok=True)
     os.makedirs(os.path.join(MEDIA_DIR, "library"), exist_ok=True)
-    app.mount("/media", StaticFiles(directory=MEDIA_DIR), name="media")
+    app.mount("/api/media", StaticFiles(directory=MEDIA_DIR), name="media")
 
 # Create IQ library directory if it doesn't exist
 if not os.path.exists(IQ_LIBRARY_DIR):
     os.makedirs(IQ_LIBRARY_DIR, exist_ok=True)
 
 # Mount scenarios directory for thumbnail serving
-# This allows accessing files at http://localhost:8001/scenarios/*
+# This allows accessing files at http://localhost:8001/api/scenarios/*
 if os.path.exists(SCENARIOS_DIR):
-    app.mount("/scenarios", StaticFiles(directory=SCENARIOS_DIR), name="scenarios")
+    app.mount("/api/scenarios", StaticFiles(directory=SCENARIOS_DIR), name="scenarios")
 
 @app.post("/api/v1/exercises/{scenario_name}/deploy")
 async def deploy_exercise(scenario_name: str):
@@ -137,6 +146,57 @@ async def next_turn_exercise(scenario_name: str):
     result = await executor.next_turn()
     return result
 
+@app.post("/api/v1/exercises/{scenario_name}/inject/manual")
+async def manual_inject(scenario_name: str, inject_data: ManualInjectRequest):
+    """Send a manual inject to specified teams immediately."""
+    # Validate exercise is running
+    if scenario_name not in active_exercises:
+        raise HTTPException(status_code=404, detail="Exercise not running")
+
+    executor = active_exercises[scenario_name]
+
+    # Check exercise state - must be running
+    if executor.state != "RUNNING":
+        raise HTTPException(status_code=400, detail="Exercise must be running to send manual injects")
+
+    # Generate unique inject ID
+    inject_id = f"manual-{int(time.time())}-{uuid.uuid4().hex[:8]}"
+
+    # Get current elapsed time
+    current_elapsed = executor.elapsed_at_pause + (time.time() - executor.start_time) if executor.state == "RUNNING" else executor.elapsed_at_pause
+    elapsed_seconds = int(current_elapsed)
+
+    # Publish to each team
+    for team_id in inject_data.team_ids:
+        mqtt_payload = {
+            "id": inject_id,
+            "time": elapsed_seconds,
+            "type": inject_data.type,
+            "content": inject_data.content,
+            "media": inject_data.media,
+            "team_id": team_id,
+            "exercise_id": scenario_name,
+            "manual": True,
+            "delivered_at": elapsed_seconds
+        }
+
+        topic = f"/exercise/{scenario_name}/team/{team_id}/feed"
+        executor.mqtt_client.publish(topic, json.dumps(mqtt_payload), qos=1)
+
+        # Log to Redis
+        await redis_manager.record_inject_delivery(
+            scenario_name, team_id, inject_id, "manual"
+        )
+
+    print(f"Manual inject {inject_id} sent to {len(inject_data.team_ids)} teams at T+{elapsed_seconds}s")
+
+    return {
+        "status": "sent",
+        "inject_id": inject_id,
+        "teams": inject_data.team_ids,
+        "timestamp": elapsed_seconds
+    }
+
 @app.get("/api/v1/exercises/{scenario_name}/status")
 async def get_exercise_status(scenario_name: str):
     """Get real-time exercise status including timer and team progress."""
@@ -203,7 +263,7 @@ async def get_current_exercise():
             with open(scenario_file, 'r') as f:
                 scenario_data = json.load(f)
                 if "thumbnail" in scenario_data:
-                    thumbnail = f"/scenarios/{scenario_data['thumbnail']}"
+                    thumbnail = f"/api/scenarios/{scenario_data['thumbnail']}"
         except Exception as e:
             print(f"Error loading scenario metadata: {e}")
 
@@ -263,7 +323,7 @@ def list_scenarios():
 
                         # Add thumbnail if present
                         if "thumbnail" in scenario_data:
-                            scenario_item["thumbnail"] = f"/scenarios/{scenario_data['thumbnail']}"
+                            scenario_item["thumbnail"] = f"/api/scenarios/{scenario_data['thumbnail']}"
 
                         scenarios.append(scenario_item)
                 except Exception as e:
@@ -449,7 +509,7 @@ def list_media():
 
                     media_files.append({
                         'filename': filename,
-                        'path': f"/media/{rel_path}",
+                        'path': f"/api/media/{rel_path}",
                         'size': file_size,
                         'width': width,
                         'height': height,
@@ -567,7 +627,7 @@ async def upload_media(files: List[UploadFile] = File(...)):
             uploaded.append({
                 'filename': final_filename,
                 'original_filename': file.filename,
-                'path': f"/media/library/{final_filename}",
+                'path': f"/api/media/library/{final_filename}",
                 'size': file_size,
                 'width': width,
                 'height': height,
@@ -594,12 +654,12 @@ async def upload_media(files: List[UploadFile] = File(...)):
 @app.delete("/api/v1/media")
 def delete_media(path: str):
     """Delete a media file from the library."""
-    # Ensure path starts with /media/library/
-    if not path.startswith('/media/library/'):
+    # Ensure path starts with /api/media/library/
+    if not path.startswith('/api/media/library/'):
         raise HTTPException(status_code=400, detail="Invalid media path")
 
     # Convert to filesystem path
-    relative_path = path[7:]  # Remove '/media/' prefix
+    relative_path = path[11:]  # Remove '/api/media/' prefix
     file_path = os.path.join(MEDIA_DIR, relative_path)
 
     # Security: Ensure path is within MEDIA_DIR
@@ -813,7 +873,7 @@ async def generate_social_media(scenario_id: str):
                 await browser.close()
 
             # PHASE 6: Update Inject with Media Path (single platform)
-            media_path = f"/media/{scenario_id}/generated/{filename}"
+            media_path = f"/api/media/{scenario_id}/generated/{filename}"
             inject['media'] = [media_path]
             timeline_modified = True
             generated_count += 1
@@ -911,9 +971,9 @@ async def generate_breaking_news(scenario_id: str):
             media_paths = inject.get('media', [])
 
             for idx, media_path in enumerate(media_paths[:3]):
-                # Convert /media/... path to filesystem path
-                if media_path.startswith('/media/'):
-                    relative_path = media_path[7:]  # Remove '/media/'
+                # Convert /api/media/... path to filesystem path
+                if media_path.startswith('/api/media/'):
+                    relative_path = media_path[11:]  # Remove '/api/media/'
                     file_path = os.path.join(MEDIA_DIR, relative_path)
 
                     if os.path.exists(file_path):
@@ -969,7 +1029,7 @@ async def generate_breaking_news(scenario_id: str):
                 await browser.close()
 
             # Update inject with media path
-            media_path = f"/media/{scenario_id}/generated/{filename}"
+            media_path = f"/api/media/{scenario_id}/generated/{filename}"
 
             # Preserve existing media paths and add generated one
             existing_media = inject.get('media', [])
@@ -1100,7 +1160,7 @@ async def generate_intelligence(scenario_id: str):
                 await browser.close()
 
             # Update inject with media path
-            media_path = f"/media/{scenario_id}/generated/{filename}"
+            media_path = f"/api/media/{scenario_id}/generated/{filename}"
 
             # Preserve existing media and append generated one
             existing_media = inject.get('media', [])

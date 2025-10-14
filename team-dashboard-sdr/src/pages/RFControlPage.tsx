@@ -1,9 +1,25 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useInjects } from '../contexts/InjectContext';
 
 export const RFControlPage = () => {
   const { publishInject } = useInjects();
   const [jammingPower, setJammingPower] = useState(-30);
+  const [playbackState, setPlaybackState] = useState<'play' | 'pause' | 'stop'>('stop');
+  const [iqFiles, setIqFiles] = useState<any[]>([]);
+  const [selectedIqFile, setSelectedIqFile] = useState<string>('');
+
+  useEffect(() => {
+    // Fetch available IQ files
+    fetch('/api/v1/iq-library')
+      .then(res => res.json())
+      .then(data => {
+        setIqFiles(data.iq_files || []);
+        if (data.iq_files?.length > 0) {
+          setSelectedIqFile(data.iq_files[0].filename);
+        }
+      })
+      .catch(err => console.error('Failed to load IQ files:', err));
+  }, []);
 
   const sendCommand = (command: string, parameters?: Record<string, any>) => {
     publishInject({
@@ -13,12 +29,23 @@ export const RFControlPage = () => {
         parameters
       }
     });
+
+    // Update local state for playback controls
+    if (['play', 'pause', 'stop'].includes(command)) {
+      setPlaybackState(command as 'play' | 'pause' | 'stop');
+    }
+  };
+
+  const switchIqFile = () => {
+    if (selectedIqFile) {
+      sendCommand('switch_iq', { file: `/iq_files/${selectedIqFile}` });
+    }
   };
 
   const playbackControls = [
-    { label: 'Play', command: 'play', color: 'btn-success' },
-    { label: 'Pause', command: 'pause', color: 'btn-warning' },
-    { label: 'Stop', command: 'stop', color: 'btn-error' },
+    { label: 'Play', command: 'play', icon: '▶' },
+    { label: 'Pause', command: 'pause', icon: '⏸' },
+    { label: 'Stop', command: 'stop', icon: '⏹' },
   ];
 
   const jammingTypes = [
@@ -73,6 +100,43 @@ export const RFControlPage = () => {
         </div>
       </div>
 
+      {/* IQ File Selection */}
+      <div className="card">
+        <div className="card-header">
+          <h2 className="card-title">IQ File Selection</h2>
+        </div>
+        <div className="card-content space-y-4">
+          <div className="flex gap-4 items-end">
+            <div className="flex-1">
+              <label className="block text-sm font-medium text-text-primary mb-2">
+                Select IQ File:
+              </label>
+              <select
+                value={selectedIqFile}
+                onChange={(e) => setSelectedIqFile(e.target.value)}
+                className="w-full bg-surface-dark text-text-primary border border-surface-light rounded px-3 py-2"
+              >
+                {iqFiles.map((file) => (
+                  <option key={file.filename} value={file.filename}>
+                    {file.filename} ({file.size_mb} MB, {file.duration_seconds}s)
+                  </option>
+                ))}
+              </select>
+            </div>
+            <button
+              onClick={switchIqFile}
+              className="btn btn-primary"
+              disabled={!selectedIqFile}
+            >
+              Load File
+            </button>
+          </div>
+          <p className="text-sm text-text-muted">
+            <strong>Note:</strong> Switching files will briefly disconnect GQRX. Reconnect after loading.
+          </p>
+        </div>
+      </div>
+
       {/* Playback Controls */}
       <div className="card">
         <div className="card-header">
@@ -80,15 +144,32 @@ export const RFControlPage = () => {
         </div>
         <div className="card-content">
           <div className="flex gap-4">
-            {playbackControls.map(({ label, command, color }) => (
-              <button
-                key={command}
-                onClick={() => sendCommand(command)}
-                className={`btn ${color} flex-1`}
-              >
-                {label}
-              </button>
-            ))}
+            {playbackControls.map(({ label, command, icon }) => {
+              const isActive = playbackState === command;
+              return (
+                <button
+                  key={command}
+                  onClick={() => sendCommand(command)}
+                  className={`btn flex-1 transition-all ${
+                    isActive
+                      ? 'ring-4 ring-primary ring-opacity-50 bg-primary text-white scale-105'
+                      : 'btn-secondary hover:bg-surface-light'
+                  }`}
+                >
+                  <span className="text-2xl mr-2">{icon}</span>
+                  <span className="font-semibold">{label}</span>
+                </button>
+              );
+            })}
+          </div>
+          <div className="mt-4 text-center">
+            <div className={`inline-block px-4 py-2 rounded-full text-sm font-medium ${
+              playbackState === 'play' ? 'bg-green-500/20 text-green-400' :
+              playbackState === 'pause' ? 'bg-yellow-500/20 text-yellow-400' :
+              'bg-gray-500/20 text-gray-400'
+            }`}>
+              Status: {playbackState.toUpperCase()}
+            </div>
           </div>
         </div>
       </div>

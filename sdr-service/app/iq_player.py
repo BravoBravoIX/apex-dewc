@@ -1,5 +1,6 @@
 import numpy as np
 import asyncio
+import os
 
 class IQPlayer:
     def __init__(self, file_path, sample_rate=1024000):
@@ -10,15 +11,42 @@ class IQPlayer:
         self.position = 0
         self.samples = None
 
-    def load_file(self):
+    def load_file(self, file_path=None):
         """Load IQ file as complex float32 numpy array"""
+        if file_path:
+            self.file_path = file_path
+
         print(f"Loading IQ file: {self.file_path}")
+
+        # Check if file exists
+        if not os.path.exists(self.file_path):
+            print(f"❌ ERROR: File not found: {self.file_path}")
+            return None
 
         # Support .iq (complex64) format
         self.samples = np.fromfile(self.file_path, dtype=np.complex64)
 
         print(f"Loaded {len(self.samples)} samples ({len(self.samples)/self.sample_rate:.1f} seconds)")
         return self.samples
+
+    def switch_file(self, new_file_path):
+        """Switch to a different IQ file"""
+        print(f"🔄 Switching to IQ file: {new_file_path}")
+
+        # Save playback state
+        was_running = self.running
+
+        # Stop playback
+        self.stop()
+
+        # Load new file
+        self.load_file(new_file_path)
+
+        # Resume if was playing
+        if was_running:
+            self.play()
+
+        print(f"✅ Switched to: {os.path.basename(new_file_path)}")
 
     async def get_chunk(self, chunk_size=16384):
         """Get next chunk of samples"""

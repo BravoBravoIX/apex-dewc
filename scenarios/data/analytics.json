@@ -15,11 +15,11 @@
       "last_deployment": "2025-10-02T05:55:37.322979"
     },
     "sdr-rf-monitoring-scenario": {
-      "total_deployments": 7,
+      "total_deployments": 14,
       "total_duration_minutes": 0,
       "completion_count": 0,
       "average_duration_minutes": 0,
-      "last_deployment": "2025-10-09T06:06:19.905283"
+      "last_deployment": "2025-10-14T04:09:53.133984"
     },
     "turn-test": {
       "total_deployments": 10,
@@ -29,11 +29,11 @@
       "last_deployment": "2025-10-09T01:11:42.727306"
     },
     "indopac-2025": {
-      "total_deployments": 22,
+      "total_deployments": 25,
       "total_duration_minutes": 0,
       "completion_count": 0,
       "average_duration_minutes": 0,
-      "last_deployment": "2025-10-09T06:59:59.554381"
+      "last_deployment": "2025-10-14T01:14:15.128758"
     }
   },
   "exercise_history": []

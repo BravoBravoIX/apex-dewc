@@ -57,7 +57,7 @@ const Sidebar = () => {
       </nav>
       <div className="mt-auto pt-4 flex justify-center border-t border-sidebar-surface">
         <img
-          src="/scenarios/dropbear.png"
+          src="/api/scenarios/dropbear.png"
           alt="APEX Logo"
           className="h-20 w-auto opacity-70"
         />

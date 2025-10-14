@@ -49,6 +49,14 @@ class MQTTHandler:
                 elif command == "jamming_clear":
                     self.signal_mixer.clear_jamming()
 
+                # IQ file switching
+                elif command == "switch_iq":
+                    file_path = params.get("file")
+                    if file_path:
+                        self.iq_player.switch_file(file_path)
+                    else:
+                        print("❌ No file path provided for switch_iq")
+
         except Exception as e:
             print(f"❌ Error handling inject: {e}")
 
