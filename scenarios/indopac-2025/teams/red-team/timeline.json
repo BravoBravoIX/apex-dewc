@@ -44,7 +44,7 @@
         "source": "@PeacefulPacific2025"
       },
       "media": [
-        "/media/indopac-2025/generated/red-team_red-t1-004_twitter.png"
+        "/api/media/indopac-2025/generated/red-team_red-t1-004_twitter.png"
       ]
     },
     {
@@ -58,7 +58,7 @@
         "source": "Global Times English"
       },
       "media": [
-        "/media/indopac-2025/generated/red-team_red-t1-005_breaking_news.png"
+        "/api/media/indopac-2025/generated/red-team_red-t1-005_breaking_news.png"
       ]
     },
     {
@@ -115,7 +115,7 @@
         "source": "Financial Times"
       },
       "media": [
-        "/media/indopac-2025/generated/red-team_red-t1-010_breaking_news.png"
+        "/api/media/indopac-2025/generated/red-team_red-t1-010_breaking_news.png"
       ]
     },
     {
@@ -140,7 +140,7 @@
         "source": "Straits Times"
       },
       "media": [
-        "/media/indopac-2025/generated/red-team_red-t1-012_breaking_news.png"
+        "/api/media/indopac-2025/generated/red-team_red-t1-012_breaking_news.png"
       ]
     },
     {
@@ -208,7 +208,7 @@
         "source": "Bloomberg"
       },
       "media": [
-        "/media/indopac-2025/generated/red-team_red-t2-006_breaking_news.png"
+        "/api/media/indopac-2025/generated/red-team_red-t2-006_breaking_news.png"
       ]
     },
     {
@@ -275,7 +275,7 @@
         "source": "BBC Breaking"
       },
       "media": [
-        "/media/indopac-2025/generated/red-team_red-t3-003_breaking_news.png"
+        "/api/media/indopac-2025/generated/red-team_red-t3-003_breaking_news.png"
       ]
     },
     {
@@ -299,7 +299,7 @@
         "source": "Sky News"
       },
       "media": [
-        "/media/indopac-2025/generated/red-team_red-t3-005_breaking_news.png"
+        "/api/media/indopac-2025/generated/red-team_red-t3-005_breaking_news.png"
       ]
     },
     {
@@ -324,7 +324,7 @@
         "source": "@SarahMitchell_Syd"
       },
       "media": [
-        "/media/indopac-2025/generated/red-team_red-t3-007_twitter.png"
+        "/api/media/indopac-2025/generated/red-team_red-t3-007_twitter.png"
       ]
     },
     {
@@ -349,7 +349,7 @@
         "source": "Defense News"
       },
       "media": [
-        "/media/indopac-2025/generated/red-team_red-t3-009_breaking_news.png"
+        "/api/media/indopac-2025/generated/red-team_red-t3-009_breaking_news.png"
       ]
     },
     {
@@ -363,7 +363,7 @@
         "source": "Xinhua News"
       },
       "media": [
-        "/media/indopac-2025/generated/red-team_red-t3-010_breaking_news.png"
+        "/api/media/indopac-2025/generated/red-team_red-t3-010_breaking_news.png"
       ]
     },
     {
@@ -388,7 +388,7 @@
         "source": "South China Morning Post"
       },
       "media": [
-        "/media/indopac-2025/generated/red-team_red-t3-012_breaking_news.png"
+        "/api/media/indopac-2025/generated/red-team_red-t3-012_breaking_news.png"
       ]
     }
   ]

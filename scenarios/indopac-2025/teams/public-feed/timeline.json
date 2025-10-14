@@ -12,7 +12,7 @@
         "source": "Bloomberg"
       },
       "media": [
-        "/media/indopac-2025/generated/public-feed_pf-t1-001_breaking_news.png"
+        "/api/media/indopac-2025/generated/public-feed_pf-t1-001_breaking_news.png"
       ]
     },
     {
@@ -26,7 +26,7 @@
         "source": "Reuters"
       },
       "media": [
-        "/media/indopac-2025/generated/public-feed_pf-t1-002_breaking_news.png"
+        "/api/media/indopac-2025/generated/public-feed_pf-t1-002_breaking_news.png"
       ]
     },
     {
@@ -40,7 +40,7 @@
         "source": "Channel News Asia"
       },
       "media": [
-        "/media/indopac-2025/generated/public-feed_pf-t1-003_breaking_news.png"
+        "/api/media/indopac-2025/generated/public-feed_pf-t1-003_breaking_news.png"
       ]
     },
     {
@@ -54,7 +54,7 @@
         "source": "ABC News"
       },
       "media": [
-        "/media/indopac-2025/generated/public-feed_pf-t1-004_breaking_news.png"
+        "/api/media/indopac-2025/generated/public-feed_pf-t1-004_breaking_news.png"
       ]
     },
     {
@@ -68,7 +68,7 @@
         "source": "Facebook Military Families Group"
       },
       "media": [
-        "/media/indopac-2025/generated/public-feed_pf-t1-005_twitter.png"
+        "/api/media/indopac-2025/generated/public-feed_pf-t1-005_twitter.png"
       ]
     },
     {
@@ -82,7 +82,7 @@
         "source": "Lowy Institute Analysis"
       },
       "media": [
-        "/media/indopac-2025/generated/public-feed_pf-t1-006_breaking_news.png"
+        "/api/media/indopac-2025/generated/public-feed_pf-t1-006_breaking_news.png"
       ]
     },
     {
@@ -96,7 +96,7 @@
         "source": "Tech News Global"
       },
       "media": [
-        "/media/indopac-2025/generated/public-feed_pf-t2-001_breaking_news.png"
+        "/api/media/indopac-2025/generated/public-feed_pf-t2-001_breaking_news.png"
       ]
     },
     {
@@ -110,7 +110,7 @@
         "source": "BBC Breaking"
       },
       "media": [
-        "/media/indopac-2025/generated/public-feed_pf-t2-002_breaking_news.png"
+        "/api/media/indopac-2025/generated/public-feed_pf-t2-002_breaking_news.png"
       ]
     },
     {
@@ -124,7 +124,7 @@
         "source": "Financial Times"
       },
       "media": [
-        "/media/indopac-2025/generated/public-feed_pf-t2-003_breaking_news.png"
+        "/api/media/indopac-2025/generated/public-feed_pf-t2-003_breaking_news.png"
       ]
     },
     {
@@ -138,7 +138,7 @@
         "source": "Tech Industry News"
       },
       "media": [
-        "/media/indopac-2025/generated/public-feed_pf-t2-004_breaking_news.png"
+        "/api/media/indopac-2025/generated/public-feed_pf-t2-004_breaking_news.png"
       ]
     },
     {
@@ -152,7 +152,7 @@
         "source": "Reddit r/geopolitics"
       },
       "media": [
-        "/media/indopac-2025/generated/public-feed_pf-t2-005_twitter.png"
+        "/api/media/indopac-2025/generated/public-feed_pf-t2-005_twitter.png"
       ]
     },
     {
@@ -166,7 +166,7 @@
         "source": "Al Jazeera"
       },
       "media": [
-        "/media/indopac-2025/generated/public-feed_pf-t3-001_breaking_news.png"
+        "/api/media/indopac-2025/generated/public-feed_pf-t3-001_breaking_news.png"
       ]
     },
     {
@@ -180,7 +180,7 @@
         "source": "UN News Service"
       },
       "media": [
-        "/media/indopac-2025/generated/public-feed_pf-t3-002_breaking_news.png"
+        "/api/media/indopac-2025/generated/public-feed_pf-t3-002_breaking_news.png"
       ]
     },
     {
@@ -194,7 +194,7 @@
         "source": "CNN International"
       },
       "media": [
-        "/media/indopac-2025/generated/public-feed_pf-t3-003_breaking_news.png"
+        "/api/media/indopac-2025/generated/public-feed_pf-t3-003_breaking_news.png"
       ]
     },
     {
@@ -208,7 +208,7 @@
         "source": "Twitter Trends"
       },
       "media": [
-        "/media/indopac-2025/generated/public-feed_pf-t3-004_twitter.png"
+        "/api/media/indopac-2025/generated/public-feed_pf-t3-004_twitter.png"
       ]
     },
     {
@@ -222,7 +222,7 @@
         "source": "Sydney Morning Herald"
       },
       "media": [
-        "/media/indopac-2025/generated/public-feed_pf-t3-005_breaking_news.png"
+        "/api/media/indopac-2025/generated/public-feed_pf-t3-005_breaking_news.png"
       ]
     },
     {
@@ -236,7 +236,7 @@
         "source": "Associated Press"
       },
       "media": [
-        "/media/indopac-2025/generated/public-feed_pf-t3-006_breaking_news.png"
+        "/api/media/indopac-2025/generated/public-feed_pf-t3-006_breaking_news.png"
       ]
     },
     {
@@ -250,7 +250,7 @@
         "source": "The Economist"
       },
       "media": [
-        "/media/indopac-2025/generated/public-feed_pf-t3-007_breaking_news.png"
+        "/api/media/indopac-2025/generated/public-feed_pf-t3-007_breaking_news.png"
       ]
     }
   ]
