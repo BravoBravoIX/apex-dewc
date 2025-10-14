@@ -691,10 +691,10 @@ const TimelineViewerPage: React.FC = () => {
                       {injectMedia.map((mediaPath, idx) => (
                         <div key={idx} className="flex items-center gap-2 bg-surface-light px-2 py-1 rounded group">
                           <img
-                            src={`/api${mediaPath}`}
+                            src={mediaPath}
                             alt={mediaPath.split('/').pop()}
                             className="w-8 h-8 object-cover rounded cursor-pointer hover:ring-2 hover:ring-primary flex-shrink-0"
-                            onClick={() => setPreviewImage(`/api${mediaPath}`)}
+                            onClick={() => setPreviewImage(mediaPath)}
                             title="Click to preview"
                           />
                           <span className="text-xs text-text-secondary truncate flex-1" title={mediaPath}>
@@ -869,10 +869,10 @@ const TimelineViewerPage: React.FC = () => {
                       {injectMedia.map((mediaPath, idx) => (
                         <div key={idx} className="flex items-center gap-2 bg-surface-light px-2 py-1 rounded group">
                           <img
-                            src={`/api${mediaPath}`}
+                            src={mediaPath}
                             alt={mediaPath.split('/').pop()}
                             className="w-8 h-8 object-cover rounded cursor-pointer hover:ring-2 hover:ring-primary flex-shrink-0"
-                            onClick={() => setPreviewImage(`/api${mediaPath}`)}
+                            onClick={() => setPreviewImage(mediaPath)}
                             title="Click to preview"
                           />
                           <span className="text-xs text-text-secondary truncate flex-1" title={mediaPath}>
@@ -1059,7 +1059,7 @@ const TimelineViewerPage: React.FC = () => {
                       {/* Image preview */}
                       <div className="aspect-square bg-surface flex items-center justify-center overflow-hidden">
                         <img
-                          src={`/api${file.path}`}
+                          src={file.path}
                           alt={file.filename}
                           className="w-full h-full object-cover"
                           loading="lazy"
