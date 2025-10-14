@@ -345,6 +345,11 @@ def get_scenario(scenario_name: str):
     try:
         with open(scenario_path, 'r') as f:
             scenario_data = json.load(f)
+
+        # Prepend /api/scenarios/ to thumbnail path if present
+        if "thumbnail" in scenario_data:
+            scenario_data["thumbnail"] = f"/api/scenarios/{scenario_data['thumbnail']}"
+
         return scenario_data
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error reading scenario file: {str(e)}")
