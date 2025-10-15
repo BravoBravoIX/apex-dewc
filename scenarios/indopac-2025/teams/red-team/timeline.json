@@ -4,7 +4,7 @@
     {
       "id": "red-t1-001",
       "turn": 1,
-      "time": 0,
+      "time": 60,
       "type": "intelligence",
       "content": {
         "headline": "Red Team Surface Group Departing",
@@ -15,7 +15,7 @@
     {
       "id": "red-t1-002",
       "turn": 1,
-      "time": 21,
+      "time": 141,
       "type": "sms",
       "content": {
         "from": "Bridge Watch HMAS Sydney",
@@ -25,7 +25,7 @@
     {
       "id": "red-t1-003",
       "turn": 1,
-      "time": 43,
+      "time": 223,
       "type": "intelligence",
       "content": {
         "headline": "Electronic Surveillance Confirmed",
@@ -36,7 +36,7 @@
     {
       "id": "red-t1-004",
       "turn": 1,
-      "time": 86,
+      "time": 266,
       "type": "social",
       "content": {
         "headline": "Australia militarising our seas!",
@@ -50,7 +50,7 @@
     {
       "id": "red-t1-005",
       "turn": 1,
-      "time": 107,
+      "time": 347,
       "type": "news",
       "content": {
         "headline": "Regional Concern Over Australian Exercises",
@@ -58,13 +58,13 @@
         "source": "Global Times English"
       },
       "media": [
-        "/api/media/indopac-2025/generated/red-team_red-t1-005_breaking_news.png"
+        "/api/media/indopac-2025/library/red-t1-005.jpg"
       ]
     },
     {
       "id": "red-t1-006",
       "turn": 1,
-      "time": 129,
+      "time": 369,
       "type": "intelligence",
       "content": {
         "headline": "Information Operations Campaign Active",
@@ -75,7 +75,7 @@
     {
       "id": "red-t1-007",
       "turn": 1,
-      "time": 171,
+      "time": 471,
       "type": "intelligence",
       "content": {
         "headline": "Maritime Militia Movement",
@@ -86,7 +86,7 @@
     {
       "id": "red-t1-008",
       "turn": 1,
-      "time": 193,
+      "time": 493,
       "type": "sms",
       "content": {
         "from": "Maritime Domain Awareness",
@@ -96,7 +96,7 @@
     {
       "id": "red-t1-009",
       "turn": 1,
-      "time": 236,
+      "time": 596,
       "type": "email",
       "content": {
         "from": "UN Liaison Officer",
@@ -107,7 +107,7 @@
     {
       "id": "red-t1-010",
       "turn": 1,
-      "time": 257,
+      "time": 617,
       "type": "news",
       "content": {
         "headline": "China Protests Australian Naval Exercise",
@@ -115,13 +115,13 @@
         "source": "Financial Times"
       },
       "media": [
-        "/api/media/indopac-2025/generated/red-team_red-t1-010_breaking_news.png"
+        "/api/media/indopac-2025/library/red-t1-010.png"
       ]
     },
     {
       "id": "red-t1-011",
       "turn": 1,
-      "time": 279,
+      "time": 669,
       "type": "email",
       "content": {
         "from": "Coalition Coordinator",
@@ -132,7 +132,7 @@
     {
       "id": "red-t1-012",
       "turn": 1,
-      "time": 300,
+      "time": 690,
       "type": "news",
       "content": {
         "headline": "ASEAN Nations Question Exercise",
@@ -140,13 +140,13 @@
         "source": "Straits Times"
       },
       "media": [
-        "/api/media/indopac-2025/generated/red-team_red-t1-012_breaking_news.png"
+        "/api/media/indopac-2025/library/red-t1-012.png"
       ]
     },
     {
       "id": "red-t2-001",
       "turn": 2,
-      "time": 0,
+      "time": 65,
       "type": "intelligence",
       "content": {
         "headline": "Submarine Contact Classified",
@@ -157,7 +157,7 @@
     {
       "id": "red-t2-002",
       "turn": 2,
-      "time": 27,
+      "time": 147,
       "type": "sms",
       "content": {
         "from": "Sonar Supervisor",
@@ -167,7 +167,7 @@
     {
       "id": "red-t2-003",
       "turn": 2,
-      "time": 82,
+      "time": 202,
       "type": "intelligence",
       "content": {
         "headline": "Cyber Attack Indicators",
@@ -178,7 +178,7 @@
     {
       "id": "red-t2-004",
       "turn": 2,
-      "time": 109,
+      "time": 289,
       "type": "email",
       "content": {
         "from": "IT Security Manager",
@@ -189,7 +189,7 @@
     {
       "id": "red-t2-005",
       "turn": 2,
-      "time": 136,
+      "time": 316,
       "type": "intelligence",
       "content": {
         "headline": "False Flag Warning",
@@ -200,7 +200,7 @@
     {
       "id": "red-t2-006",
       "turn": 2,
-      "time": 191,
+      "time": 371,
       "type": "news",
       "content": {
         "headline": "Trade Warning to Exercise Partners",
@@ -208,13 +208,13 @@
         "source": "Bloomberg"
       },
       "media": [
-        "/api/media/indopac-2025/generated/red-team_red-t2-006_breaking_news.png"
+        "/api/media/indopac-2025/library/red-t2-006.png"
       ]
     },
     {
       "id": "red-t2-007",
       "turn": 2,
-      "time": 218,
+      "time": 458,
       "type": "email",
       "content": {
         "from": "Liaison Officer",
@@ -225,7 +225,7 @@
     {
       "id": "red-t2-008",
       "turn": 2,
-      "time": 273,
+      "time": 513,
       "type": "intelligence",
       "content": {
         "headline": "Space Asset Proximity Operations",
@@ -236,7 +236,7 @@
     {
       "id": "red-t2-009",
       "turn": 2,
-      "time": 300,
+      "time": 540,
       "type": "sms",
       "content": {
         "from": "Signals Officer",
@@ -246,7 +246,7 @@
     {
       "id": "red-t3-001",
       "turn": 3,
-      "time": 0,
+      "time": 60,
       "type": "sms",
       "content": {
         "from": "CO HMAS Hobart",
@@ -256,7 +256,7 @@
     {
       "id": "red-t3-002",
       "turn": 3,
-      "time": 21,
+      "time": 141,
       "type": "intelligence",
       "content": {
         "headline": "Dangerous Maneuver Analysis",
@@ -267,7 +267,7 @@
     {
       "id": "red-t3-003",
       "turn": 3,
-      "time": 43,
+      "time": 223,
       "type": "news",
       "content": {
         "headline": "Near Collision at Sea",
@@ -275,13 +275,13 @@
         "source": "BBC Breaking"
       },
       "media": [
-        "/api/media/indopac-2025/generated/red-team_red-t3-003_breaking_news.png"
+        "/api/media/indopac-2025/library/red-t3-003.png"
       ]
     },
     {
       "id": "red-t3-004",
       "turn": 3,
-      "time": 86,
+      "time": 266,
       "type": "sms",
       "content": {
         "from": "Maritime Surveillance",
@@ -291,21 +291,18 @@
     {
       "id": "red-t3-005",
       "turn": 3,
-      "time": 107,
+      "time": 347,
       "type": "news",
       "content": {
         "headline": "Australians Detained at Sea",
         "body": "Three Australian citizens aboard a yacht have been detained by Chinese maritime forces claiming territorial violation. Families are pleading for government intervention. The incident occurs during heightened tensions over naval exercises.",
         "source": "Sky News"
-      },
-      "media": [
-        "/api/media/indopac-2025/generated/red-team_red-t3-005_breaking_news.png"
-      ]
+      }
     },
     {
       "id": "red-t3-006",
       "turn": 3,
-      "time": 129,
+      "time": 369,
       "type": "email",
       "content": {
         "from": "DFAT Crisis Team",
@@ -316,7 +313,7 @@
     {
       "id": "red-t3-007",
       "turn": 3,
-      "time": 150,
+      "time": 450,
       "type": "social",
       "content": {
         "headline": "My dad is detained! Please help!",
@@ -330,7 +327,7 @@
     {
       "id": "red-t3-008",
       "turn": 3,
-      "time": 193,
+      "time": 493,
       "type": "intelligence",
       "content": {
         "headline": "New Capability Demonstration",
@@ -341,21 +338,18 @@
     {
       "id": "red-t3-009",
       "turn": 3,
-      "time": 214,
+      "time": 574,
       "type": "news",
       "content": {
         "headline": "China Tests 'Carrier Killer' During Exercise",
         "body": "China has demonstrated its newest hypersonic anti-ship missile during the Kakadu exercise, a clear signal to US and Australian forces. The weapon, capable of Mach 8+ speeds, represents a game-changing capability experts warn.",
         "source": "Defense News"
-      },
-      "media": [
-        "/api/media/indopac-2025/generated/red-team_red-t3-009_breaking_news.png"
-      ]
+      }
     },
     {
       "id": "red-t3-010",
       "turn": 3,
-      "time": 257,
+      "time": 640,
       "type": "news",
       "content": {
         "headline": "China Proposes Regional Peace Framework",
@@ -363,13 +357,13 @@
         "source": "Xinhua News"
       },
       "media": [
-        "/api/media/indopac-2025/generated/red-team_red-t3-010_breaking_news.png"
+        "/api/media/indopac-2025/library/red-t3-010.png"
       ]
     },
     {
       "id": "red-t3-011",
       "turn": 3,
-      "time": 279,
+      "time": 699,
       "type": "email",
       "content": {
         "from": "Intelligence Summary",
@@ -380,7 +374,7 @@
     {
       "id": "red-t3-012",
       "turn": 3,
-      "time": 300,
+      "time": 700,
       "type": "news",
       "content": {
         "headline": "Australia Isolated as Region Embraces Peace Plan",
@@ -388,7 +382,7 @@
         "source": "South China Morning Post"
       },
       "media": [
-        "/api/media/indopac-2025/generated/red-team_red-t3-012_breaking_news.png"
+        "/api/media/indopac-2025/library/red-t3-012.png"
       ]
     }
   ]

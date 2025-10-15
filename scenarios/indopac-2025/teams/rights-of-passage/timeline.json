@@ -4,7 +4,7 @@
     {
       "id": "rop-t1-001",
       "turn": 1,
-      "time": 0,
+      "time": 60,
       "type": "social",
       "content": {
         "platform": "facebook",
@@ -19,7 +19,7 @@
     {
       "id": "rop-t1-002",
       "turn": 1,
-      "time": 0,
+      "time": 120,
       "type": "social",
       "content": {
         "platform": "twitter",
@@ -34,7 +34,7 @@
     {
       "id": "rop-t1-003",
       "turn": 1,
-      "time": 0,
+      "time": 180,
       "type": "news",
       "content": {
         "headline": "Students Block Darwin Naval Base",
@@ -42,14 +42,13 @@
         "source": "ABC News Darwin"
       },
       "media": [
-        "/api/media/indopac-2025/library/rop-t1-003.jpg",
-        "/api/media/indopac-2025/generated/rights-of-passage_rop-t1-003_breaking_news.png"
+        "/api/media/indopac-2025/library/rop-t1-003.jpg"
       ]
     },
     {
       "id": "rop-t1-004",
       "turn": 1,
-      "time": 10,
+      "time": 240,
       "type": "social",
       "content": {
         "platform": "twitter",
@@ -64,7 +63,7 @@
     {
       "id": "rop-t1-005",
       "turn": 1,
-      "time": 15,
+      "time": 300,
       "type": "email",
       "content": {
         "headline": "Industrial Action Notice",
@@ -75,7 +74,7 @@
     {
       "id": "rop-t1-006",
       "turn": 1,
-      "time": 20,
+      "time": 360,
       "type": "email",
       "content": {
         "headline": "Fuel Status Critical",
@@ -86,7 +85,7 @@
     {
       "id": "rop-t1-007",
       "turn": 1,
-      "time": 30,
+      "time": 420,
       "type": "intelligence",
       "content": {
         "headline": "SIGINT Flash Report",
@@ -97,7 +96,7 @@
     {
       "id": "rop-t1-008",
       "turn": 1,
-      "time": 35,
+      "time": 480,
       "type": "social",
       "content": {
         "platform": "twitter",
@@ -112,7 +111,7 @@
     {
       "id": "rop-t1-009",
       "turn": 1,
-      "time": 40,
+      "time": 540,
       "type": "news",
       "content": {
         "headline": "Leaked Documents Question Exercise Intent",
@@ -120,14 +119,13 @@
         "source": "The Australian"
       },
       "media": [
-        "/api/media/indopac-2025/library/rop-t1-009.jpg",
-        "/api/media/indopac-2025/generated/rights-of-passage_rop-t1-009_breaking_news.png"
+        "/api/media/indopac-2025/library/rop-t1-009.jpg"
       ]
     },
     {
       "id": "rop-t1-010",
       "turn": 1,
-      "time": 50,
+      "time": 600,
       "type": "news",
       "content": {
         "headline": "Regional Media Questions Australian Intentions",
@@ -135,14 +133,13 @@
         "source": "Jakarta Post"
       },
       "media": [
-        "/api/media/indopac-2025/library/rop-t1-010.jpg",
-        "/api/media/indopac-2025/generated/rights-of-passage_rop-t1-010_breaking_news.png"
+        "/api/media/indopac-2025/library/rop-t1-010.jpg"
       ]
     },
     {
       "id": "rop-t1-011",
       "turn": 1,
-      "time": 55,
+      "time": 660,
       "type": "social",
       "content": {
         "platform": "twitter",
@@ -157,7 +154,7 @@
     {
       "id": "rop-t2-001",
       "turn": 2,
-      "time": 0,
+      "time": 60,
       "type": "intelligence",
       "content": {
         "headline": "Cyber Intrusion Detected",
@@ -168,7 +165,7 @@
     {
       "id": "rop-t2-002",
       "turn": 2,
-      "time": 7,
+      "time": 127,
       "type": "email",
       "content": {
         "headline": "System Isolation Required",
@@ -179,7 +176,7 @@
     {
       "id": "rop-t2-003",
       "turn": 2,
-      "time": 10,
+      "time": 190,
       "type": "social",
       "content": {
         "platform": "twitter",
@@ -194,7 +191,7 @@
     {
       "id": "rop-t2-004",
       "turn": 2,
-      "time": 15,
+      "time": 255,
       "type": "social",
       "content": {
         "platform": "facebook",
@@ -209,7 +206,7 @@
     {
       "id": "rop-t2-005",
       "turn": 2,
-      "time": 20,
+      "time": 320,
       "type": "news",
       "content": {
         "headline": "Navy Diverts to Refugee Rescue",
@@ -217,14 +214,13 @@
         "source": "Sky News Australia"
       },
       "media": [
-        "/api/media/indopac-2025/library/rop-t2-005.jpg",
-        "/api/media/indopac-2025/generated/rights-of-passage_rop-t2-005_breaking_news.png"
+        "/api/media/indopac-2025/library/rop-t2-005.jpg"
       ]
     },
     {
       "id": "rop-t2-006",
       "turn": 2,
-      "time": 35,
+      "time": 395,
       "type": "email",
       "content": {
         "headline": "Partner Withdrawal Warning",
@@ -235,7 +231,7 @@
     {
       "id": "rop-t2-007",
       "turn": 2,
-      "time": 40,
+      "time": 460,
       "type": "intelligence",
       "content": {
         "headline": "Red Team Movement Detected",
@@ -246,7 +242,7 @@
     {
       "id": "rop-t2-008",
       "turn": 2,
-      "time": 50,
+      "time": 530,
       "type": "news",
       "content": {
         "headline": "Oil Spill During Naval Exercise",
@@ -261,7 +257,7 @@
     {
       "id": "rop-t2-009",
       "turn": 2,
-      "time": 55,
+      "time": 595,
       "type": "social",
       "content": {
         "platform": "facebook",
@@ -276,7 +272,7 @@
     {
       "id": "rop-t2-010",
       "turn": 2,
-      "time": 60,
+      "time": 600,
       "type": "news",
       "content": {
         "headline": "Environmental Groups Demand Exercise Halt",
@@ -284,14 +280,13 @@
         "source": "Guardian Australia"
       },
       "media": [
-        "/api/media/indopac-2025/library/rop-t2-010.jpg",
-        "/api/media/indopac-2025/generated/rights-of-passage_rop-t2-010_breaking_news.png"
+        "/api/media/indopac-2025/library/rop-t2-010.jpg"
       ]
     },
     {
       "id": "rop-t2-011",
       "turn": 2,
-      "time": 62,
+      "time": 662,
       "type": "sms",
       "content": {
         "headline": "EPA investigating",
@@ -302,7 +297,7 @@
     {
       "id": "rop-t3-001",
       "turn": 3,
-      "time": 0,
+      "time": 60,
       "type": "intelligence",
       "content": {
         "headline": "Flash - Dangerous Approach",
@@ -313,7 +308,7 @@
     {
       "id": "rop-t3-002",
       "turn": 3,
-      "time": 5,
+      "time": 125,
       "type": "sms",
       "content": {
         "headline": "Emergency breakaway executed",
@@ -324,7 +319,7 @@
     {
       "id": "rop-t3-003",
       "turn": 3,
-      "time": 10,
+      "time": 190,
       "type": "news",
       "content": {
         "headline": "Near Collision in Exercise Waters",
@@ -332,14 +327,13 @@
         "source": "Reuters"
       },
       "media": [
-        "/api/media/indopac-2025/library/rop-t3-003.jpg",
-        "/api/media/indopac-2025/generated/rights-of-passage_rop-t3-003_breaking_news.png"
+        "/api/media/indopac-2025/library/rop-t3-003.jpg"
       ]
     },
     {
       "id": "rop-t3-004",
       "turn": 3,
-      "time": 20,
+      "time": 270,
       "type": "intelligence",
       "content": {
         "headline": "Security Breach Confirmed",
@@ -350,7 +344,7 @@
     {
       "id": "rop-t3-005",
       "turn": 3,
-      "time": 25,
+      "time": 325,
       "type": "email",
       "content": {
         "headline": "Urgent - Insider Threat Active",
@@ -361,7 +355,7 @@
     {
       "id": "rop-t3-006",
       "turn": 3,
-      "time": 35,
+      "time": 395,
       "type": "sms",
       "content": {
         "headline": "Medical emergency Stirling",
@@ -372,7 +366,7 @@
     {
       "id": "rop-t3-007",
       "turn": 3,
-      "time": 40,
+      "time": 460,
       "type": "social",
       "content": {
         "platform": "facebook",
@@ -387,7 +381,7 @@
     {
       "id": "rop-t3-008",
       "turn": 3,
-      "time": 45,
+      "time": 525,
       "type": "news",
       "content": {
         "headline": "Medical Emergency During Exercise",
@@ -395,13 +389,13 @@
         "source": "7 News"
       },
       "media": [
-        "/api/media/indopac-2025/generated/rights-of-passage_rop-t3-008_breaking_news.png"
+        "/api/media/indopac-2025/library/rop-t3-008.jpg"
       ]
     },
     {
       "id": "rop-t3-009",
       "turn": 3,
-      "time": 50,
+      "time": 590,
       "type": "intelligence",
       "content": {
         "headline": "Indonesia Signals Partnership Interest",
@@ -412,7 +406,7 @@
     {
       "id": "rop-t3-010",
       "turn": 3,
-      "time": 60,
+      "time": 600,
       "type": "news",
       "content": {
         "headline": "Exercise Concludes with Regional Partnership",
@@ -420,13 +414,13 @@
         "source": "ABC News"
       },
       "media": [
-        "/api/media/indopac-2025/generated/rights-of-passage_rop-t3-010_breaking_news.png"
+        "/api/media/indopac-2025/library/rop-t1-010.jpg"
       ]
     },
     {
       "id": "rop-t3-011",
       "turn": 3,
-      "time": 65,
+      "time": 665,
       "type": "social",
       "content": {
         "platform": "twitter",

@@ -4,7 +4,7 @@
     {
       "id": "kak-t1-001",
       "turn": 1,
-      "time": 0,
+      "time": 60,
       "type": "intelligence",
       "content": {
         "headline": "Electronic Anomalies Detected",
@@ -15,7 +15,7 @@
     {
       "id": "kak-t1-002",
       "turn": 1,
-      "time": 5,
+      "time": 125,
       "type": "intelligence",
       "content": {
         "headline": "EW Attack Confirmed",
@@ -26,7 +26,7 @@
     {
       "id": "kak-t1-003",
       "turn": 1,
-      "time": 21,
+      "time": 201,
       "type": "email",
       "content": {
         "from": "Task Force Commander",
@@ -37,7 +37,7 @@
     {
       "id": "kak-t1-004",
       "turn": 1,
-      "time": 64,
+      "time": 244,
       "type": "email",
       "content": {
         "from": "Coalition Liaison Cell",
@@ -48,7 +48,7 @@
     {
       "id": "kak-t1-005",
       "turn": 1,
-      "time": 86,
+      "time": 326,
       "type": "sms",
       "content": {
         "from": "Bridge Officer HMAS Perth",
@@ -58,7 +58,7 @@
     {
       "id": "kak-t1-006",
       "turn": 1,
-      "time": 129,
+      "time": 369,
       "type": "intelligence",
       "content": {
         "headline": "Submarine Contact Report",
@@ -69,7 +69,7 @@
     {
       "id": "kak-t1-007",
       "turn": 1,
-      "time": 150,
+      "time": 450,
       "type": "email",
       "content": {
         "from": "Submarine Operations Authority",
@@ -80,7 +80,7 @@
     {
       "id": "kak-t1-008",
       "turn": 1,
-      "time": 171,
+      "time": 531,
       "type": "intelligence",
       "content": {
         "headline": "Contact Behavior Analysis",
@@ -91,7 +91,7 @@
     {
       "id": "kak-t1-009",
       "turn": 1,
-      "time": 214,
+      "time": 574,
       "type": "sms",
       "content": {
         "from": "Maritime Operations",
@@ -101,7 +101,7 @@
     {
       "id": "kak-t1-010",
       "turn": 1,
-      "time": 236,
+      "time": 656,
       "type": "social",
       "content": {
         "headline": "Fire on cruise ship - military nearby!",
@@ -115,7 +115,7 @@
     {
       "id": "kak-t1-011",
       "turn": 1,
-      "time": 257,
+      "time": 677,
       "type": "social",
       "content": {
         "headline": "Passengers panicking need help",
@@ -129,7 +129,7 @@
     {
       "id": "kak-t1-012",
       "turn": 1,
-      "time": 279,
+      "time": 759,
       "type": "news",
       "content": {
         "headline": "Navy Diverts to Cruise Ship Emergency",
@@ -137,14 +137,13 @@
         "source": "Channel 9 News"
       },
       "media": [
-        "/api/media/indopac-2025/library/kak-t1-012.jpg",
-        "/api/media/indopac-2025/generated/kakadu-scenario_kak-t1-012_breaking_news.png"
+        "/api/media/indopac-2025/library/kak-t1-012.jpg"
       ]
     },
     {
       "id": "kak-t2-001",
       "turn": 2,
-      "time": 0,
+      "time": 60,
       "type": "intelligence",
       "content": {
         "headline": "Tropical Cyclone Forming",
@@ -155,7 +154,7 @@
     {
       "id": "kak-t2-002",
       "turn": 2,
-      "time": 25,
+      "time": 145,
       "type": "email",
       "content": {
         "from": "Maritime Safety Authority",
@@ -166,7 +165,7 @@
     {
       "id": "kak-t2-003",
       "turn": 2,
-      "time": 75,
+      "time": 195,
       "type": "social",
       "content": {
         "headline": "FAKE: Australian ship sunk!",
@@ -180,7 +179,7 @@
     {
       "id": "kak-t2-004",
       "turn": 2,
-      "time": 100,
+      "time": 280,
       "type": "social",
       "content": {
         "headline": "This is completely false!!",
@@ -194,7 +193,7 @@
     {
       "id": "kak-t2-005",
       "turn": 2,
-      "time": 125,
+      "time": 305,
       "type": "news",
       "content": {
         "headline": "False Reports Plague Exercise",
@@ -202,14 +201,13 @@
         "source": "Australian Financial Review"
       },
       "media": [
-        "/api/media/indopac-2025/library/kak-t2-005.jpg",
-        "/api/media/indopac-2025/generated/kakadu-scenario_kak-t2-005_breaking_news.png"
+        "/api/media/indopac-2025/library/kak-t2-005.jpg"
       ]
     },
     {
       "id": "kak-t2-006",
       "turn": 2,
-      "time": 150,
+      "time": 390,
       "type": "intelligence",
       "content": {
         "headline": "Attribution Confirmed",
@@ -220,7 +218,7 @@
     {
       "id": "kak-t2-007",
       "turn": 2,
-      "time": 200,
+      "time": 440,
       "type": "email",
       "content": {
         "from": "Engineering Officer HMAS Hobart",
@@ -231,7 +229,7 @@
     {
       "id": "kak-t2-008",
       "turn": 2,
-      "time": 225,
+      "time": 525,
       "type": "intelligence",
       "content": {
         "headline": "Sabotage Confirmation",
@@ -242,7 +240,7 @@
     {
       "id": "kak-t2-009",
       "turn": 2,
-      "time": 275,
+      "time": 575,
       "type": "email",
       "content": {
         "from": "Diplomatic Liaison",
@@ -253,7 +251,7 @@
     {
       "id": "kak-t2-010",
       "turn": 2,
-      "time": 300,
+      "time": 600,
       "type": "intelligence",
       "content": {
         "headline": "Strategic Opportunity Assessment",
@@ -264,7 +262,7 @@
     {
       "id": "kak-t3-001",
       "turn": 3,
-      "time": 0,
+      "time": 60,
       "type": "intelligence",
       "content": {
         "headline": "Threat Stream - Closing Ceremony",
@@ -275,7 +273,7 @@
     {
       "id": "kak-t3-002",
       "turn": 3,
-      "time": 25,
+      "time": 145,
       "type": "email",
       "content": {
         "from": "NT Police Commander",
@@ -286,7 +284,7 @@
     {
       "id": "kak-t3-003",
       "turn": 3,
-      "time": 75,
+      "time": 195,
       "type": "email",
       "content": {
         "from": "Exercise Planning Cell",
@@ -297,7 +295,7 @@
     {
       "id": "kak-t3-004",
       "turn": 3,
-      "time": 100,
+      "time": 280,
       "type": "sms",
       "content": {
         "from": "Public Affairs Officer",
@@ -307,7 +305,7 @@
     {
       "id": "kak-t3-005",
       "turn": 3,
-      "time": 125,
+      "time": 305,
       "type": "news",
       "content": {
         "headline": "Questions Over Exercise Success",
@@ -315,13 +313,13 @@
         "source": "The Age"
       },
       "media": [
-        "/api/media/indopac-2025/generated/kakadu-scenario_kak-t3-005_breaking_news.png"
+        "/api/media/indopac-2025/library/kak-t3-005.jpg"
       ]
     },
     {
       "id": "kak-t3-006",
       "turn": 3,
-      "time": 175,
+      "time": 415,
       "type": "email",
       "content": {
         "from": "Maritime Patrol Aircraft",
@@ -332,7 +330,7 @@
     {
       "id": "kak-t3-007",
       "turn": 3,
-      "time": 200,
+      "time": 440,
       "type": "intelligence",
       "content": {
         "headline": "Legal Obligations",
@@ -343,7 +341,7 @@
     {
       "id": "kak-t3-008",
       "turn": 3,
-      "time": 225,
+      "time": 525,
       "type": "news",
       "content": {
         "headline": "Navy Discovers Major Environmental Crimes",
@@ -351,14 +349,13 @@
         "source": "Sydney Morning Herald"
       },
       "media": [
-        "/api/media/indopac-2025/library/kak-t3-008.jpg",
-        "/api/media/indopac-2025/generated/kakadu-scenario_kak-t3-008_breaking_news.png"
+        "/api/media/indopac-2025/library/kak-t3-008.jpg"
       ]
     },
     {
       "id": "kak-t3-009",
       "turn": 3,
-      "time": 275,
+      "time": 575,
       "type": "email",
       "content": {
         "from": "Exercise Director",
@@ -369,7 +366,7 @@
     {
       "id": "kak-t3-010",
       "turn": 3,
-      "time": 300,
+      "time": 600,
       "type": "news",
       "content": {
         "headline": "Kakadu Exercise Hailed as Success",
@@ -377,8 +374,7 @@
         "source": "Defence Media"
       },
       "media": [
-        "/api/media/indopac-2025/library/kak-t3-010.jpg",
-        "/api/media/indopac-2025/generated/kakadu-scenario_kak-t3-010_breaking_news.png"
+        "/api/media/indopac-2025/library/kak-t3-010.jpg"
       ]
     }
   ]

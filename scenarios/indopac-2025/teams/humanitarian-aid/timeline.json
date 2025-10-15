@@ -5,7 +5,7 @@
     {
       "id": "ha-t1-001",
       "turn": 1,
-      "time": 0,
+      "time": 60,
       "type": "sms",
       "content": {
         "from": "Maritime Rescue Coord",
@@ -15,7 +15,7 @@
     {
       "id": "ha-t1-002",
       "turn": 1,
-      "time": 19,
+      "time": 139,
       "type": "intelligence",
       "content": {
         "headline": "Refugee Vessel Assessment",
@@ -26,7 +26,7 @@
     {
       "id": "ha-t1-003",
       "turn": 1,
-      "time": 38,
+      "time": 218,
       "type": "social",
       "content": {
         "platform": "twitter",
@@ -41,7 +41,7 @@
     {
       "id": "ha-t1-004",
       "turn": 1,
-      "time": 56,
+      "time": 296,
       "type": "email",
       "content": {
         "from": "UNHCR Regional Protection",
@@ -52,7 +52,7 @@
     {
       "id": "ha-t1-005",
       "turn": 1,
-      "time": 94,
+      "time": 334,
       "type": "news",
       "content": {
         "headline": "Dengue Outbreak Overwhelms Timor Hospitals",
@@ -66,7 +66,7 @@
     {
       "id": "ha-t1-006",
       "turn": 1,
-      "time": 113,
+      "time": 413,
       "type": "social",
       "content": {
         "platform": "twitter",
@@ -81,7 +81,7 @@
     {
       "id": "ha-t1-007",
       "turn": 1,
-      "time": 131,
+      "time": 431,
       "type": "news",
       "content": {
         "headline": "Pressure Mounts to Divert Military Medical Supplies",
@@ -95,7 +95,7 @@
     {
       "id": "ha-t1-008",
       "turn": 1,
-      "time": 169,
+      "time": 529,
       "type": "email",
       "content": {
         "from": "Radar Operations",
@@ -106,7 +106,7 @@
     {
       "id": "ha-t1-009",
       "turn": 1,
-      "time": 188,
+      "time": 548,
       "type": "social",
       "content": {
         "platform": "twitter",
@@ -121,7 +121,7 @@
     {
       "id": "ha-t1-010",
       "turn": 1,
-      "time": 225,
+      "time": 585,
       "type": "intelligence",
       "content": {
         "headline": "Seismic Event Detected",
@@ -132,7 +132,7 @@
     {
       "id": "ha-t1-011",
       "turn": 1,
-      "time": 244,
+      "time": 604,
       "type": "email",
       "content": {
         "from": "Indonesian Government",
@@ -143,7 +143,7 @@
     {
       "id": "ha-t1-012",
       "turn": 1,
-      "time": 263,
+      "time": 623,
       "type": "news",
       "content": {
         "headline": "Hundreds Feared Dead in Indonesia Quake",
@@ -157,7 +157,7 @@
     {
       "id": "ha-t1-013",
       "turn": 1,
-      "time": 281,
+      "time": 641,
       "type": "social",
       "content": {
         "platform": "twitter",
@@ -172,7 +172,7 @@
     {
       "id": "ha-t1-014",
       "turn": 1,
-      "time": 300,
+      "time": 660,
       "type": "email",
       "content": {
         "from": "UN OCHA Jakarta",
@@ -183,7 +183,7 @@
     {
       "id": "ha-t2-001",
       "turn": 2,
-      "time": 0,
+      "time": 60,
       "type": "email",
       "content": {
         "from": "Rote Island Council",
@@ -194,7 +194,7 @@
     {
       "id": "ha-t2-002",
       "turn": 2,
-      "time": 23,
+      "time": 143,
       "type": "news",
       "content": {
         "headline": "Island Communities Face Starvation",
@@ -208,7 +208,7 @@
     {
       "id": "ha-t2-003",
       "turn": 2,
-      "time": 69,
+      "time": 189,
       "type": "sms",
       "content": {
         "from": "Medical Officer HMAS Canberra",
@@ -218,7 +218,7 @@
     {
       "id": "ha-t2-004",
       "turn": 2,
-      "time": 92,
+      "time": 272,
       "type": "intelligence",
       "content": {
         "headline": "Disease Outbreak Assessment",
@@ -229,7 +229,7 @@
     {
       "id": "ha-t2-005",
       "turn": 2,
-      "time": 115,
+      "time": 355,
       "type": "email",
       "content": {
         "from": "Chief Medical Officer ADF",
@@ -240,7 +240,7 @@
     {
       "id": "ha-t2-006",
       "turn": 2,
-      "time": 162,
+      "time": 402,
       "type": "email",
       "content": {
         "from": "Indigenous Heritage Council",
@@ -251,7 +251,7 @@
     {
       "id": "ha-t2-007",
       "turn": 2,
-      "time": 185,
+      "time": 425,
       "type": "social",
       "content": {
         "platform": "twitter",
@@ -266,7 +266,7 @@
     {
       "id": "ha-t2-008",
       "turn": 2,
-      "time": 208,
+      "time": 508,
       "type": "news",
       "content": {
         "headline": "Federal Court Injunction Threatened",
@@ -280,7 +280,7 @@
     {
       "id": "ha-t2-009",
       "turn": 2,
-      "time": 254,
+      "time": 554,
       "type": "sms",
       "content": {
         "from": "Tuvalu Government",
@@ -290,7 +290,7 @@
     {
       "id": "ha-t2-010",
       "turn": 2,
-      "time": 277,
+      "time": 637,
       "type": "intelligence",
       "content": {
         "headline": "Climate Displacement Event",
@@ -301,7 +301,7 @@
     {
       "id": "ha-t2-011",
       "turn": 2,
-      "time": 300,
+      "time": 660,
       "type": "news",
       "content": {
         "headline": "Climate Refugees Flee Rising Seas",
@@ -315,7 +315,7 @@
     {
       "id": "ha-t3-001",
       "turn": 3,
-      "time": 0,
+      "time": 60,
       "type": "email",
       "content": {
         "from": "International Criminal Court",
@@ -326,7 +326,7 @@
     {
       "id": "ha-t3-002",
       "turn": 3,
-      "time": 23,
+      "time": 143,
       "type": "intelligence",
       "content": {
         "headline": "War Crimes Site Confirmed",
@@ -337,7 +337,7 @@
     {
       "id": "ha-t3-003",
       "turn": 3,
-      "time": 69,
+      "time": 189,
       "type": "email",
       "content": {
         "from": "UN Headquarters Geneva",
@@ -348,7 +348,7 @@
     {
       "id": "ha-t3-004",
       "turn": 3,
-      "time": 92,
+      "time": 272,
       "type": "news",
       "content": {
         "headline": "Australian Forces Nominated for UN Honor",
@@ -362,7 +362,7 @@
     {
       "id": "ha-t3-005",
       "turn": 3,
-      "time": 138,
+      "time": 318,
       "type": "intelligence",
       "content": {
         "headline": "Human Trafficking Vessel Identified",
@@ -373,7 +373,7 @@
     {
       "id": "ha-t3-006",
       "turn": 3,
-      "time": 162,
+      "time": 402,
       "type": "sms",
       "content": {
         "from": "AFP Maritime Unit",
@@ -383,7 +383,7 @@
     {
       "id": "ha-t3-007",
       "turn": 3,
-      "time": 185,
+      "time": 425,
       "type": "social",
       "content": {
         "platform": "twitter",
@@ -398,7 +398,7 @@
     {
       "id": "ha-t3-008",
       "turn": 3,
-      "time": 231,
+      "time": 531,
       "type": "email",
       "content": {
         "from": "Regional Health Emergency Network",
@@ -409,7 +409,7 @@
     {
       "id": "ha-t3-009",
       "turn": 3,
-      "time": 254,
+      "time": 554,
       "type": "news",
       "content": {
         "headline": "Multiple Medical Emergencies Strain Resources",
@@ -423,7 +423,7 @@
     {
       "id": "ha-t3-010",
       "turn": 3,
-      "time": 277,
+      "time": 637,
       "type": "sms",
       "content": {
         "from": "Defence Strategic Communications",
@@ -433,7 +433,7 @@
     {
       "id": "ha-t3-011",
       "turn": 3,
-      "time": 300,
+      "time": 660,
       "type": "email",
       "content": {
         "from": "Joint Health Command",
