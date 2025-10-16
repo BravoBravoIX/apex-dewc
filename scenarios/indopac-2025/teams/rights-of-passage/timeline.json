@@ -42,7 +42,8 @@
         "source": "ABC News Darwin"
       },
       "media": [
-        "/api/media/indopac-2025/library/rop-t1-003.jpg"
+        "/api/media/indopac-2025/library/rop-t1-003.jpg",
+        "/api/media/indopac-2025/generated/rights-of-passage_rop-t1-003_breaking_news.png"
       ]
     },
     {
@@ -119,7 +120,8 @@
         "source": "The Australian"
       },
       "media": [
-        "/api/media/indopac-2025/library/rop-t1-009.jpg"
+        "/api/media/indopac-2025/library/rop-t1-009.jpg",
+        "/api/media/indopac-2025/generated/rights-of-passage_rop-t1-009_breaking_news.png"
       ]
     },
     {
@@ -133,7 +135,8 @@
         "source": "Jakarta Post"
       },
       "media": [
-        "/api/media/indopac-2025/library/rop-t1-010.jpg"
+        "/api/media/indopac-2025/library/rop-t1-010.jpg",
+        "/api/media/indopac-2025/generated/rights-of-passage_rop-t1-010_breaking_news.png"
       ]
     },
     {
@@ -214,7 +217,8 @@
         "source": "Sky News Australia"
       },
       "media": [
-        "/api/media/indopac-2025/library/rop-t2-005.jpg"
+        "/api/media/indopac-2025/library/rop-t2-005.jpg",
+        "/api/media/indopac-2025/generated/rights-of-passage_rop-t2-005_breaking_news.png"
       ]
     },
     {
@@ -280,7 +284,8 @@
         "source": "Guardian Australia"
       },
       "media": [
-        "/api/media/indopac-2025/library/rop-t2-010.jpg"
+        "/api/media/indopac-2025/library/rop-t2-010.jpg",
+        "/api/media/indopac-2025/generated/rights-of-passage_rop-t2-010_breaking_news.png"
       ]
     },
     {
@@ -327,7 +332,8 @@
         "source": "Reuters"
       },
       "media": [
-        "/api/media/indopac-2025/library/rop-t3-003.jpg"
+        "/api/media/indopac-2025/library/rop-t3-003.jpg",
+        "/api/media/indopac-2025/generated/rights-of-passage_rop-t3-003_breaking_news.png"
       ]
     },
     {
@@ -389,7 +395,8 @@
         "source": "7 News"
       },
       "media": [
-        "/api/media/indopac-2025/library/rop-t3-008.jpg"
+        "/api/media/indopac-2025/library/rop-t3-008.jpg",
+        "/api/media/indopac-2025/generated/rights-of-passage_rop-t3-008_breaking_news.png"
       ]
     },
     {
@@ -414,7 +421,8 @@
         "source": "ABC News"
       },
       "media": [
-        "/api/media/indopac-2025/library/rop-t1-010.jpg"
+        "/api/media/indopac-2025/library/rop-t1-010.jpg",
+        "/api/media/indopac-2025/generated/rights-of-passage_rop-t3-010_breaking_news.png"
       ]
     },
     {

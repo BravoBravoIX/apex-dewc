@@ -1,4 +1,319 @@
 {
   "scenario_id": "indopac-2025",
-  "injects": []
+  "injects": [
+    {
+      "id": "pf-t1-001",
+      "turn": 1,
+      "time": 120,
+      "type": "news",
+      "content": {
+        "headline": "Emergency Summit Between Asian Powers",
+        "body": "SINGAPORE - Diplomatic sources confirm India and China have called an emergency summit for tomorrow. Maritime security and regional frameworks expected to dominate agenda. Markets nervous about potential shift in Indo-Pacific power dynamics.",
+        "source": "Bloomberg"
+      },
+      "media": [
+        "/api/media/indopac-2025/library/pf-t1-001.png",
+        "/api/media/indopac-2025/generated/kak-public_pf-t1-001_breaking_news.png"
+      ]
+    },
+    {
+      "id": "pf-t1-002",
+      "turn": 1,
+      "time": 210,
+      "type": "news",
+      "content": {
+        "headline": "India-China Announce Joint Maritime Framework",
+        "body": "NEW DELHI - In a surprise move, India and China have announced a joint Indo-Pacific Maritime Security Framework, calling for 'regional solutions to regional challenges.' The agreement, signed hours ago, questions the need for external military exercises in Asian waters.",
+        "source": "Reuters"
+      },
+      "media": [
+        "/api/media/indopac-2025/library/pf-t1-002.png",
+        "/api/media/indopac-2025/generated/kak-public_pf-t1-002_breaking_news.png"
+      ]
+    },
+    {
+      "id": "pf-t1-003",
+      "turn": 1,
+      "time": 285,
+      "type": "news",
+      "content": {
+        "headline": "ASEAN Nations Welcome New Framework",
+        "body": "Southeast Asian nations are cautiously welcoming the India-China maritime framework. 'This could reduce tensions significantly,' says Singapore Foreign Minister. The announcement comes as Australia conducts large-scale naval exercises in the region.",
+        "source": "Channel News Asia"
+      },
+      "media": [
+        "/api/media/indopac-2025/library/pf-t1-003.png",
+        "/api/media/indopac-2025/generated/kak-public_pf-t1-003_breaking_news.png"
+      ]
+    },
+    {
+      "id": "pf-t1-004",
+      "turn": 1,
+      "time": 300,
+      "type": "news",
+      "content": {
+        "headline": "Australia Commits to Continue Exercises",
+        "body": "Despite the surprise India-China agreement, Australian Defence officials confirm the Kakadu exercise will proceed. 'We remain committed to our partners and to regional stability,' spokesperson says. The decision is already drawing mixed reactions from neighboring nations.",
+        "source": "ABC News"
+      },
+      "media": [
+        "/api/media/indopac-2025/library/pf-t1-004.png",
+        "/api/media/indopac-2025/generated/kak-public_pf-t1-004_breaking_news.png"
+      ]
+    },
+    {
+      "id": "pf-t1-006",
+      "turn": 1,
+      "time": 360,
+      "type": "news",
+      "content": {
+        "headline": "Regional Analysts Debate Power Shift",
+        "body": "The India-China maritime framework represents a fundamental shift in regional dynamics. Australia must adapt or risk isolation. Full analysis shows traditional security arrangements under pressure.",
+        "source": "Lowy Institute Analysis"
+      },
+      "media": [
+        "/api/media/indopac-2025/library/pf-t1-006.png",
+        "/api/media/indopac-2025/generated/kak-public_pf-t1-006_breaking_news.png"
+      ]
+    },
+    {
+      "id": "kak-t1-012",
+      "turn": 1,
+      "time": 759,
+      "type": "news",
+      "content": {
+        "headline": "Navy Diverts to Cruise Ship Emergency",
+        "body": "Australian and partner naval vessels are racing to assist cruise ship Costa Pacifica after fire broke out in the engine room. With over 1,800 passengers and crew aboard, this represents one of the largest maritime rescue operations in recent memory. The ships were participating in the Kakadu military exercise when the distress call came through.",
+        "source": "Channel 9 News"
+      },
+      "media": [
+        "/api/media/indopac-2025/library/kak-t1-012.jpg",
+        "/api/media/indopac-2025/generated/kak-public_kak-t1-012_breaking_news.png"
+      ]
+    },
+    {
+      "id": "pf-t2-001",
+      "turn": 2,
+      "time": 60,
+      "type": "news",
+      "content": {
+        "headline": "Major Internet Outage Across Indo-Pacific",
+        "body": "Widespread internet outages reported across Southeast Asia and Northern Australia as multiple undersea cables fail simultaneously. Banking, communications, and government services affected. Authorities investigating cause, not ruling out sabotage.",
+        "source": "Tech News Global"
+      },
+      "media": [
+        "/api/media/indopac-2025/library/pf-t2-001.png",
+        "/api/media/indopac-2025/generated/kak-public_pf-t2-001_breaking_news.png"
+      ]
+    },
+    {
+      "id": "pf-t2-002",
+      "turn": 2,
+      "time": 137,
+      "type": "news",
+      "content": {
+        "headline": "Undersea Cables Deliberately Cut",
+        "body": "Investigation confirms multiple undersea cables were deliberately severed in what appears to be coordinated sabotage. Three critical cables serving military and commercial networks damaged. No group has claimed responsibility.",
+        "source": "BBC Breaking"
+      },
+      "media": [
+        "/api/media/indopac-2025/library/pf-t2-002.png",
+        "/api/media/indopac-2025/generated/kak-public_pf-t2-002_breaking_news.png"
+      ]
+    },
+    {
+      "id": "pf-t2-003",
+      "turn": 2,
+      "time": 213,
+      "type": "news",
+      "content": {
+        "headline": "Markets Tumble on Infrastructure Attack",
+        "body": "Asian markets down 3-5% as undersea cable sabotage disrupts digital commerce. Military exercises in region continuing despite communication challenges. Analysts warn of vulnerability of critical infrastructure.",
+        "source": "Financial Times"
+      },
+      "media": [
+        "/api/media/indopac-2025/library/pf-t2-003.png",
+        "/api/media/indopac-2025/generated/kak-public_pf-t2-003_breaking_news.png"
+      ]
+    },
+    {
+      "id": "pf-t2-004",
+      "turn": 2,
+      "time": 260,
+      "type": "news",
+      "content": {
+        "headline": "Cable Repairs Could Take Weeks",
+        "body": "Repair ships dispatched but full restoration of undersea cables could take 2-3 weeks. Military and commercial users implementing workarounds. Vulnerability of digital infrastructure now major concern.",
+        "source": "Tech Industry News"
+      },
+      "media": [
+        "/api/media/indopac-2025/library/pf-t2-004.png",
+        "/api/media/indopac-2025/generated/kak-public_pf-t2-004_breaking_news.png"
+      ]
+    },
+    {
+      "id": "kak-t2-005",
+      "turn": 2,
+      "time": 305,
+      "type": "news",
+      "content": {
+        "headline": "False Reports Plague Exercise",
+        "body": "Defence officials are battling a sophisticated disinformation campaign targeting the Kakadu exercise. False reports of casualties and ship sinkings have been viewed millions of times on social media. 'This is information warfare in real-time,' says cyber expert Dr. James Chen.",
+        "source": "Australian Financial Review"
+      },
+      "media": [
+        "/api/media/indopac-2025/library/kak-t2-005.jpg",
+        "/api/media/indopac-2025/generated/kak-public_kak-t2-005_breaking_news.png"
+      ]
+    },
+    {
+      "id": "pf-t3-001",
+      "turn": 3,
+      "time": 60,
+      "type": "news",
+      "content": {
+        "headline": "Military Forces Mobilizing Across Region",
+        "body": "Satellite imagery shows unusual military activity at bases across Indo-Pacific. Multiple nations appear to be mobilizing forces though no official explanation given. UN expressing concern about escalating tensions.",
+        "source": "Al Jazeera"
+      },
+      "media": [
+        "/api/media/indopac-2025/library/pf-t3-001.png",
+        "/api/media/indopac-2025/generated/kak-public_pf-t3-001_breaking_news.png"
+      ]
+    },
+    {
+      "id": "pf-t3-002",
+      "turn": 3,
+      "time": 137,
+      "type": "news",
+      "content": {
+        "headline": "UN Security Council Emergency Session",
+        "body": "The Security Council has been called into emergency session following reports of military confrontation in Indo-Pacific waters. Secretary-General appeals for immediate de-escalation. 'We are closer to conflict than any time in decades,' diplomatic sources report.",
+        "source": "UN News Service"
+      },
+      "media": [
+        "/api/media/indopac-2025/library/pf-t3-002.png",
+        "/api/media/indopac-2025/generated/kak-public_pf-t3-002_breaking_news.png"
+      ]
+    },
+    {
+      "id": "pf-t3-003",
+      "turn": 3,
+      "time": 213,
+      "type": "news",
+      "content": {
+        "headline": "Armed Standoff in Disputed Waters",
+        "body": "BREAKING: Naval forces from multiple nations in tense standoff in disputed waters. Weapons systems reportedly locked on. Any miscalculation could trigger wider conflict. Australian forces believed to be in vicinity.",
+        "source": "CNN International"
+      },
+      "media": [
+        "/api/media/indopac-2025/library/pf-t3-003.png",
+        "/api/media/indopac-2025/generated/kak-public_pf-t3-003_breaking_news.png"
+      ]
+    },
+    {
+      "id": "pf-t3-004",
+      "turn": 3,
+      "time": 290,
+      "type": "social",
+      "content": {
+        "headline": "WW3 trending worldwide",
+        "body": "#WW3 #IndoPacificCrisis #PrayForPeace all trending globally as news of naval standoff spreads. Videos claiming to show military confrontation going viral. Panic buying reported in several cities.",
+        "source": "Twitter Trends"
+      },
+      "media": [
+        "/api/media/indopac-2025/generated/kak-public_pf-t3-004_twitter.png"
+      ]
+    },
+    {
+      "id": "kak-t3-005",
+      "turn": 3,
+      "time": 305,
+      "type": "news",
+      "content": {
+        "headline": "Questions Over Exercise Success",
+        "body": "Sources within the Kakadu exercise suggest partner nations can't agree on whether the massive drill was successful. 'There are definitely different perspectives,' one military official said on condition of anonymity. The disagreement threatens to overshadow tomorrow's closing ceremony.",
+        "source": "The Age"
+      },
+      "media": [
+        "/api/media/indopac-2025/library/kak-t3-005.jpg",
+        "/api/media/indopac-2025/generated/kak-public_kak-t3-005_breaking_news.png"
+      ]
+    },
+    {
+      "id": "pf-t3-005",
+      "turn": 3,
+      "time": 307,
+      "type": "news",
+      "content": {
+        "headline": "Australia Announces De-escalation Measures",
+        "body": "Australian government announces immediate de-escalation measures as regional crisis deepens. Military exercises to conclude with humanitarian focus. Prime Minister calling for calm and dialogue.",
+        "source": "Sydney Morning Herald"
+      },
+      "media": [
+        "/api/media/indopac-2025/library/pf-t3-005.png",
+        "/api/media/indopac-2025/generated/kak-public_pf-t3-005_breaking_news.png"
+      ]
+    },
+    {
+      "id": "pf-t3-006",
+      "turn": 3,
+      "time": 380,
+      "type": "news",
+      "content": {
+        "headline": "Tensions Ease After Australian Gesture",
+        "body": "Regional tensions beginning to ease after Australia announced humanitarian focus for exercise conclusion. Diplomatic sources report back-channel communications active. Markets recovering on de-escalation news.",
+        "source": "Associated Press"
+      },
+      "media": [
+        "/api/media/indopac-2025/library/pf-t3-006.png",
+        "/api/media/indopac-2025/generated/kak-public_pf-t3-006_breaking_news.png"
+      ]
+    },
+    {
+      "id": "pf-t3-007",
+      "turn": 3,
+      "time": 420,
+      "type": "news",
+      "content": {
+        "headline": "Historic Week Reshapes Indo-Pacific",
+        "body": "The dramatic events of the Kakadu exercise - from diplomatic realignment to infrastructure attacks to near-conflict - have fundamentally altered the Indo-Pacific strategic landscape. Analysis of winners and losers from this week's crisis.",
+        "source": "The Economist"
+      },
+      "media": [
+        "/api/media/indopac-2025/library/pf-t3-007.png",
+        "/api/media/indopac-2025/generated/kak-public_pf-t3-007_breaking_news.png"
+      ]
+    },
+    {
+      "id": "kak-t3-008",
+      "turn": 3,
+      "time": 525,
+      "type": "news",
+      "content": {
+        "headline": "Navy Discovers Major Environmental Crimes",
+        "body": "The Royal Australian Navy has uncovered what appears to be the largest illegal fishing operation in northern waters during the Kakadu exercise. Sources indicate hundreds of vessels were documented destroying protected marine habitats. Environmental groups are demanding immediate action.",
+        "source": "Sydney Morning Herald"
+      },
+      "media": [
+        "/api/media/indopac-2025/library/kak-t3-008.jpg",
+        "/api/media/indopac-2025/generated/kak-public_kak-t3-008_breaking_news.png"
+      ]
+    },
+    {
+      "id": "kak-t3-010",
+      "turn": 3,
+      "time": 600,
+      "type": "news",
+      "content": {
+        "headline": "Kakadu Exercise Hailed as Success",
+        "body": "The biennial Kakadu exercise has concluded with defence officials declaring it an unprecedented success. The highlight was Indonesia's surprise announcement of plans to increase participation in future exercises, signaling warming defence ties. 'This exercise demonstrated our ability to work as one,' said the Chief of Navy.",
+        "source": "Defence Media"
+      },
+      "media": [
+        "/api/media/indopac-2025/library/kak-t3-010.jpg",
+        "/api/media/indopac-2025/generated/kak-public_kak-t3-010_breaking_news.png"
+      ]
+    }
+  ]
 }

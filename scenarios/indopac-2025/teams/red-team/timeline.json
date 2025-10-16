@@ -58,7 +58,8 @@
         "source": "Global Times English"
       },
       "media": [
-        "/api/media/indopac-2025/library/red-t1-005.jpg"
+        "/api/media/indopac-2025/library/red-t1-005.jpg",
+        "/api/media/indopac-2025/generated/red-team_red-t1-005_breaking_news.png"
       ]
     },
     {
@@ -115,7 +116,8 @@
         "source": "Financial Times"
       },
       "media": [
-        "/api/media/indopac-2025/library/red-t1-010.png"
+        "/api/media/indopac-2025/library/red-t1-010.png",
+        "/api/media/indopac-2025/generated/red-team_red-t1-010_breaking_news.png"
       ]
     },
     {
@@ -140,7 +142,8 @@
         "source": "Straits Times"
       },
       "media": [
-        "/api/media/indopac-2025/library/red-t1-012.png"
+        "/api/media/indopac-2025/library/red-t1-012.png",
+        "/api/media/indopac-2025/generated/red-team_red-t1-012_breaking_news.png"
       ]
     },
     {
@@ -208,7 +211,8 @@
         "source": "Bloomberg"
       },
       "media": [
-        "/api/media/indopac-2025/library/red-t2-006.png"
+        "/api/media/indopac-2025/library/red-t2-006.png",
+        "/api/media/indopac-2025/generated/red-team_red-t2-006_breaking_news.png"
       ]
     },
     {
@@ -275,7 +279,8 @@
         "source": "BBC Breaking"
       },
       "media": [
-        "/api/media/indopac-2025/library/red-t3-003.png"
+        "/api/media/indopac-2025/library/red-t3-003.png",
+        "/api/media/indopac-2025/generated/red-team_red-t3-003_breaking_news.png"
       ]
     },
     {
@@ -297,7 +302,10 @@
         "headline": "Australians Detained at Sea",
         "body": "Three Australian citizens aboard a yacht have been detained by Chinese maritime forces claiming territorial violation. Families are pleading for government intervention. The incident occurs during heightened tensions over naval exercises.",
         "source": "Sky News"
-      }
+      },
+      "media": [
+        "/api/media/indopac-2025/generated/red-team_red-t3-005_breaking_news.png"
+      ]
     },
     {
       "id": "red-t3-006",
@@ -344,7 +352,10 @@
         "headline": "China Tests 'Carrier Killer' During Exercise",
         "body": "China has demonstrated its newest hypersonic anti-ship missile during the Kakadu exercise, a clear signal to US and Australian forces. The weapon, capable of Mach 8+ speeds, represents a game-changing capability experts warn.",
         "source": "Defense News"
-      }
+      },
+      "media": [
+        "/api/media/indopac-2025/generated/red-team_red-t3-009_breaking_news.png"
+      ]
     },
     {
       "id": "red-t3-010",
@@ -357,7 +368,8 @@
         "source": "Xinhua News"
       },
       "media": [
-        "/api/media/indopac-2025/library/red-t3-010.png"
+        "/api/media/indopac-2025/library/red-t3-010.png",
+        "/api/media/indopac-2025/generated/red-team_red-t3-010_breaking_news.png"
       ]
     },
     {
@@ -382,7 +394,8 @@
         "source": "South China Morning Post"
       },
       "media": [
-        "/api/media/indopac-2025/library/red-t3-012.png"
+        "/api/media/indopac-2025/library/red-t3-012.png",
+        "/api/media/indopac-2025/generated/red-team_red-t3-012_breaking_news.png"
       ]
     }
   ]

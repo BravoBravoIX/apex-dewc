@@ -137,7 +137,8 @@
         "source": "Channel 9 News"
       },
       "media": [
-        "/api/media/indopac-2025/library/kak-t1-012.jpg"
+        "/api/media/indopac-2025/library/kak-t1-012.jpg",
+        "/api/media/indopac-2025/generated/kakadu-scenario_kak-t1-012_breaking_news.png"
       ]
     },
     {
@@ -201,7 +202,8 @@
         "source": "Australian Financial Review"
       },
       "media": [
-        "/api/media/indopac-2025/library/kak-t2-005.jpg"
+        "/api/media/indopac-2025/library/kak-t2-005.jpg",
+        "/api/media/indopac-2025/generated/kakadu-scenario_kak-t2-005_breaking_news.png"
       ]
     },
     {
@@ -313,7 +315,8 @@
         "source": "The Age"
       },
       "media": [
-        "/api/media/indopac-2025/library/kak-t3-005.jpg"
+        "/api/media/indopac-2025/library/kak-t3-005.jpg",
+        "/api/media/indopac-2025/generated/kakadu-scenario_kak-t3-005_breaking_news.png"
       ]
     },
     {
@@ -349,7 +352,8 @@
         "source": "Sydney Morning Herald"
       },
       "media": [
-        "/api/media/indopac-2025/library/kak-t3-008.jpg"
+        "/api/media/indopac-2025/library/kak-t3-008.jpg",
+        "/api/media/indopac-2025/generated/kakadu-scenario_kak-t3-008_breaking_news.png"
       ]
     },
     {
@@ -374,7 +378,8 @@
         "source": "Defence Media"
       },
       "media": [
-        "/api/media/indopac-2025/library/kak-t3-010.jpg"
+        "/api/media/indopac-2025/library/kak-t3-010.jpg",
+        "/api/media/indopac-2025/generated/kakadu-scenario_kak-t3-010_breaking_news.png"
       ]
     }
   ]

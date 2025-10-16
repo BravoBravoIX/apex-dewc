@@ -4,7 +4,7 @@
     {
       "id": "pf-t1-001",
       "turn": 1,
-      "time": 0,
+      "time": 120,
       "type": "news",
       "content": {
         "headline": "Emergency Summit Between Asian Powers",
@@ -12,13 +12,14 @@
         "source": "Bloomberg"
       },
       "media": [
+        "/api/media/indopac-2025/library/pf-t1-001.png",
         "/api/media/indopac-2025/generated/public-feed_pf-t1-001_breaking_news.png"
       ]
     },
     {
       "id": "pf-t1-002",
       "turn": 1,
-      "time": 30,
+      "time": 210,
       "type": "news",
       "content": {
         "headline": "India-China Announce Joint Maritime Framework",
@@ -26,13 +27,14 @@
         "source": "Reuters"
       },
       "media": [
+        "/api/media/indopac-2025/library/pf-t1-002.png",
         "/api/media/indopac-2025/generated/public-feed_pf-t1-002_breaking_news.png"
       ]
     },
     {
       "id": "pf-t1-003",
       "turn": 1,
-      "time": 45,
+      "time": 285,
       "type": "news",
       "content": {
         "headline": "ASEAN Nations Welcome New Framework",
@@ -40,13 +42,14 @@
         "source": "Channel News Asia"
       },
       "media": [
+        "/api/media/indopac-2025/library/pf-t1-003.png",
         "/api/media/indopac-2025/generated/public-feed_pf-t1-003_breaking_news.png"
       ]
     },
     {
       "id": "pf-t1-004",
       "turn": 1,
-      "time": 60,
+      "time": 300,
       "type": "news",
       "content": {
         "headline": "Australia Commits to Continue Exercises",
@@ -54,27 +57,14 @@
         "source": "ABC News"
       },
       "media": [
+        "/api/media/indopac-2025/library/pf-t1-004.png",
         "/api/media/indopac-2025/generated/public-feed_pf-t1-004_breaking_news.png"
-      ]
-    },
-    {
-      "id": "pf-t1-005",
-      "turn": 1,
-      "time": 210,
-      "type": "social",
-      "content": {
-        "headline": "Military families worried about escalation",
-        "body": "Anyone else worried about what this India-China thing means for our people? My husband says they're continuing the exercise but everyone's on edge. Stay safe everyone! \ud83c\udde6\ud83c\uddfa",
-        "source": "Facebook Military Families Group"
-      },
-      "media": [
-        "/api/media/indopac-2025/generated/public-feed_pf-t1-005_twitter.png"
       ]
     },
     {
       "id": "pf-t1-006",
       "turn": 1,
-      "time": 300,
+      "time": 360,
       "type": "news",
       "content": {
         "headline": "Regional Analysts Debate Power Shift",
@@ -82,13 +72,14 @@
         "source": "Lowy Institute Analysis"
       },
       "media": [
+        "/api/media/indopac-2025/library/pf-t1-006.png",
         "/api/media/indopac-2025/generated/public-feed_pf-t1-006_breaking_news.png"
       ]
     },
     {
       "id": "pf-t2-001",
       "turn": 2,
-      "time": 0,
+      "time": 60,
       "type": "news",
       "content": {
         "headline": "Major Internet Outage Across Indo-Pacific",
@@ -96,13 +87,14 @@
         "source": "Tech News Global"
       },
       "media": [
+        "/api/media/indopac-2025/library/pf-t2-001.png",
         "/api/media/indopac-2025/generated/public-feed_pf-t2-001_breaking_news.png"
       ]
     },
     {
       "id": "pf-t2-002",
       "turn": 2,
-      "time": 17,
+      "time": 137,
       "type": "news",
       "content": {
         "headline": "Undersea Cables Deliberately Cut",
@@ -110,13 +102,14 @@
         "source": "BBC Breaking"
       },
       "media": [
+        "/api/media/indopac-2025/library/pf-t2-002.png",
         "/api/media/indopac-2025/generated/public-feed_pf-t2-002_breaking_news.png"
       ]
     },
     {
       "id": "pf-t2-003",
       "turn": 2,
-      "time": 33,
+      "time": 213,
       "type": "news",
       "content": {
         "headline": "Markets Tumble on Infrastructure Attack",
@@ -124,13 +117,14 @@
         "source": "Financial Times"
       },
       "media": [
+        "/api/media/indopac-2025/library/pf-t2-003.png",
         "/api/media/indopac-2025/generated/public-feed_pf-t2-003_breaking_news.png"
       ]
     },
     {
       "id": "pf-t2-004",
       "turn": 2,
-      "time": 200,
+      "time": 260,
       "type": "news",
       "content": {
         "headline": "Cable Repairs Could Take Weeks",
@@ -138,27 +132,14 @@
         "source": "Tech Industry News"
       },
       "media": [
+        "/api/media/indopac-2025/library/pf-t2-004.png",
         "/api/media/indopac-2025/generated/public-feed_pf-t2-004_breaking_news.png"
-      ]
-    },
-    {
-      "id": "pf-t2-005",
-      "turn": 2,
-      "time": 300,
-      "type": "social",
-      "content": {
-        "headline": "Conspiracy theories spreading fast",
-        "body": "Multiple theories about who cut the cables. Some saying China, others saying false flag. Military exercise continuing despite comms being down seems suspicious. What aren't they telling us?",
-        "source": "Reddit r/geopolitics"
-      },
-      "media": [
-        "/api/media/indopac-2025/generated/public-feed_pf-t2-005_twitter.png"
       ]
     },
     {
       "id": "pf-t3-001",
       "turn": 3,
-      "time": 0,
+      "time": 60,
       "type": "news",
       "content": {
         "headline": "Military Forces Mobilizing Across Region",
@@ -166,13 +147,14 @@
         "source": "Al Jazeera"
       },
       "media": [
+        "/api/media/indopac-2025/library/pf-t3-001.png",
         "/api/media/indopac-2025/generated/public-feed_pf-t3-001_breaking_news.png"
       ]
     },
     {
       "id": "pf-t3-002",
       "turn": 3,
-      "time": 17,
+      "time": 137,
       "type": "news",
       "content": {
         "headline": "UN Security Council Emergency Session",
@@ -180,13 +162,14 @@
         "source": "UN News Service"
       },
       "media": [
+        "/api/media/indopac-2025/library/pf-t3-002.png",
         "/api/media/indopac-2025/generated/public-feed_pf-t3-002_breaking_news.png"
       ]
     },
     {
       "id": "pf-t3-003",
       "turn": 3,
-      "time": 33,
+      "time": 213,
       "type": "news",
       "content": {
         "headline": "Armed Standoff in Disputed Waters",
@@ -194,13 +177,14 @@
         "source": "CNN International"
       },
       "media": [
+        "/api/media/indopac-2025/library/pf-t3-003.png",
         "/api/media/indopac-2025/generated/public-feed_pf-t3-003_breaking_news.png"
       ]
     },
     {
       "id": "pf-t3-004",
       "turn": 3,
-      "time": 50,
+      "time": 290,
       "type": "social",
       "content": {
         "headline": "WW3 trending worldwide",
@@ -214,7 +198,7 @@
     {
       "id": "pf-t3-005",
       "turn": 3,
-      "time": 67,
+      "time": 307,
       "type": "news",
       "content": {
         "headline": "Australia Announces De-escalation Measures",
@@ -222,13 +206,14 @@
         "source": "Sydney Morning Herald"
       },
       "media": [
+        "/api/media/indopac-2025/library/pf-t3-005.png",
         "/api/media/indopac-2025/generated/public-feed_pf-t3-005_breaking_news.png"
       ]
     },
     {
       "id": "pf-t3-006",
       "turn": 3,
-      "time": 200,
+      "time": 380,
       "type": "news",
       "content": {
         "headline": "Tensions Ease After Australian Gesture",
@@ -236,13 +221,14 @@
         "source": "Associated Press"
       },
       "media": [
+        "/api/media/indopac-2025/library/pf-t3-006.png",
         "/api/media/indopac-2025/generated/public-feed_pf-t3-006_breaking_news.png"
       ]
     },
     {
       "id": "pf-t3-007",
       "turn": 3,
-      "time": 300,
+      "time": 420,
       "type": "news",
       "content": {
         "headline": "Historic Week Reshapes Indo-Pacific",
@@ -250,6 +236,7 @@
         "source": "The Economist"
       },
       "media": [
+        "/api/media/indopac-2025/library/pf-t3-007.png",
         "/api/media/indopac-2025/generated/public-feed_pf-t3-007_breaking_news.png"
       ]
     }
