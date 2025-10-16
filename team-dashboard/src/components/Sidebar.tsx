@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import { useInjects } from '../contexts/InjectContext';
 import { useMemo } from 'react';
+import { API_HOST } from '../config';
 
 export const Sidebar = () => {
   const { injects, connectionStatus } = useInjects();
@@ -94,7 +95,7 @@ export const Sidebar = () => {
 
         <div className="mt-4 pt-4 flex justify-center border-t border-gray-300">
           <img
-            src="/api/scenarios/dropbear.png"
+            src={`${API_HOST}/api/scenarios/dropbear.png`}
             alt="Dropbear"
             className="h-20 w-auto opacity-70"
           />

@@ -28,7 +28,7 @@ export const Layout = () => {
                   <span>eXperimentation</span>
                 </div>
                 <h1 className="text-2xl font-bold text-gray-900">APEX</h1>
-                <img src="/api/scenarios/dropbear.png" alt="Dropbear" className="h-8 opacity-70" />
+                <img src={`${API_HOST}/api/scenarios/dropbear.png`} alt="Dropbear" className="h-8 opacity-70" />
               </div>
               <img src="/cyberops-logo.png" alt="CyberOps" className="h-10" />
               <img src="/dewc-logo.jpeg" alt="DEWC" className="h-8" />
