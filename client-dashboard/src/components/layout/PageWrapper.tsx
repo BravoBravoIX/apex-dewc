@@ -13,7 +13,7 @@ const PageWrapper: React.FC<PageWrapperProps> = ({ children }) => {
   if (theme === 'gradient') {
     return (
       <main className="flex-1 overflow-y-auto p-6">
-        <div className="bg-gray-200/80 backdrop-blur-sm rounded-lg shadow-xl p-6">
+        <div className="bg-gray-200 rounded-lg shadow-xl p-6">
           {children}
         </div>
       </main>
