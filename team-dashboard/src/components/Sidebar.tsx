@@ -40,7 +40,7 @@ export const Sidebar = () => {
   };
 
   const navigation = [
-    { name: 'All Injects', href: `/${queryString}`, count: injects.length },
+    { name: 'All Alerts', href: `/${queryString}`, count: injects.length },
     { name: 'News', href: `/news${queryString}`, count: counts.news },
     { name: 'Social', href: `/social${queryString}`, count: counts.social },
     { name: 'Email', href: `/email${queryString}`, count: counts.email },
@@ -69,7 +69,7 @@ export const Sidebar = () => {
             <NavLink
               key={item.name}
               to={item.href}
-              end={item.name === 'All Injects'}
+              end={item.name === 'All Alerts'}
               className={({ isActive }) =>
                 `px-4 py-3 text-sm font-medium transition-colors flex items-center justify-between ` +
                 (isActive

@@ -7,12 +7,12 @@ export const AllInjectsPage = () => {
   return (
     <div className="space-y-4">
       <h2 className="text-2xl font-bold text-white">
-        All Injects ({injects.length})
+        All Alerts ({injects.length})
       </h2>
 
       {injects.length === 0 ? (
         <div className="bg-white/90 backdrop-blur-sm rounded-lg shadow-2xl p-12 text-center">
-          <p className="text-gray-600 text-lg mb-2">Waiting for injects...</p>
+          <p className="text-gray-600 text-lg mb-2">Waiting for alerts...</p>
         </div>
       ) : (
         <div className="space-y-3">
