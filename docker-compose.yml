@@ -77,15 +77,9 @@ services:
 
   sdr-service:
     build: ./sdr-service
-    container_name: scip-sdr-service
-    ports:
-      - "1234:1234"  # RTL-TCP port for GQRX
-    volumes:
-      - ./iq_files:/iq_files:ro  # Mount IQ files read-only
-    networks:
-      - scip-network
-    depends_on:
-      - mqtt
+    # This service is not started by default, scenario is disabled
+    deploy:
+      replicas: 0
 
 networks:
   scip-network:
