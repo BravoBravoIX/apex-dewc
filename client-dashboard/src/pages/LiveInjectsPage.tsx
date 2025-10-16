@@ -122,12 +122,6 @@ const LiveInjectsPage = () => {
     setShowUploadModal(false);
   };
 
-  const toggleMediaSelection = (path: string) => {
-    setSelectedMedia(prev =>
-      prev.includes(path) ? prev.filter(p => p !== path) : [...prev, path]
-    );
-  };
-
   const toggleTeamSelection = (teamId: string) => {
     setSelectedTeams(prev =>
       prev.includes(teamId) ? prev.filter(id => id !== teamId) : [...prev, teamId]
@@ -243,7 +237,7 @@ const LiveInjectsPage = () => {
       <div className="card p-6 mb-6">
         <h2 className="text-xl font-semibold text-text-primary mb-4">Prepare New Inject</h2>
 
-        {/* Media Selection */}
+        {/* Media Upload */}
         <div className="mb-6">
           <div className="flex items-center justify-between mb-2">
             <label className="text-sm font-medium text-text-primary">
@@ -254,35 +248,11 @@ const LiveInjectsPage = () => {
               className="flex items-center gap-2 px-3 py-1 text-sm bg-primary text-white rounded hover:bg-primary/80"
             >
               <ImagePlus size={16} />
-              Upload New
+              Upload Media
             </button>
           </div>
-          <div className="grid grid-cols-6 gap-3 max-h-64 overflow-y-auto border border-border rounded p-3">
-            {mediaFiles.map(file => (
-              <div
-                key={file.path}
-                onClick={() => toggleMediaSelection(file.path)}
-                className={`relative cursor-pointer border-2 rounded transition-all ${
-                  selectedMedia.includes(file.path)
-                    ? 'border-primary shadow-lg'
-                    : 'border-transparent hover:border-border'
-                }`}
-              >
-                <img
-                  src={`${API_BASE_URL}${file.path}`}
-                  alt={file.filename}
-                  className="w-full h-20 object-cover rounded"
-                />
-                {selectedMedia.includes(file.path) && (
-                  <div className="absolute top-1 right-1 bg-primary text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
-                    ✓
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
           {selectedMedia.length > 0 && (
-            <p className="text-sm text-text-secondary mt-2">{selectedMedia.length} file(s) selected</p>
+            <p className="text-sm text-text-secondary">{selectedMedia.length} file(s) selected</p>
           )}
         </div>
 
@@ -297,9 +267,9 @@ const LiveInjectsPage = () => {
             >
               <option value="news">News</option>
               <option value="social">Social Media</option>
+              <option value="email">Email</option>
+              <option value="sms">SMS</option>
               <option value="intel">Intelligence</option>
-              <option value="alert">Alert</option>
-              <option value="update">Update</option>
             </select>
           </div>
 
