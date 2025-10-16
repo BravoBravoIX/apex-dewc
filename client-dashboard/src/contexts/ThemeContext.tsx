@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
-type Theme = 'light' | 'dark';
+type Theme = 'light' | 'dark' | 'gradient';
 
 interface ThemeContextType {
   theme: Theme;
@@ -28,8 +28,10 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     // Apply theme to document
     if (theme === 'dark') {
       document.documentElement.setAttribute('data-theme', 'dark');
+    } else if (theme === 'gradient') {
+      document.documentElement.setAttribute('data-theme', 'gradient');
     } else {
-      document.documentElement.removeAttribute('data-theme');
+      document.documentElement.setAttribute('data-theme', 'light');
     }
 
     // Save to localStorage
@@ -37,7 +39,11 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   }, [theme]);
 
   const toggleTheme = () => {
-    setTheme(prev => prev === 'light' ? 'dark' : 'light');
+    setTheme(prev => {
+      if (prev === 'light') return 'dark';
+      if (prev === 'dark') return 'gradient';
+      return 'light';
+    });
   };
 
   return (

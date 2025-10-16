@@ -2,8 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Default to light theme */
-:root {
+/* Light theme */
+:root,
+[data-theme="light"] {
   /* Light theme colors - inspired by Gap Analysis project */
   --color-background: #f9fafb; /* gray-50 */
   --color-surface: #ffffff;
@@ -46,9 +47,44 @@
   --color-error: #ef4444;
 }
 
+/* Gradient theme - inspired by team-dashboard */
+[data-theme="gradient"] {
+  --color-background: transparent; /* Gradient applied to body */
+  --color-surface: rgba(255, 255, 255, 0.9);
+  --color-surface-light: rgba(255, 255, 255, 0.95);
+  --color-primary: #3b82f6;
+  --color-accent: #8b5cf6;
+  --color-text-primary: #111827;
+  --color-text-secondary: #6b7280;
+  --color-text-muted: #9ca3af;
+  --color-border: #e5e7eb;
+
+  /* Status colors */
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+
+  /* Sidebar for gradient theme - light grey card style */
+  --color-sidebar-bg: #e5e7eb; /* gray-200 */
+  --color-sidebar-surface: #d1d5db; /* gray-300 */
+  --color-sidebar-text: #111827; /* gray-900 */
+  --color-sidebar-text-muted: #6b7280; /* gray-500 */
+  --color-sidebar-accent: #3b82f6;
+}
+
 @layer base {
   body {
     @apply bg-background text-text-primary transition-colors duration-200;
+  }
+
+  /* Gradient theme background */
+  [data-theme="gradient"] body {
+    background: linear-gradient(to bottom right,
+      rgb(17, 24, 39),
+      rgb(30, 58, 138),
+      rgb(17, 24, 39)
+    );
+    background-attachment: fixed;
   }
 }
 
@@ -66,6 +102,16 @@
   /* Dark theme specific card styling */
   [data-theme="dark"] .card {
     @apply shadow-lg;
+  }
+
+  /* Gradient theme specific card styling */
+  [data-theme="gradient"] .card {
+    @apply bg-white/90 backdrop-blur-sm shadow-2xl border-gray-200;
+  }
+
+  /* Gradient theme hover effects */
+  [data-theme="gradient"] .card:hover {
+    @apply shadow-blue-500/20;
   }
 
   /* Button styles */
