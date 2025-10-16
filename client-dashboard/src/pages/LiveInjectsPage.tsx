@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Upload, X, Send, Trash2 } from 'lucide-react';
+import { Upload, X, Send, Trash2, ImagePlus } from 'lucide-react';
 import { API_BASE_URL } from '../config';
+import MediaUpload from '../components/MediaUpload';
 
 interface StagedInject {
   id: string;
@@ -42,6 +43,7 @@ const LiveInjectsPage = () => {
   const [stagedInjects, setStagedInjects] = useState<StagedInject[]>([]);
   const [loading, setLoading] = useState(true);
   const [sending, setSending] = useState<string | null>(null);
+  const [showUploadModal, setShowUploadModal] = useState(false);
 
   // Form state
   const [selectedMedia, setSelectedMedia] = useState<string[]>([]);
@@ -94,6 +96,30 @@ const LiveInjectsPage = () => {
         setStagedInjects(JSON.parse(saved));
       }
     }
+  };
+
+  const handleUploadComplete = async () => {
+    // Store current media paths to detect new uploads
+    const existingPaths = mediaFiles.map(f => f.path);
+
+    // Reload media to get updated list
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/v1/media`);
+      const data = await response.json();
+      const updatedMedia = data.media || [];
+      setMediaFiles(updatedMedia);
+
+      // Find newly uploaded files and auto-select them
+      const newFiles = updatedMedia.filter((file: MediaFile) => !existingPaths.includes(file.path));
+      const newPaths = newFiles.map((file: MediaFile) => file.path);
+
+      // Add new files to selection
+      setSelectedMedia(prev => [...prev, ...newPaths]);
+    } catch (error) {
+      console.error('Failed to load media after upload:', error);
+    }
+
+    setShowUploadModal(false);
   };
 
   const toggleMediaSelection = (path: string) => {
@@ -219,9 +245,18 @@ const LiveInjectsPage = () => {
 
         {/* Media Selection */}
         <div className="mb-6">
-          <label className="block text-sm font-medium text-text-primary mb-2">
-            Media Files (optional)
-          </label>
+          <div className="flex items-center justify-between mb-2">
+            <label className="text-sm font-medium text-text-primary">
+              Media Files (optional)
+            </label>
+            <button
+              onClick={() => setShowUploadModal(true)}
+              className="flex items-center gap-2 px-3 py-1 text-sm bg-primary text-white rounded hover:bg-primary/80"
+            >
+              <ImagePlus size={16} />
+              Upload New
+            </button>
+          </div>
           <div className="grid grid-cols-6 gap-3 max-h-64 overflow-y-auto border border-border rounded p-3">
             {mediaFiles.map(file => (
               <div
@@ -419,6 +454,14 @@ const LiveInjectsPage = () => {
           </div>
         )}
       </div>
+
+      {/* Upload Modal */}
+      {showUploadModal && (
+        <MediaUpload
+          onClose={() => setShowUploadModal(false)}
+          onUploadComplete={handleUploadComplete}
+        />
+      )}
     </div>
   );
 };
