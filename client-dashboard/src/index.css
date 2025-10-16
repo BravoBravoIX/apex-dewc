@@ -49,7 +49,7 @@
 
 /* Gradient theme - inspired by team-dashboard */
 [data-theme="gradient"] {
-  --color-background: transparent; /* Gradient applied to body */
+  --color-background: #ffffff; /* White for button text, gradient applied to body */
   --color-surface: rgba(255, 255, 255, 0.9);
   --color-surface-light: rgba(255, 255, 255, 0.95);
   --color-primary: #3b82f6;
