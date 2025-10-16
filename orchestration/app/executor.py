@@ -503,7 +503,7 @@ class ExerciseExecutor:
                             inject_time = inject.get('time')
 
                             # Check if time to deliver
-                            if inject_time == time_since_turn_start and inject_id not in published_injects:
+                            if inject_time == time_since_turn_start and (team_id, inject_id) not in published_injects:
                                 topic = f"/exercise/{self.scenario_name}/team/{team_id}/feed"
 
                                 inject_with_metadata = {
@@ -518,7 +518,7 @@ class ExerciseExecutor:
 
                                 print(f"[Turn {self.current_turn}] Delivering inject {inject_id} at T+{elapsed_seconds}s (turn time +{time_since_turn_start}s)")
                                 self.mqtt_client.publish(topic, json.dumps(inject_with_metadata), qos=1)
-                                published_injects.add(inject_id)
+                                published_injects.add((team_id, inject_id))
 
                                 await self.redis_manager.record_inject_delivery(
                                     self.scenario_name, team_id, inject_id, "delivered"
@@ -530,7 +530,7 @@ class ExerciseExecutor:
                             inject_id = inject.get('id')
                             inject_time = inject.get('time')
 
-                            if inject_time == elapsed_seconds and inject_id not in published_injects:
+                            if inject_time == elapsed_seconds and (team_id, inject_id) not in published_injects:
                                 topic = f"/exercise/{self.scenario_name}/team/{team_id}/feed"
 
                                 inject_with_metadata = {
@@ -544,7 +544,7 @@ class ExerciseExecutor:
 
                                 print(f"Publishing inject {inject_id} to team {team_id} at {formatted_timer}")
                                 self.mqtt_client.publish(topic, json.dumps(inject_with_metadata), qos=1)
-                                published_injects.add(inject_id)
+                                published_injects.add((team_id, inject_id))
 
                                 await self.redis_manager.record_inject_delivery(
                                     self.scenario_name, team_id, inject_id, "delivered"
