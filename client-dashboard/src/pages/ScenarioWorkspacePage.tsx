@@ -320,51 +320,6 @@ const ScenarioWorkspacePage: React.FC = () => {
     }
   };
 
-  const generateBreakingNews = async () => {
-    if (!scenarioId) return;
-    setGeneratingMedia(true);
-    setGenerationStatus('Generating breaking news images...');
-    try {
-      const response = await fetch(`${API_BASE_URL}/api/v1/scenarios/${scenarioId}/generate-breaking-news`, {
-        method: 'POST',
-      });
-      const data = await response.json();
-      if (response.ok) {
-        setGenerationStatus(`✓ Generated ${data.generated_count} breaking news images`);
-        setTimeout(() => setGenerationStatus(''), 5000);
-      } else {
-        setGenerationStatus(`Error: ${data.detail || 'Failed to generate news'}`);
-      }
-    } catch (error) {
-      setGenerationStatus(`Error: Failed to connect to service`);
-      console.error("Error generating breaking news:", error);
-    } finally {
-      setGeneratingMedia(false);
-    }
-  };
-
-  const generateIntelligence = async () => {
-    if (!scenarioId) return;
-    setGeneratingMedia(true);
-    setGenerationStatus('Generating intelligence images...');
-    try {
-      const response = await fetch(`${API_BASE_URL}/api/v1/scenarios/${scenarioId}/generate-intelligence`, {
-        method: 'POST',
-      });
-      const data = await response.json();
-      if (response.ok) {
-        setGenerationStatus(`✓ Generated ${data.generated_count} intelligence images`);
-        setTimeout(() => setGenerationStatus(''), 5000);
-      } else {
-        setGenerationStatus(`Error: ${data.detail || 'Failed to generate intelligence'}`);
-      }
-    } catch (error) {
-      setGenerationStatus(`Error: Failed to connect to service`);
-      console.error("Error generating intelligence:", error);
-    } finally {
-      setGeneratingMedia(false);
-    }
-  };
 
   const formatLastUsed = (dateString?: string) => {
     if (!dateString) return 'Never';
@@ -471,20 +426,6 @@ const ScenarioWorkspacePage: React.FC = () => {
                   disabled={generatingMedia}
                 >
                   {generatingMedia ? 'Generating...' : 'Generate Social Media'}
-                </button>
-                <button
-                  onClick={generateBreakingNews}
-                  className="bg-orange-600 hover:bg-orange-700 text-white font-bold py-2 px-6 rounded disabled:opacity-50 disabled:cursor-not-allowed"
-                  disabled={generatingMedia}
-                >
-                  {generatingMedia ? 'Generating...' : 'Generate Breaking News'}
-                </button>
-                <button
-                  onClick={generateIntelligence}
-                  className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded disabled:opacity-50 disabled:cursor-not-allowed"
-                  disabled={generatingMedia}
-                >
-                  {generatingMedia ? 'Generating...' : 'Generate Intelligence'}
                 </button>
               </div>
               {generationStatus && (
