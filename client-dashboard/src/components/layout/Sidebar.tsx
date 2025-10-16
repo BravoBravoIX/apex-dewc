@@ -23,12 +23,12 @@ const Sidebar = () => {
   if (theme === 'gradient') {
     return (
       <div className="w-64 h-screen p-4 flex flex-col">
-        <div className="bg-gray-200 rounded-lg p-4 shadow-md mb-4 flex flex-col flex-1">
+        <div className="bg-gray-200 rounded-lg p-4 shadow-md flex flex-col">
           <div className="mb-4">
             <div className="text-xl font-bold text-gray-900">Navigation</div>
           </div>
 
-          <nav className="flex flex-col divide-y divide-gray-300 flex-1">
+          <nav className="flex flex-col divide-y divide-gray-300">
             {navigation.map((item) => {
               const isDisabled = DEMO_MODE && disabledItems.includes(item.name);
 
