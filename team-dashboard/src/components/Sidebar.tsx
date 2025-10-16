@@ -48,49 +48,50 @@ export const Sidebar = () => {
   ];
 
   return (
-    <div className="w-64 bg-sidebar-bg h-screen p-4 flex flex-col border-r border-sidebar-surface">
-      <div className="mb-8">
-        <div className="text-2xl font-bold text-sidebar-text">APEX</div>
-        <div className="text-xs text-sidebar-text-muted mt-1 mb-3">Advanced Platform for Exercise & eXperimentation</div>
-        <div className="flex items-center gap-2 text-xs">
-          <div className={`w-2 h-2 rounded-full ${getStatusColor()}`}></div>
-          <span className="text-sidebar-text-muted">
-            {connectionStatus === 'connected' ? 'Connected' :
-             connectionStatus === 'connecting' ? 'Connecting...' :
-             connectionStatus === 'reconnecting' ? 'Reconnecting...' :
-             'Disconnected'}
-          </span>
+    <div className="w-64 h-full p-4 flex flex-col">
+      <div className="bg-gray-200 rounded-lg p-4 shadow-md mb-4">
+        <div className="mb-4">
+          <div className="text-xl font-bold text-gray-900">Navigation</div>
+          <div className="flex items-center gap-2 text-xs mt-2">
+            <div className={`w-2 h-2 rounded-full ${getStatusColor()}`}></div>
+            <span className="text-gray-600">
+              {connectionStatus === 'connected' ? 'Connected' :
+               connectionStatus === 'connecting' ? 'Connecting...' :
+               connectionStatus === 'reconnecting' ? 'Reconnecting...' :
+               'Disconnected'}
+            </span>
+          </div>
         </div>
-      </div>
 
-      <nav className="flex flex-col space-y-2">
-        {navigation.map((item) => (
-          <NavLink
-            key={item.name}
-            to={item.href}
-            end={item.name === 'All Injects'}
-            className={({ isActive }) =>
-              `px-4 py-2 rounded-md text-sm font-medium transition-colors flex items-center justify-between ` +
-              (isActive
-                ? 'bg-sidebar-accent text-sidebar-bg'
-                : 'text-sidebar-text-muted hover:bg-sidebar-surface hover:text-sidebar-text')
-            }
-          >
-            {({ isActive }) => (
-              <>
-                <span>{item.name}</span>
-                {item.count > 0 && (
-                  <span className={`ml-2 px-2 py-0.5 rounded-full text-xs font-semibold ${
-                    isActive ? 'bg-sidebar-bg text-sidebar-accent' : 'bg-sidebar-surface text-sidebar-text-muted'
-                  }`}>
-                    {item.count}
-                  </span>
-                )}
-              </>
-            )}
-          </NavLink>
-        ))}
-      </nav>
+        <nav className="flex flex-col divide-y divide-gray-300">
+          {navigation.map((item) => (
+            <NavLink
+              key={item.name}
+              to={item.href}
+              end={item.name === 'All Injects'}
+              className={({ isActive }) =>
+                `px-4 py-3 text-sm font-medium transition-colors flex items-center justify-between ` +
+                (isActive
+                  ? 'bg-blue-600 text-white'
+                  : 'text-gray-700 hover:bg-gray-300')
+              }
+            >
+              {({ isActive }) => (
+                <>
+                  <span>{item.name}</span>
+                  {item.count > 0 && (
+                    <span className={`ml-2 px-2 py-0.5 rounded-full text-xs font-semibold ${
+                      isActive ? 'bg-white text-blue-600' : 'bg-gray-200 text-gray-700'
+                    }`}>
+                      {item.count}
+                    </span>
+                  )}
+                </>
+              )}
+            </NavLink>
+          ))}
+        </nav>
+      </div>
     </div>
   );
 };

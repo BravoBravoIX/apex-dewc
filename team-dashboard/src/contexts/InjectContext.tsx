@@ -31,6 +31,11 @@ interface InjectContextType {
   exerciseState: 'RUNNING' | 'PAUSED' | 'STOPPED';
   connectionStatus: 'connecting' | 'connected' | 'disconnected' | 'reconnecting';
   lastUpdate: Date | null;
+  turnInfo: {
+    turn_based: boolean;
+    current_turn?: number;
+    total_turns?: number;
+  };
 }
 
 const InjectContext = createContext<InjectContextType | undefined>(undefined);
@@ -46,14 +51,20 @@ export const InjectProvider = ({ children }: { children: ReactNode }) => {
 
   const timerTopic = `/exercise/${exerciseName}/timer`;
   const controlTopic = `/exercise/${exerciseName}/control`;
+  const statusTopic = `/exercise/${exerciseName}/status`;
 
-  const mqttTopics = useMemo(() => [topic, timerTopic, controlTopic], [topic, timerTopic, controlTopic]);
+  const mqttTopics = useMemo(() => [topic, timerTopic, controlTopic, statusTopic], [topic, timerTopic, controlTopic, statusTopic]);
   const { messages, connectionStatus } = useMqtt(brokerUrl, mqttTopics);
 
   const [timer, setTimer] = useState<string>('T+00:00');
   const [injects, setInjects] = useState<Inject[]>([]);
   const [exerciseState, setExerciseState] = useState<'RUNNING' | 'PAUSED' | 'STOPPED'>('RUNNING');
   const [lastUpdate, setLastUpdate] = useState<Date | null>(null);
+  const [turnInfo, setTurnInfo] = useState<{
+    turn_based: boolean;
+    current_turn?: number;
+    total_turns?: number;
+  }>({ turn_based: false });
 
   useEffect(() => {
     messages.forEach(msg => {
@@ -63,6 +74,12 @@ export const InjectProvider = ({ children }: { children: ReactNode }) => {
         if (parsed.formatted && parsed.elapsed !== undefined) {
           setTimer(parsed.formatted);
           setLastUpdate(new Date());
+        } else if (parsed.turn_based !== undefined) {
+          setTurnInfo({
+            turn_based: parsed.turn_based,
+            current_turn: parsed.current_turn,
+            total_turns: parsed.total_turns,
+          });
         } else if (parsed.command) {
           switch (parsed.command) {
             case 'pause':
@@ -96,6 +113,7 @@ export const InjectProvider = ({ children }: { children: ReactNode }) => {
         exerciseState,
         connectionStatus,
         lastUpdate,
+        turnInfo,
       }}
     >
       {children}
