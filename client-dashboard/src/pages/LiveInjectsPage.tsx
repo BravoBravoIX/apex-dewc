@@ -122,6 +122,10 @@ const LiveInjectsPage = () => {
     setShowUploadModal(false);
   };
 
+  const removeSelectedMedia = (path: string) => {
+    setSelectedMedia(prev => prev.filter(p => p !== path));
+  };
+
   const toggleTeamSelection = (teamId: string) => {
     setSelectedTeams(prev =>
       prev.includes(teamId) ? prev.filter(id => id !== teamId) : [...prev, teamId]
@@ -252,7 +256,26 @@ const LiveInjectsPage = () => {
             </button>
           </div>
           {selectedMedia.length > 0 && (
-            <p className="text-sm text-text-secondary">{selectedMedia.length} file(s) selected</p>
+            <div className="mt-3">
+              <p className="text-sm text-text-secondary mb-2">{selectedMedia.length} file(s) selected</p>
+              <div className="flex gap-2 flex-wrap">
+                {selectedMedia.map(path => (
+                  <div key={path} className="relative group">
+                    <img
+                      src={`${API_BASE_URL}${path}`}
+                      alt="Selected media"
+                      className="w-20 h-20 object-cover rounded border-2 border-primary"
+                    />
+                    <button
+                      onClick={() => removeSelectedMedia(path)}
+                      className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                    >
+                      <X size={14} />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
           )}
         </div>
 
